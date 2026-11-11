@@ -3,6 +3,7 @@
 
   const page = document.body.dataset.authPage;
   const signup = page === 'signup';
+  const recovery = page === 'forgot-password';
   const t = (key) => window.I18n.t(`auth.${key}`);
 
   function updateLanguage() {
@@ -31,9 +32,10 @@
       picker.setAttribute('aria-label', t('language'));
     }
     document.documentElement.lang = window.I18n.currentLang;
-    document.title = `${t(signup ? 'signupCardTitle' : 'loginCardTitle')} | Impacta`;
+    const titleKey = signup ? 'signupCardTitle' : recovery ? 'forgotCardTitle' : 'loginCardTitle';
+    document.title = `${t(titleKey)} | Impacta`;
     const description = document.querySelector('meta[name="description"]');
-    if (description) description.content = t('metaDescription');
+    if (description) description.content = t(recovery ? 'forgotMetaDescription' : 'metaDescription');
     const illustration = document.querySelector('.auth-illustration');
     if (illustration) illustration.alt = t('illustrationAlt');
     const year = document.getElementById('current-year');
@@ -41,7 +43,8 @@
   }
 
   function showStatus(message, kind = 'info') {
-    const status = document.getElementById(signup ? 'signup-status' : 'login-status');
+    const statusId = signup ? 'signup-status' : recovery ? 'forgot-password-status' : 'login-status';
+    const status = document.getElementById(statusId);
     if (!status) return;
     status.hidden = false;
     status.className = `auth-status auth-status--${kind}`;
@@ -62,10 +65,6 @@
     });
   });
 
-  document.querySelector('[data-forgot-password]')?.addEventListener('click', () => {
-    showStatus(t('forgotUnavailable'));
-  });
-
   document.getElementById('signup-form')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -84,6 +83,12 @@
     event.preventDefault();
     if (!event.currentTarget.reportValidity()) return;
     showStatus(t('serviceUnavailable'));
+  });
+
+  document.getElementById('forgot-password-form')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!event.currentTarget.reportValidity()) return;
+    showStatus(t('forgotUnavailable'));
   });
 
   window.addEventListener('impacta:langchange', updateLanguage);

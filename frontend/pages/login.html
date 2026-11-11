@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/auth.css?v=2.5.4" />
+  <link rel="stylesheet" href="../assets/css/auth.css?v=2.5.5" />
 </head>
 <body class="auth-page" data-auth-page="login">
   <div class="auth-layout">
@@ -55,7 +55,7 @@
           </label>
           <div class="auth-form-options">
             <label class="auth-check"><input type="checkbox" name="remember" /><span class="auth-check-box"></span><span data-auth-copy="remember">Manter sessão iniciada</span></label>
-            <button type="button" class="auth-text-button" data-forgot-password data-auth-copy="forgot">Esqueceste-te da palavra-passe?</button>
+            <a class="auth-text-button" href="forgot-password.html" data-auth-copy="forgot">Esqueceste-te da palavra-passe?</a>
           </div>
           <p class="auth-status" id="login-status" role="status" aria-live="polite" hidden></p>
           <button class="auth-submit" type="submit"><span data-auth-copy="loginButton">Entrar</span><span aria-hidden="true">→</span></button>
@@ -63,13 +63,11 @@
         </form>
 
         <div class="auth-switch"><span data-auth-copy="noAccount">Ainda não tens conta?</span> <a href="signup.html" data-auth-copy="createAccount">Criar conta</a></div>
-        <p class="auth-email-note" data-auth-copy="emailNotice">Depois do registo, enviaremos uma mensagem para confirmares o teu email.</p>
       </section>
-      <footer class="auth-panel-footer"><span>© <span id="current-year"></span> Impacta</span><span data-auth-copy="footerLine">Feita para aprender em comunidade.</span></footer>
     </main>
   </div>
   <script src="../assets/js/i18n.js?v=2.2.0"></script>
-  <script src="../assets/js/i18n-overrides.js?v=2.5.1"></script>
-  <script src="../assets/js/auth-pages.js?v=2.3.0"></script>
+  <script src="../assets/js/i18n-overrides.js?v=2.5.2"></script>
+  <script src="../assets/js/auth-pages.js?v=2.3.1"></script>
 </body>
 </html>
