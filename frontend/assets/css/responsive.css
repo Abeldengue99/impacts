@@ -1,0 +1,325 @@
+/* ============================================================
+   IMPACTA — Responsive Breakpoints & Desktop 3-Column Layout
+   Filosofia: Mobile-First para telefone / 3 Colunas Apple Glassmorphism no Desktop
+   ============================================================ */
+
+/* ── BASE (Mobile: até 767px) ── */
+.desktop-left-col,
+.desktop-right-col {
+  display: none !important;
+}
+
+/* ── TABLET (768px a 1023px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --content-max-width: 640px;
+  }
+
+  body {
+    background: radial-gradient(circle at top left, #F5F3FF, #EDE9FF);
+    padding: 0;
+  }
+
+  .app-shell {
+    max-width: 640px;
+    box-shadow: 0 10px 40px rgba(91, 75, 219, 0.08);
+  }
+}
+
+/* ── DESKTOP & LAPTOP (1024px ou superior) ── */
+@media (min-width: 1024px) {
+  :root {
+    --content-max-width: 680px;
+    --nav-bottom-height: 0px;
+  }
+
+  body {
+    background: radial-gradient(circle at 10% 20%, #F5F3FF 0%, #EDE9FF 90%);
+    overflow-y: scroll;
+    display: block;
+  }
+
+  /* Ocultar barra inferior móvel no computador */
+  .bottom-nav {
+    display: none !important;
+  }
+
+  /* Ocultar barra superior simples do telemóvel quando no desktop */
+  .topbar {
+    display: none !important;
+  }
+
+  /* Container Geral em Grid de 3 Colunas */
+  .desktop-layout-wrapper {
+    display: grid !important;
+    grid-template-columns: 280px minmax(560px, 680px) 340px;
+    gap: 32px;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    align-items: start;
+    min-height: 100dvh;
+  }
+
+  /* ══════════════════════════════════════════
+     COLUNA ESQUERDA (Navegação Desktop)
+     ══════════════════════════════════════════ */
+  .desktop-left-col {
+    display: flex !important;
+    flex-direction: column;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    max-height: calc(100vh - 40px);
+  }
+
+  .desktop-nav-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur-strong));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 16px 14px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .desktop-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2px 0 16px 0;
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  .desktop-logo__icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-light));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 4px 14px rgba(91, 75, 219, 0.3);
+  }
+
+  .desktop-logo__text {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .desktop-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .desktop-menu-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    transition: all var(--transition-base);
+    background: transparent;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .desktop-menu-btn svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    transition: transform var(--transition-spring);
+  }
+
+  .desktop-menu-btn:hover {
+    background: var(--color-accent-soft);
+    color: var(--color-primary);
+    transform: translateX(4px);
+  }
+
+  .desktop-menu-btn.active {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 16px rgba(91, 75, 219, 0.3);
+  }
+
+  .desktop-menu-btn.active svg {
+    transform: scale(1.1);
+  }
+
+  .desktop-user-pill {
+    position: relative;
+    background: rgba(91, 75, 219, 0.05);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    margin-top: 6px;
+  }
+
+  .desktop-user-pill:hover {
+    background: white;
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(91, 75, 219, 0.12);
+  }
+
+  .desktop-user-pill.active {
+    background: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(91, 75, 219, 0.2), 0 4px 16px rgba(91, 75, 219, 0.12);
+  }
+
+  /* ══════════════════════════════════════════
+     COLUNA CENTRAL (Feed & Conteúdo)
+     ══════════════════════════════════════════ */
+  .app-shell {
+    max-width: 100% !important;
+    margin: 0 !important;
+    background: transparent;
+  }
+
+  .pages-container {
+    padding-top: 0 !important;
+    padding-bottom: 30px !important;
+    overflow: visible !important;
+  }
+
+  .page-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .post-card {
+    border-bottom: 1px solid var(--color-border);
+    padding: 20px 24px;
+  }
+
+  .create-post {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ══════════════════════════════════════════
+     COLUNA DIREITA (Descoberta & Comunidades)
+     ══════════════════════════════════════════ */
+  .desktop-right-col {
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 24px;
+  }
+
+  .desktop-widget-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur-strong));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .desktop-widget-card .search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+  }
+
+  .desktop-widget-card .search-input-wrap svg {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .desktop-widget-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .desktop-trend-item {
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .desktop-trend-item:hover {
+    background: var(--color-accent-soft);
+  }
+
+  .desktop-trend-topic {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .desktop-trend-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .desktop-trend-meta {
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+
+  .desktop-comm-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .desktop-comm-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}

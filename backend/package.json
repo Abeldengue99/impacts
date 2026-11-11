@@ -1,0 +1,31 @@
+{
+  "name": "impacta-backend",
+  "version": "1.0.0",
+  "description": "IMPACTA — API Backend para Comunidade de Aprendizagem Social (Angola & Global)",
+  "main": "app/server.js",
+  "scripts": {
+    "start": "node app/server.js",
+    "dev": "nodemon app/server.js",
+    "migrate": "node database/migrate.js"
+  },
+  "keywords": [
+    "education",
+    "social",
+    "learning",
+    "angola",
+    "postgresql",
+    "edtech"
+  ],
+  "author": "IMPACTA Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "IMPACTA – Social Learning",
+  "short_name": "IMPACTA",
+  "description": "The Social Learning Community. Learn. Share. Connect. Grow.",
+  "start_url": "/Impactaa/frontend/pages/index.html",
+  "scope": "/Impactaa/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#5B4BDB",
+  "background_color": "#EDE9FF",
+  "lang": "en",
+  "categories": ["education", "social"],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "../public/icons/icon-72.svg",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "../public/icons/icon-96.svg",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "../public/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../public/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Feed",
+      "short_name": "Feed",
+      "description": "Open the educational feed",
+      "url": "/Impactaa/frontend/pages/index.html#home",
+      "icons": [{ "src": "../public/icons/icon-96.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Discover",
+      "short_name": "Discover",
+      "description": "Discover new educational content",
+      "url": "/Impactaa/frontend/pages/index.html#discover",
+      "icons": [{ "src": "../public/icons/icon-96.svg", "sizes": "96x96" }]
+    }
+  ]
+}
+

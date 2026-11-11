@@ -1,0 +1,36 @@
+# Local and production secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+.npmrc
+*.pem
+*.key
+
+# Dependencies and generated output
+node_modules/
+coverage/
+dist/
+build/
+tmp/
+temp/
+
+# Runtime data, logs, and local databases/backups
+*.log
+npm-debug.log*
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.backup
+*.pgdump
+*.sql.gz
+db_dumps/
+uploads/
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/

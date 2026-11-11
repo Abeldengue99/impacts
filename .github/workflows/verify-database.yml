@@ -1,0 +1,100 @@
+name: Verify database
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [develop, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migration:
+    name: PostgreSQL ${{ matrix.postgres-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        postgres-version: ['14', '18']
+    services:
+      postgres:
+        image: postgres:${{ matrix.postgres-version }}
+        env:
+          POSTGRES_PASSWORD: postgres_ci
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install locked dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Check JavaScript syntax
+        run: find frontend/assets/js backend/app backend/config backend/database -type f -name '*.js' -print0 | xargs -0 -r -n1 node --check
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=moderate
+        working-directory: backend
+
+      - name: Create isolated database roles
+        env:
+          PGPASSWORD: postgres_ci
+        run: |
+          psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d postgres <<'SQL'
+          CREATE ROLE impacta_migrator LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'migration_ci';
+          CREATE ROLE impacta_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'app_ci';
+          CREATE ROLE impacta_auth LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'auth_ci';
+          CREATE ROLE impacta_media LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'media_ci';
+          CREATE DATABASE impacta_db OWNER impacta_migrator;
+          SQL
+
+      - name: Secure the database defaults
+        env:
+          PGPASSWORD: postgres_ci
+        run: psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d impacta_db -f backend/database/secure-database.sql
+
+      - name: Apply versioned migrations
+        env:
+          NODE_ENV: development
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: impacta_db
+          MIGRATION_DB_USER: impacta_migrator
+          MIGRATION_DB_PASSWORD: migration_ci
+          MIGRATION_DB_SSL: 'false'
+        run: npm run migrate
+        working-directory: backend
+
+      - name: Apply runtime grants
+        env:
+          PGPASSWORD: migration_ci
+        run: psql -v ON_ERROR_STOP=1 -h localhost -U impacta_migrator -d impacta_db -f backend/database/grant-runtime.sql
+
+      - name: Check least-privilege grants
+        env:
+          PGPASSWORD: migration_ci
+        run: psql -v ON_ERROR_STOP=1 -h localhost -U impacta_migrator -d impacta_db -f backend/database/check-privileges.sql
+
+      - name: Confirm seeds are repeatable
+        env:
+          PGPASSWORD: migration_ci
+        run: |
+          psql -v ON_ERROR_STOP=1 -h localhost -U impacta_migrator -d impacta_db -f backend/database/seeds.sql
+          psql -v ON_ERROR_STOP=1 -h localhost -U impacta_migrator -d impacta_db -f backend/database/seeds.sql
