@@ -3,7 +3,7 @@
    Version: 1.0.0
    ============================================================ */
 
-const CACHE_NAME    = 'impacta-v2.5.6';
+const CACHE_NAME    = 'impacta-v2.5.7';
 const STATIC_ASSETS = [
   '/Impactaa/frontend/pages/index.html',
   '/Impactaa/frontend/pages/community.html',
@@ -24,7 +24,7 @@ const STATIC_ASSETS = [
   '/Impactaa/frontend/assets/js/offline-storage.js',
   '/Impactaa/frontend/assets/js/app.js?v=2.5.0',
   '/Impactaa/frontend/assets/js/i18n.js',
-  '/Impactaa/frontend/assets/js/i18n-overrides.js?v=2.5.2',
+  '/Impactaa/frontend/assets/js/i18n-overrides.js?v=2.5.3',
   '/Impactaa/frontend/assets/js/visitor-page.js?v=2.4.0',
   '/Impactaa/frontend/assets/js/auth-pages.js?v=2.3.1',
   '/Impactaa/frontend/assets/js/feed.js?v=2.3.1',
