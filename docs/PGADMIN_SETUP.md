@@ -1,5 +1,7 @@
 # Preparar as bases de dados do Impacta no pgAdmin
 
+Se o Query Tool mostrar `25P02`, segue primeiro o [guia para recuperar a sessão](PGADMIN_25P02.md).
+
 Para o fluxo completo de bases local e produção, consulte também [DATABASES_LOCAL_PRODUCTION.md](DATABASES_LOCAL_PRODUCTION.md). O instalador completo para uma base nova é `backend/database/schema.sql`.
 
 O erro `role "impacta_auth" does not exist` acontece quando a migração é executada antes de criar os quatro papéis da aplicação. O ficheiro `migrations/001_initial.sql` também não deve ser executado directamente no Query Tool: use o runner `npm run migrate`, que aplica a migração com histórico e transação.

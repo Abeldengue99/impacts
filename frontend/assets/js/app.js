@@ -6,7 +6,7 @@ class ImpactaApp {
   constructor() {
     this.currentPage = 'home';
     this.previousPage = null;
-    this.pages = ['home', 'reels', 'discover', 'inbox', 'profile', 'search', 'users', 'communities'];
+    this.pages = ['home', 'reels', 'discover', 'inbox', 'profile', 'search', 'users', 'communities', 'admin', 'info'];
     this.topbarConfig = {
       home:        { type: 'logo',  actions: ['lang', 'search', 'bell'] },
       reels:       { type: 'logo',  actions: ['lang', 'search', 'bell'] },
@@ -16,6 +16,8 @@ class ImpactaApp {
       search:      { type: 'logo',  actions: ['lang', 'search', 'bell'] },
       users:       { type: 'logo',  actions: ['lang', 'search', 'bell'] },
       communities: { type: 'logo',  actions: ['lang', 'search', 'bell'] },
+      admin:       { type: 'logo',  actions: ['lang'] },
+      info:        { type: 'logo',  actions: ['lang'] },
     };
     this.modules = {};
   }
@@ -164,16 +166,38 @@ class ImpactaApp {
           <main class="pages-container" id="pages-container">
             ${this.pages.map(p => `<div class="page" id="page-${p}" data-page="${p}"></div>`).join('')}
             <footer class="impacta-footer" id="impacta-footer" aria-label="Impacta">
+              <section class="impacta-footer__newsletter" aria-labelledby="footer-news-title">
+                <div><h2 id="footer-news-title" data-i18n="auth.footerNewsTitle">Novidades da Impacta</h2><p data-i18n="auth.footerNewsText">Recebe novidades sobre a comunidade e novas ferramentas de aprendizagem.</p></div>
+                <form class="impacta-footer__form" id="impacta-newsletter-form">
+                  <label class="sr-only" for="impacta-newsletter-email" data-i18n="auth.email">Email</label>
+                  <input id="impacta-newsletter-email" type="email" autocomplete="email" required maxlength="254" placeholder="O teu email" data-i18n-placeholder="auth.footerNewsPlaceholder" />
+                  <button type="submit" data-i18n="auth.footerNewsButton">Avise-me</button>
+                  <p class="impacta-footer__form-note" id="impacta-newsletter-status" role="status" aria-live="polite" hidden></p>
+                </form>
+              </section>
               <div class="impacta-footer__main">
-                <div>
-                  <a class="impacta-footer__brand" href="index.html"><img src="../public/icons/impacta-mark.svg" alt="" /> <span>Impacta</span></a>
+                <div class="impacta-footer__identity">
+                  <a class="impacta-footer__brand" href="index.html"><img src="../public/icons/impacta-logo-light.svg?v=2.5.0" alt="Impacta" /></a>
                   <p data-i18n="auth.footerIntro">Um espaço para aprender, partilhar e avançar em conjunto.</p>
                 </div>
-                <nav class="impacta-footer__links" aria-label="Ligações da Impacta">
+                <nav class="impacta-footer__group" aria-label="Funcionalidades">
+                  <strong data-i18n="auth.footerFeatureHeading">Explorar</strong>
                   <button type="button" data-nav="home" data-i18n="auth.footerHome">Início</button>
-                  <button type="button" data-nav="discover" data-i18n="auth.footerExplore">Explorar</button>
+                  <button type="button" data-nav="discover" data-i18n="auth.footerExplore">Temas</button>
+                  <button type="button" data-nav="reels" data-i18n="auth.footerVideos">Vídeos curtos</button>
                   <button type="button" data-nav="communities" data-i18n="auth.footerCommunities">Comunidades</button>
+                </nav>
+                <nav class="impacta-footer__group" aria-label="Apoio">
+                  <strong data-i18n="auth.footerSupportHeading">Apoio</strong>
+                  <button type="button" data-nav="inbox" data-i18n="auth.footerMessages">Mensagens</button>
                   <button type="button" data-nav="profile" data-i18n="auth.footerProfile">Perfil</button>
+                  <button type="button" data-nav="info" data-i18n="auth.footerHelp">Ajuda</button>
+                </nav>
+                <nav class="impacta-footer__group" aria-label="Informações">
+                  <strong data-i18n="auth.footerLegalHeading">Informações</strong>
+                  <button type="button" data-nav="info" data-i18n="auth.footerPrivacy">Privacidade</button>
+                  <button type="button" data-nav="info" data-i18n="auth.footerTerms">Termos de utilização</button>
+                  <button type="button" data-nav="info" data-i18n="auth.footerCookies">Cookies</button>
                 </nav>
                 <button class="impacta-footer__hide" id="impacta-footer-hide" type="button" data-i18n="auth.footerHide">Ocultar rodapé</button>
               </div>
@@ -814,6 +838,11 @@ class ImpactaApp {
 
   // ── Navegação & Atualização Visual ─────────────────────────
   _navigate(pageId) {
+    if (!this.pages.includes(pageId)) return;
+    if (pageId === 'admin' && !this._hasAdminAccess()) {
+      window.Toast?.error(window.I18n?.t('admin.accessDenied') || 'Esta área é reservada à administração.');
+      return;
+    }
     if (pageId === this.currentPage && pageId !== 'home') return;
 
     this.previousPage = this.currentPage;
@@ -844,8 +873,13 @@ class ImpactaApp {
     }
   }
 
+  _hasAdminAccess() {
+    const user = window.IMPACTA_DATA?.currentUser;
+    return user?.isAdmin === true || user?.roles?.includes('admin') === true;
+  }
+
   _renderPage(pageId, container) {
-    if (!container.dataset.rendered || pageId === 'home') {
+    if (!container.dataset.rendered || pageId === 'home' || pageId === 'admin' || pageId === 'info') {
       const module = this.modules[pageId];
       if (module && typeof module.render === 'function') {
         container.innerHTML = module.render();
@@ -863,6 +897,14 @@ class ImpactaApp {
     const hideButton = document.getElementById('impacta-footer-hide');
     const showButton = document.getElementById('impacta-footer-show');
     if (!scroller || !footer || !reopen) return;
+    document.getElementById('impacta-newsletter-form')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const status = document.getElementById('impacta-newsletter-status');
+      if (!status) return;
+      status.hidden = false;
+      status.dataset.i18n = 'auth.newsletterUnavailable';
+      status.textContent = window.I18n?.t('auth.newsletterUnavailable') || 'A lista de novidades ainda não está ligada.';
+    });
     const year = document.getElementById('impacta-footer-year');
     if (year) year.textContent = String(new Date().getFullYear());
 
@@ -904,7 +946,7 @@ class ImpactaApp {
   }
 
   _updateNav(pageId) {
-    const navMap = { home: 'home', reels: 'reels', discover: 'discover', inbox: 'inbox', profile: 'profile', search: 'discover', users: 'discover', communities: 'communities' };
+    const navMap = { home: 'home', reels: 'reels', discover: 'discover', inbox: 'inbox', profile: 'profile', search: 'discover', users: 'discover', communities: 'communities', admin: 'profile', info: 'home' };
     const activeNav = navMap[pageId] || pageId;
     const t = (k) => window.I18n ? window.I18n.t(k) : k;
 
@@ -1001,6 +1043,8 @@ class ImpactaApp {
       search:      window.SearchModule,
       users:       window.UsersModule,
       communities: window.CommunitiesModule,
+      admin:       window.ImpactaAdminModule,
+      info:        window.ImpactaInfoModule,
     };
   }
 

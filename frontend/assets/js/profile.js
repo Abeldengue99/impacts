@@ -30,6 +30,7 @@ window.ProfileModule = {
           </div>
 
           <div class="profile-header__actions">
+            ${user.isAdmin === true || user.roles?.includes('admin') ? `<button class="btn btn--primary btn--sm" data-nav="admin" data-i18n="admin.open">Área de administração</button>` : ''}
             <button class="btn btn--outline btn--sm" data-action="open-settings" aria-label="Editar definições">${ICONS.edit} Definições</button>
             <button class="btn btn--outline btn--sm profile-bio-edit-btn" id="profile-bio-edit-btn" aria-label="Editar bio" title="Editar biografia e informações pessoais">${ICONS.edit} Editar Bio</button>
           </div>

@@ -1,30 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 132" role="img" aria-labelledby="title">
   <title id="title">Impacta</title>
-  <defs>
-    <linearGradient id="impacta-bg" x1="42" y1="22" x2="480" y2="490" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5548D8"/>
-      <stop offset="1" stop-color="#29246F"/>
-    </linearGradient>
-    <linearGradient id="impacta-gold" x1="210" y1="96" x2="340" y2="244" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFD56A"/>
-      <stop offset="1" stop-color="#F6A91A"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="112" fill="url(#impacta-bg)"/>
-  <circle cx="256" cy="256" r="180" fill="#fff" fill-opacity=".055"/>
-  <path d="M104 224c52-28 103-27 152 4v136c-48-31-99-32-152-4V224Z" fill="#fff" fill-opacity=".96"/>
-  <path d="M408 224c-52-28-103-27-152 4v136c48-31 99-32 152-4V224Z" fill="#fff" fill-opacity=".82"/>
-  <path d="M256 228v136" stroke="#3F36A8" stroke-width="12" stroke-linecap="round"/>
-  <path d="M196 192 276 112l18 58 62 18-80 80-18-58-62-18Z" fill="url(#impacta-gold)" stroke="#29246F" stroke-width="10" stroke-linejoin="round"/>
-  <path d="m356 116 8 22 22 8-22 8-8 22-8-22-22-8 22-8 8-22Z" fill="#fff"/>
-  <path d="M132 264c29-11 57-11 85 0M132 297c29-11 57-11 85 0M295 264c29-11 57-11 85 0M295 297c29-11 57-11 85 0" fill="none" stroke="#B7B2FF" stroke-width="9" stroke-linecap="round"/>
-  <style>
-    svg > *:not(title):not(#impacta-mark-new) { display: none; }
-  </style>
-  <g id="impacta-mark-new" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="4" y="4" width="124" height="124" rx="34" fill="#302878" stroke="none"/>
-    <path d="M42 43h52M68 44v48M48 94h40" stroke="#fff" stroke-width="10"/>
-    <circle cx="94" cy="34" r="9" fill="#F5B63B" stroke="none"/>
-    <path d="M23 73c5-8 10-12 17-14M23 91c5-6 10-9 17-10" stroke="#B9B2FF" stroke-width="5"/>
-  </g>
+  <defs><linearGradient id="bg" x1="8" y1="7" x2="124" y2="126" gradientUnits="userSpaceOnUse"><stop stop-color="#6559dc"/><stop offset="1" stop-color="#29246f"/></linearGradient></defs>
+  <rect x="2" y="2" width="128" height="128" rx="35" fill="url(#bg)"/>
+  <path d="M24 66c14-8 27-8 40 1v37c-13-8-26-9-40-2V66Zm84 0c-14-8-27-8-40 1v37c13-8 26-9 40-2V66Z" fill="#fff"/>
+  <path d="M66 69v35" stroke="#4439ae" stroke-width="4" stroke-linecap="round"/>
+  <path d="m48 53 27-28 7 20 21 7-28 28-7-20-20-7Z" fill="#ffc64b" stroke="#29246f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m105 19 4 10 10 4-10 4-4 10-4-10-10-4 10-4 4-10Z" fill="#fff"/>
 </svg>

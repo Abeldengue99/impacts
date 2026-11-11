@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 132" role="img" aria-labelledby="title">
+  <title id="title">Impacta</title>
+  <defs><linearGradient id="brand" x1="4" y1="8" x2="124" y2="128" gradientUnits="userSpaceOnUse"><stop stop-color="#695de0"/><stop offset="1" stop-color="#302878"/></linearGradient></defs>
+  <rect x="4" y="4" width="124" height="124" rx="34" fill="url(#brand)"/>
+  <path d="M24 66c14-8 27-8 40 1v37c-13-8-26-9-40-2V66Zm84 0c-14-8-27-8-40 1v37c13-8 26-9 40-2V66Z" fill="#fff"/>
+  <path d="M66 69v35" stroke="#4439ae" stroke-width="4" stroke-linecap="round"/>
+  <path d="m48 53 27-28 7 20 21 7-28 28-7-20-20-7Z" fill="#ffc64b" stroke="#302878" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m105 19 4 10 10 4-10 4-4 10-4-10-10-4 10-4 4-10Z" fill="#fff"/>
+  <text x="151" y="91" fill="#fff" font-family="Manrope,Arial,sans-serif" font-size="68" font-weight="800" letter-spacing="-4">Impacta</text>
+  <path d="M156 111c100 19 235 17 370-5" fill="none" stroke="#ffc54b" stroke-width="5" stroke-linecap="round"/>
+</svg>

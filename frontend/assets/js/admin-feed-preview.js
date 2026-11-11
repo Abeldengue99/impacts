@@ -12,6 +12,7 @@
     university: 'Impacta · Angola',
     faculty: 'Comunidade de aprendizagem',
     verified: true,
+    isAdmin: true,
     bio: 'Criador da Impacta. Interessado em educação e partilha de conhecimento.',
     followers: 0,
     following: 0,

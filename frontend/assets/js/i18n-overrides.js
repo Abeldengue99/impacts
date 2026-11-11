@@ -60,7 +60,7 @@
         tagline: 'Aprender · Partilhar · Evoluir',
         footerLine: 'Feita para aprender em comunidade.',
         metaDescription: 'Entra na Impacta para aprender, partilhar e crescer com a tua comunidade.',
-        illustrationAlt: 'Estudante a aprender com materiais e ideias da comunidade'
+        illustrationAlt: 'Uma docente, um estudante e uma criadora a aprender e partilhar conhecimento'
       },
       ui: {
         metaTitle: 'Impacta — aprender, partilhar e crescer',
@@ -196,7 +196,7 @@
         tagline: 'Learn · Share · Grow',
         footerLine: 'Made for learning together.',
         metaDescription: 'Sign in to Impacta to learn, share and grow with your community.',
-        illustrationAlt: 'Student learning with materials and ideas from the community'
+        illustrationAlt: 'A teacher, a student, and a creator learning and sharing knowledge'
       },
       ui: {
         metaTitle: 'Impacta — learn, share and grow',
@@ -332,7 +332,7 @@
         tagline: 'Apprendre · Partager · Progresser',
         footerLine: 'Conçue pour apprendre ensemble.',
         metaDescription: 'Connecte-toi à Impacta pour apprendre, partager et progresser avec ta communauté.',
-        illustrationAlt: 'Étudiante qui apprend avec les ressources et les idées de la communauté'
+        illustrationAlt: 'Une enseignante, un étudiant et une créatrice apprennent et partagent leurs connaissances'
       },
       ui: {
         metaTitle: 'Impacta — apprendre, partager et progresser',
@@ -804,6 +804,29 @@
     copy[lang].ui = { ...copy[lang].ui, ...values };
   });
 
+  const extraCopy = {
+    'pt-AO': {
+      auth: { footerNewsTitle: 'Novidades da Impacta', footerNewsText: 'Recebe novidades sobre a comunidade e novas formas de aprender.', footerNewsPlaceholder: 'O teu email', footerNewsButton: 'Avise-me', newsletterUnavailable: 'A lista de novidades ainda não está ligada.', footerFeatureHeading: 'Explorar', footerSupportHeading: 'Apoio', footerLegalHeading: 'Informações', footerVideos: 'Vídeos curtos', footerMessages: 'Mensagens', footerHelp: 'Ajuda', footerPrivacy: 'Privacidade', footerTerms: 'Termos de utilização', footerCookies: 'Cookies' },
+      admin: { open: 'Área de administração', accessDenied: 'Esta área é reservada à administração.', title: 'Área de administração', subtitle: 'Acompanha e organiza a plataforma.', backToProfile: 'Voltar ao perfil', previewNotice: 'Esta área está em demonstração. Os dados e as permissões reais serão ligados ao servidor antes do lançamento.', navigation: 'Secções de administração', tab_overview: 'Visão geral', tab_users: 'Utilizadores', tab_posts: 'Publicações', tab_reports: 'Denúncias', tab_institutions: 'Instituições', tab_settings: 'Definições', postsTitle: 'Publicações da conta oficial', postsIntro: 'Publicações de demonstração já preparadas para o perfil.', published: 'Publicação', noPosts: 'Ainda não há publicações nesta demonstração.', administrator: 'Administrador', starterPosts: 'Publicações iniciais', starterPostsNote: 'Conteúdo de demonstração do perfil oficial.', dataSource: 'Origem dos dados', localPreview: 'Pré-visualização local', dataSourceNote: 'Sem ligação à base de dados nesta página.', overviewTitle: 'O que podes gerir aqui', overviewText: 'Esta área vai reunir a gestão de contas, conteúdos, denúncias e instituições quando a API administrativa estiver ligada.', usersTitle: 'Utilizadores', usersEmpty: 'A lista de utilizadores será apresentada quando a API administrativa estiver ligada.', reportsTitle: 'Denúncias', reportsEmpty: 'As denúncias enviadas pela comunidade vão aparecer aqui depois da ligação ao servidor.', institutionsTitle: 'Instituições', institutionsEmpty: 'A gestão e verificação de instituições ficará disponível nesta secção.', settingsTitle: 'Definições da plataforma', settingsEmpty: 'As opções de administração serão disponibilizadas quando os serviços correspondentes estiverem ligados.' },
+      info: { title: 'Informações e ajuda', subtitle: 'Encontra orientações sobre a utilização da Impacta.', back: 'Voltar ao início', preparation: 'Esta informação está em preparação e será publicada antes da abertura da plataforma.', privacyTitle: 'Privacidade', termsTitle: 'Termos de utilização', cookiesTitle: 'Cookies', helpTitle: 'Ajuda' }
+    },
+    en: {
+      auth: { footerNewsTitle: 'Impacta updates', footerNewsText: 'Get news about the community and new ways to learn.', footerNewsPlaceholder: 'Your email', footerNewsButton: 'Keep me posted', newsletterUnavailable: 'The updates list is not connected yet.', footerFeatureHeading: 'Explore', footerSupportHeading: 'Support', footerLegalHeading: 'Information', footerVideos: 'Short videos', footerMessages: 'Messages', footerHelp: 'Help', footerPrivacy: 'Privacy', footerTerms: 'Terms of use', footerCookies: 'Cookies' },
+      admin: { open: 'Admin area', accessDenied: 'This area is for administrators only.', title: 'Admin area', subtitle: 'Manage and organise the platform.', backToProfile: 'Back to profile', previewNotice: 'This area is a preview. Live data and permissions will be connected to the server before launch.', navigation: 'Admin sections', tab_overview: 'Overview', tab_users: 'Users', tab_posts: 'Posts', tab_reports: 'Reports', tab_institutions: 'Institutions', tab_settings: 'Settings', postsTitle: 'Official account posts', postsIntro: 'Preview posts prepared for the profile.', published: 'Post', noPosts: 'There are no posts in this preview yet.', administrator: 'Administrator', starterPosts: 'Starter posts', starterPostsNote: 'Preview content from the official profile.', dataSource: 'Data source', localPreview: 'Local preview', dataSourceNote: 'This page is not connected to the database.', overviewTitle: 'What you can manage here', overviewText: 'This area will bring together account, content, report, and institution management when the admin API is connected.', usersTitle: 'Users', usersEmpty: 'The user list will appear here when the admin API is connected.', reportsTitle: 'Reports', reportsEmpty: 'Community reports will appear here after the server connection is ready.', institutionsTitle: 'Institutions', institutionsEmpty: 'Institution management and verification will be available here.', settingsTitle: 'Platform settings', settingsEmpty: 'Admin options will be available when the related services are connected.' },
+      info: { title: 'Information and help', subtitle: 'Guidance for using Impacta.', back: 'Back to home', preparation: 'This information is being prepared and will be published before the platform opens.', privacyTitle: 'Privacy', termsTitle: 'Terms of use', cookiesTitle: 'Cookies', helpTitle: 'Help' }
+    },
+    fr: {
+      auth: { footerNewsTitle: 'Actualités Impacta', footerNewsText: 'Reçois des nouvelles de la communauté et de nouvelles façons d’apprendre.', footerNewsPlaceholder: 'Ton adresse e-mail', footerNewsButton: 'Me tenir au courant', newsletterUnavailable: 'La liste d’actualités n’est pas encore connectée.', footerFeatureHeading: 'Explorer', footerSupportHeading: 'Assistance', footerLegalHeading: 'Informations', footerVideos: 'Vidéos courtes', footerMessages: 'Messages', footerHelp: 'Aide', footerPrivacy: 'Confidentialité', footerTerms: 'Conditions d’utilisation', footerCookies: 'Cookies' },
+      admin: { open: 'Espace administration', accessDenied: 'Cet espace est réservé à l’administration.', title: 'Espace administration', subtitle: 'Gère et organise la plateforme.', backToProfile: 'Retour au profil', previewNotice: 'Cet espace est une démonstration. Les données réelles et les autorisations seront reliées au serveur avant le lancement.', navigation: 'Sections d’administration', tab_overview: 'Vue générale', tab_users: 'Utilisateurs', tab_posts: 'Publications', tab_reports: 'Signalements', tab_institutions: 'Établissements', tab_settings: 'Paramètres', postsTitle: 'Publications du compte officiel', postsIntro: 'Publications de démonstration préparées pour le profil.', published: 'Publication', noPosts: 'Aucune publication dans cette démonstration.', administrator: 'Administrateur', starterPosts: 'Publications initiales', starterPostsNote: 'Contenu de démonstration du profil officiel.', dataSource: 'Source des données', localPreview: 'Aperçu local', dataSourceNote: 'Cette page n’est pas reliée à la base de données.', overviewTitle: 'Gestion disponible ici', overviewText: 'Cet espace réunira la gestion des comptes, contenus, signalements et établissements lorsque l’API d’administration sera connectée.', usersTitle: 'Utilisateurs', usersEmpty: 'La liste des utilisateurs apparaîtra ici lorsque l’API sera connectée.', reportsTitle: 'Signalements', reportsEmpty: 'Les signalements de la communauté seront affichés ici après la connexion au serveur.', institutionsTitle: 'Établissements', institutionsEmpty: 'La gestion et la vérification des établissements seront disponibles ici.', settingsTitle: 'Paramètres de la plateforme', settingsEmpty: 'Les options d’administration seront disponibles lorsque les services correspondants seront connectés.' },
+      info: { title: 'Informations et aide', subtitle: 'Conseils pour utiliser Impacta.', back: 'Retour à l’accueil', preparation: 'Ces informations sont en préparation et seront publiées avant l’ouverture de la plateforme.', privacyTitle: 'Confidentialité', termsTitle: 'Conditions d’utilisation', cookiesTitle: 'Cookies', helpTitle: 'Aide' }
+    }
+  };
+  Object.entries(extraCopy).forEach(([lang, sections]) => {
+    Object.entries(sections).forEach(([section, values]) => {
+      copy[lang][section] = { ...copy[lang][section], ...values };
+    });
+  });
+
   const supported = ['pt-AO', 'en', 'fr'];
   const baseT = window.I18n.t.bind(window.I18n);
   const originalText = new WeakMap();
@@ -858,6 +881,10 @@
     keyed.forEach((el) => {
       const translated = this.t(el.dataset.i18n);
       if (el.textContent !== translated) el.textContent = translated;
+    });
+
+    scope.querySelectorAll?.('[data-i18n-placeholder]').forEach((el) => {
+      el.placeholder = this.t(el.dataset.i18nPlaceholder);
     });
 
     const skipText = 'script,style,textarea,input,code,[data-translate-ignore],.post-card__content,.post-card__user-name,.post-card__user-meta,.post-doc-title,.post-doc-subtitle,.post-video-title,.profile-bio,.comment-body-text,.avatar-placeholder';

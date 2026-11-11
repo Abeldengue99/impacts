@@ -26,7 +26,7 @@ DECLARE
     has_applied_migrations BOOLEAN := FALSE;
 BEGIN
     IF current_user <> 'impacta_migrator' THEN
-        RAISE EXCEPTION 'Ligue ao pgAdmin como impacta_migrator antes de executar schema.sql';
+        RAISE EXCEPTION 'Ligado como "%". Ligue novamente o Query Tool como impacta_migrator antes de executar schema.sql.', current_user;
     END IF;
     IF to_regclass('impacta.users') IS NOT NULL THEN
         RAISE EXCEPTION 'Já existe impacta.users. Não execute o instalador numa base com esquema ou dados.';

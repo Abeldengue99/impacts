@@ -1,19 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 132" role="img" aria-labelledby="title">
   <title id="title">Impacta</title>
   <defs>
-    <linearGradient id="mark-bg" x1="8" y1="6" x2="120" y2="128" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5144C5"/>
-      <stop offset="1" stop-color="#261F77"/>
-    </linearGradient>
-    <linearGradient id="word" x1="150" y1="32" x2="496" y2="104" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#302878"/>
-      <stop offset="1" stop-color="#5144C5"/>
-    </linearGradient>
+    <linearGradient id="mark-bg" x1="8" y1="6" x2="124" y2="128" gradientUnits="userSpaceOnUse"><stop stop-color="#6559dc"/><stop offset="1" stop-color="#29246f"/></linearGradient>
+    <linearGradient id="word" x1="150" y1="32" x2="496" y2="104" gradientUnits="userSpaceOnUse"><stop stop-color="#29246f"/><stop offset="1" stop-color="#5144c5"/></linearGradient>
   </defs>
   <rect x="4" y="4" width="124" height="124" rx="34" fill="url(#mark-bg)"/>
-  <path d="M42 43h52M68 44v48M48 94h40" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
-  <circle cx="94" cy="34" r="9" fill="#F5B63B"/>
-  <path d="M23 73c5-8 10-12 17-14M23 91c5-6 10-9 17-10" fill="none" stroke="#B9B2FF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M24 66c14-8 27-8 40 1v37c-13-8-26-9-40-2V66Zm84 0c-14-8-27-8-40 1v37c13-8 26-9 40-2V66Z" fill="#fff"/>
+  <path d="M66 69v35" stroke="#4439ae" stroke-width="4" stroke-linecap="round"/>
+  <path d="m48 53 27-28 7 20 21 7-28 28-7-20-20-7Z" fill="#ffc64b" stroke="#29246f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m105 19 4 10 10 4-10 4-4 10-4-10-10-4 10-4 4-10Z" fill="#fff"/>
   <text x="153" y="86" fill="url(#word)" font-family="Manrope, Inter, Arial, sans-serif" font-size="70" font-weight="800" letter-spacing="-3.5">impacta</text>
-  <path d="M159 105c87 12 215 12 329-4" fill="none" stroke="#F5B63B" stroke-width="5" stroke-linecap="round"/>
+  <path d="M159 105c87 12 215 12 329-4" fill="none" stroke="#f5b63b" stroke-width="5" stroke-linecap="round"/>
 </svg>
