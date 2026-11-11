@@ -195,7 +195,7 @@ body.auth-page[data-auth-page="signup"] .auth-layout { max-width: 620px; }
 }
 .auth-card--signup { max-width: 550px; }
 .auth-card-mark { display: none; }
-.auth-card-heading { gap: 0; margin-bottom: 18px; }
+.auth-card-heading { gap: 0; margin-top: 18px; margin-bottom: 18px; }
 .auth-card-heading h2 { font-size: clamp(23px, 2vw, 27px); }
 .auth-form { gap: 12px; }
 .auth-field { gap: 6px; }

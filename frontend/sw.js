@@ -3,7 +3,7 @@
    Version: 1.0.0
    ============================================================ */
 
-const CACHE_NAME    = 'impacta-v2.5.4';
+const CACHE_NAME    = 'impacta-v2.5.5';
 const STATIC_ASSETS = [
   '/Impactaa/frontend/pages/index.html',
   '/Impactaa/frontend/pages/community.html',
@@ -16,7 +16,7 @@ const STATIC_ASSETS = [
   '/Impactaa/frontend/assets/css/responsive.css',
   '/Impactaa/frontend/assets/css/visual-refresh.css?v=2.5.0',
   '/Impactaa/frontend/assets/css/visitor.css?v=2.4.0',
-  '/Impactaa/frontend/assets/css/auth.css?v=2.5.3',
+  '/Impactaa/frontend/assets/css/auth.css?v=2.5.4',
   '/Impactaa/frontend/assets/css/admin.css?v=2.5.0',
   '/Impactaa/frontend/assets/js/data.js',
   '/Impactaa/frontend/assets/js/admin-feed-preview.js?v=2.5.0',
