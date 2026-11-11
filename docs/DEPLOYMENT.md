@@ -15,7 +15,7 @@ O workflow `Verify database` corre em pull requests e em pushes para `develop` e
 1. Trabalhar em `feature/*` ou `develop`, nunca directamente na configuracao da producao.
 2. Copiar `backend/.env.example` para `backend/.env` e preencher apenas credenciais locais.
 3. Usar uma base de dados local independente, por exemplo `impacta_db`.
-4. Aplicar as migracoes e permissoes descritas no README.
+4. Aplicar as migracoes e permissoes descritas no README. Para configurar via pgAdmin, seguir [PGADMIN_SETUP.md](PGADMIN_SETUP.md); nunca executar uma migracao directamente no Query Tool.
 5. Confirmar a mudanca no browser e executar o workflow de verificacao antes de abrir o pull request.
 
 ## Producao

@@ -95,6 +95,9 @@ http://localhost/Impactaa/frontend/pages/index.html
 ```
 
 ### 2. Preparar o PostgreSQL
+
+> **Usas pgAdmin?** Segue [docs/PGADMIN_SETUP.md](docs/PGADMIN_SETUP.md). Cria primeiro os quatro papéis e executa as migrações com `npm run migrate`; não abras `001_initial.sql` directamente no Query Tool.
+
 1. Como administrador do PostgreSQL, crie os quatro papéis com senhas pedidas interactivamente:
    ```bash
    psql -U postgres -d postgres -f backend/database/provision-roles.sql
