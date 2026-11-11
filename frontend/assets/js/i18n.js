@@ -1,12 +1,12 @@
 /* ============================================================
    IMPACTA — Sistema de Internacionalização (i18n)
-   Idiomas: Português de Angola (pt-AO), Inglês (en), Francês (fr), Mandarim (zh)
+   Idiomas: Português de Angola (pt-AO), Inglês (en), Francês (fr)
    ============================================================ */
 
 const I18N_TRANSLATIONS = {
   'pt-AO': {
     appName: 'IMPACTA',
-    tagline: 'Aprender · Partilhar · Conectar · Evoluir',
+    tagline: 'Aprender · Partilhar · Crescer',
     nav: {
       home: 'Início',
       discover: 'Explorar',
@@ -17,15 +17,15 @@ const I18N_TRANSLATIONS = {
     tabs: {
       forYou: 'Para Ti',
       following: 'A Seguir',
-      popular: 'Populares',
+      popular: 'Mais populares',
       latest: 'Recentes',
       all: 'Tudo',
       students: 'Estudantes',
       professors: 'Professores',
-      creators: 'Criadores Top',
+      creators: 'Criadores em destaque',
       posts: 'Publicações',
-      videos: 'Vídeos Curtos',
-      resources: 'Apontamentos & Ficheiros',
+      videos: 'Vídeos curtos',
+      resources: 'Materiais de estudo',
       saved: 'Guardados'
     },
     feed: {
@@ -37,38 +37,38 @@ const I18N_TRANSLATIONS = {
       like: 'Gostar'
     },
     discover: {
-      searchPlaceholder: 'Pesquisar tópicos, exames, sebentas...',
+      searchPlaceholder: 'Pesquisar temas, exames e materiais de estudo...',
       trendingTitle: '🔥 Tópicos em Alta em Angola',
       popularTitle: '⭐ Conteúdo Educativo em Destaque',
-      joinCommunityTitle: 'Junta-te à Comunidade Académica',
-      joinCommunitySub: 'Partilha sebentas · Esclarece dúvidas com colegas'
+      joinCommunityTitle: 'Junta-te à comunidade de estudo',
+      joinCommunitySub: 'Tira dúvidas · Partilha · Aprende com colegas'
     },
     communities: {
-      title: 'Comunidades Estudantis',
+      title: 'Comunidades de estudantes',
       heroTitle: 'Encontra a tua Universidade ou Instituto em Angola',
-      heroSub: 'Conecta-te com milhares de colegas do teu curso e faculdade',
+      heroSub: 'Liga-te a colegas do teu curso e da tua faculdade',
       heroBtn: 'Explorar Comunidades →',
       myCommunities: 'Minhas Comunidades',
       popularCommunities: 'Comunidades Populares',
-      createBtn: 'Criar Nova Comunidade',
+      createBtn: 'Criar uma comunidade',
       join: 'Aderir',
       joined: 'Membro'
     },
     users: {
-      title: 'Estudantes & Professores',
+      title: 'Estudantes & Docentes',
       follow: 'Seguir',
       following: 'A Seguir',
       mutual: 'colegas em comum'
     },
     inbox: {
-      title: 'Notificações & Conversas',
+      title: 'Mensagens e notificações',
       all: 'Tudo',
       messages: 'Mensagens',
-      notifications: 'Alertas',
+      notifications: 'Notificações',
       mentions: 'Menções'
     },
     profile: {
-      posts: 'Posts',
+      posts: 'Publicações',
       followers: 'Seguidores',
       following: 'A Seguir',
       edit: 'Editar Perfil',

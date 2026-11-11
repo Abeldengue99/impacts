@@ -3,18 +3,24 @@
    Version: 1.0.0
    ============================================================ */
 
-const CACHE_NAME    = 'impacta-v2.1.2';
+const CACHE_NAME    = 'impacta-v2.2.0';
 const STATIC_ASSETS = [
   '/Impactaa/frontend/pages/index.html',
+  '/Impactaa/frontend/pages/login.html',
+  '/Impactaa/frontend/pages/signup.html',
   '/Impactaa/frontend/assets/css/variables.css',
   '/Impactaa/frontend/assets/css/base.css',
   '/Impactaa/frontend/assets/css/layout.css',
   '/Impactaa/frontend/assets/css/components.css',
   '/Impactaa/frontend/assets/css/responsive.css',
-  '/Impactaa/frontend/assets/images/logo.jpg',
+  '/Impactaa/frontend/assets/css/auth.css',
+  '/Impactaa/frontend/assets/images/auth-learning.svg',
   '/Impactaa/frontend/assets/js/data.js',
   '/Impactaa/frontend/assets/js/offline-storage.js',
   '/Impactaa/frontend/assets/js/app.js',
+  '/Impactaa/frontend/assets/js/i18n.js',
+  '/Impactaa/frontend/assets/js/i18n-overrides.js',
+  '/Impactaa/frontend/assets/js/auth-pages.js',
   '/Impactaa/frontend/assets/js/feed.js',
   '/Impactaa/frontend/assets/js/reels.js',
   '/Impactaa/frontend/assets/js/discover.js',
@@ -24,8 +30,9 @@ const STATIC_ASSETS = [
   '/Impactaa/frontend/assets/js/profile.js',
   '/Impactaa/frontend/assets/js/search.js',
   '/Impactaa/frontend/assets/js/interactions.js',
-  '/Impactaa/frontend/public/icons/icon-192.svg',
-  '/Impactaa/frontend/public/icons/icon-512.svg',
+  '/Impactaa/frontend/public/icons/impacta-logo.svg',
+  '/Impactaa/frontend/public/icons/impacta-mark.svg',
+  '/Impactaa/frontend/public/manifest.json',
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
 ];
 
@@ -81,7 +88,7 @@ self.addEventListener('fetch', (event) => {
 
   // For CSS, JS, images â€” Cache first, fallback to network
   event.respondWith(
-    caches.match(request).then(cached => {
+    caches.match(request, { ignoreSearch: true }).then(cached => {
       if (cached) return cached;
       return fetch(request).then(response => {
         if (!response || response.status !== 200 || response.type === 'opaque') {
@@ -108,8 +115,8 @@ self.addEventListener('push', (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title || 'IMPACTA', {
       body: data.body || 'New educational content available!',
-      icon: '/Impactaa/frontend/public/icons/icon-192.svg',
-      badge: '/Impactaa/frontend/public/icons/icon-72.svg',
+      icon: '/Impactaa/frontend/public/icons/impacta-mark.svg',
+      badge: '/Impactaa/frontend/public/icons/impacta-mark.svg',
       tag: data.tag || 'impacta-notification',
       data: { url: data.url || '/Impactaa/frontend/pages/index.html' },
       vibrate: [100, 50, 100],

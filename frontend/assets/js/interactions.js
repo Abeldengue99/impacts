@@ -61,7 +61,13 @@ const Toast = {
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       border-left: 3px solid ${colors[type] || colors.info};
     `;
-    toast.innerHTML = `<span style="font-size:18px;line-height:1;">${icons[type] || icons.info}</span><span>${message}</span>`;
+    const icon = document.createElement('span');
+    icon.style.cssText = 'font-size:18px;line-height:1;';
+    icon.textContent = icons[type] || icons.info;
+    const copy = document.createElement('span');
+    const source = String(message ?? '');
+    copy.textContent = window.I18n?.translateText ? window.I18n.translateText(source) : source;
+    toast.append(icon, copy);
     this.container.appendChild(toast);
 
     // Animate in
@@ -117,7 +123,7 @@ const CommentModal = {
       <div class="bottom-sheet" id="comment-sheet" style="max-height:85dvh;display:flex;flex-direction:column;">
         <div class="bottom-sheet__handle"></div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-shrink:0;">
-          <h2 style="font-size:16px;font-weight:700;">💬 Comments</h2>
+          <h2 style="font-size:16px;font-weight:700;">💬 Comentários</h2>
           <button id="comment-close" style="width:32px;height:32px;border-radius:50%;background:var(--color-overlay);display:flex;align-items:center;justify-content:center;color:var(--color-text-secondary);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:16px;height:16px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -152,6 +158,7 @@ const CommentModal = {
     const comments = IMPACTA_DATA.comments?.[postId] || this._getDefaultComments();
     const list = document.getElementById('comment-list');
     list.innerHTML = comments.map(c => this._renderComment(c)).join('');
+    window.I18n?.applyDOM(this.overlay);
     this.overlay.classList.add('open');
     document.body.classList.add('modal-open');
     this._currentPostId = postId;
@@ -180,6 +187,7 @@ const CommentModal = {
     };
     const el = document.createElement('div');
     el.innerHTML = this._renderComment(newComment);
+    window.I18n?.applyDOM(el);
     el.style.animation = 'fadeInUp 0.3s ease';
     list.appendChild(el.firstElementChild);
     list.scrollTop = list.scrollHeight;
@@ -199,14 +207,14 @@ const CommentModal = {
             <span style="font-size:13px;font-weight:600;color:var(--color-text-primary);">${c.name}</span>
             <span style="font-size:11px;color:var(--color-text-muted);">${c.time}</span>
           </div>
-          <p style="font-size:13px;color:var(--color-text-primary);line-height:1.5;">${c.text}</p>
+          <p class="comment-body-text" style="font-size:13px;color:var(--color-text-primary);line-height:1.5;">${c.text}</p>
           <div style="display:flex;align-items:center;gap:16px;margin-top:6px;">
             <button style="font-size:11px;color:var(--color-text-muted);display:flex;align-items:center;gap:4px;transition:color 0.15s;"
               onmouseenter="this.style.color='var(--color-like)'"
               onmouseleave="this.style.color='var(--color-text-muted)'">
               ❤️ ${c.likes > 0 ? c.likes : ''}
             </button>
-            <button style="font-size:11px;color:var(--color-text-muted);">Reply</button>
+            <button style="font-size:11px;color:var(--color-text-muted);">Responder</button>
           </div>
         </div>
       </div>
@@ -227,7 +235,7 @@ window.CommentModal = CommentModal;
 
 
 /* ════════════════════════════════════════════
-   COMPRESSOR WEBP PARA SEBENTAS E IMAGENS
+   COMPRESSOR WEBP PARA DOCUMENTOS E IMAGENS
    Reduz o consumo de megas convertendo imagens pesadas para WebP leve
    ════════════════════════════════════════════ */
 const ImpactaCompressor = {
@@ -353,7 +361,7 @@ const CreatePostModal = {
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; flex-shrink:0;">
           <div style="display:flex; align-items:center; gap:8px;">
             <span style="font-size:22px;">🎓</span>
-            <h2 style="font-size:18px; font-weight:800; color:var(--color-text-primary);">Criar Publicação Académica</h2>
+            <h2 style="font-size:18px; font-weight:800; color:var(--color-text-primary);">Criar uma publicação</h2>
           </div>
           <button id="create-post-close" class="filter-panel__close" aria-label="Fechar">
             ${ICONS.close}
@@ -376,7 +384,7 @@ const CreatePostModal = {
         <div id="create-post-attachment-box" class="create-post-attachment-box" style="display:none;">
           <div class="create-post-attachment-info">
             <span id="attachment-icon">📎</span>
-            <span id="attachment-label" class="create-post-attachment-name">Anexo selecionado</span>
+            <span id="attachment-label" class="create-post-attachment-name">Ficheiro seleccionado</span>
           </div>
           <button type="button" id="attachment-remove-btn" class="create-post-attachment-remove" title="Remover anexo">✕</button>
         </div>
@@ -389,7 +397,7 @@ const CreatePostModal = {
           <div class="recorder-top-bar">
             <div class="recorder-status-wrap">
               <span class="rec-pulse-dot" id="rec-pulse-indicator"></span>
-              <span id="recorder-status-text" class="recorder-status-text">Pronto para gravar áudio-aula</span>
+              <span id="recorder-status-text" class="recorder-status-text">Pronto para gravar áudio</span>
             </div>
             <span id="recorder-timer" class="recorder-timer">00:00</span>
           </div>
@@ -426,7 +434,7 @@ const CreatePostModal = {
           <span class="create-hashtag-chip" data-tag="#UAN">#UAN</span>
           <span class="create-hashtag-chip" data-tag="#ExamesNacionais">#ExamesNacionais</span>
           <span class="create-hashtag-chip" data-tag="#Calculo1">#Calculo1</span>
-          <span class="create-hashtag-chip" data-tag="#SebentaPDF">#SebentaPDF</span>
+          <span class="create-hashtag-chip" data-tag="#MaterialDeEstudo">#MaterialDeEstudo</span>
           <span class="create-hashtag-chip" data-tag="#ISPTEC">#ISPTEC</span>
           <span class="create-hashtag-chip" data-tag="#AudioAula">#AudioAula</span>
         </div>
@@ -440,7 +448,7 @@ const CreatePostModal = {
             <span class="media-icon">🎥</span> Vídeo
           </button>
           <button type="button" class="create-post-media-btn" id="create-media-pdf" data-media="pdf">
-            <span class="media-icon">📄</span> Sebenta
+            <span class="media-icon">📄</span> Ficheiro PDF
           </button>
           <button type="button" class="create-post-media-btn" id="create-media-audio" data-media="audio">
             <span class="media-icon">🎙️</span> Áudio-Aula
@@ -449,7 +457,7 @@ const CreatePostModal = {
 
         <!-- Botão Publicar -->
         <button id="create-post-submit" class="btn btn--primary btn--full btn--lg" style="padding:15px; border-radius:var(--radius-lg); font-size:16px; font-weight:700; box-shadow:0 6px 20px rgba(91,75,219,0.35);">
-          🚀 Publicar Agora no IMPACTA
+          🚀 Publicar na Impacta
         </button>
       </div>
     `;
@@ -722,7 +730,7 @@ const CreatePostModal = {
       }
       const previewBox = document.getElementById('create-post-attachment-box');
       if (previewBox) previewBox.style.display = 'none';
-      if (statusText) statusText.textContent = 'Pronto para gravar áudio-aula';
+      if (statusText) statusText.textContent = 'Pronto para gravar áudio';
       const timerEl = document.getElementById('recorder-timer');
       if (timerEl) timerEl.textContent = '00:00';
     } else {
@@ -787,26 +795,27 @@ const CreatePostModal = {
 
     if (type === 'image') {
       if (previewIcon) previewIcon.textContent = '📷';
-      if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Imagem selecionada · Clica para carregar foto do exame/apontamento';
-      if (ta) ta.placeholder = 'Descreve esta imagem, apontamento manuscrito ou esquema visual...';
+      if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Imagem seleccionada · Toca para escolher uma foto ou imagem';
+      if (ta) ta.placeholder = 'Descreve a imagem, o material de estudo ou o esquema...';
     } else if (type === 'video') {
       if (previewIcon) previewIcon.textContent = '🎥';
-      if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Vídeo Curto acadêmico · Clica para carregar MP4 ou gravação';
+      if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Vídeo curto de estudo · Toca para escolher um vídeo';
       if (ta) ta.placeholder = 'Partilha uma breve explicação em vídeo ou dica rápida de estudo...';
     } else if (type === 'pdf') {
       if (previewIcon) previewIcon.textContent = '📄';
-      if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Sebenta / Ficheiro de Exame (PDF)';
-      if (ta) ta.placeholder = 'Descreve esta sebenta ou apontamento (ex: Resumo de Cálculo I, UAN 2024)...';
+      if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Material de estudo ou ficheiro de exame (PDF)';
+      if (ta) ta.placeholder = 'Descreve este material (ex.: resumo de Cálculo I, UAN 2024)...';
     } else if (type === 'audio') {
       if (previewIcon) previewIcon.textContent = '🎙️';
       if (previewLabel) previewLabel.textContent = this.attachedFileData?.name || 'Áudio-Aula ou Nota de Voz (MP3)';
-      if (ta) ta.placeholder = 'Explica brevemente o conteúdo desta áudio-aula gravada...';
+      if (ta) ta.placeholder = 'Explica brevemente o conteúdo deste áudio gravado...';
     }
 
     if (promptFile && type !== 'audio') {
       const fileInput = document.getElementById(`create-post-file-${type}`);
       if (fileInput) fileInput.click();
     }
+    window.I18n?.applyDOM(this.overlay);
   },
 
   open(initialType = 'text') {
@@ -842,7 +851,8 @@ const CreatePostModal = {
 
     const btn = document.getElementById('create-post-submit');
     const originalText = btn.textContent;
-    btn.textContent = 'A publicar no IMPACTA... ⏳';
+    btn.textContent = 'A publicar na Impacta... ⏳';
+    window.I18n?.applyDOM(btn);
     btn.style.opacity = '0.7';
     if (window.Haptic) window.Haptic.medium();
 
@@ -857,13 +867,13 @@ const CreatePostModal = {
         verified: true,
         time: 'Agora mesmo',
         content: text || (this.activeMediaType === 'image' ? '📸 Imagem partilhada com a comunidade' : (this.activeMediaType === 'audio' ? '🎙️ Áudio-aula rápida partilhada com a turma' : '🎥 Vídeo partilhado com a comunidade')),
-        hashtags: (text ? text.match(/#\w+/g) : null) || (this.activeMediaType === 'pdf' ? ['#SebentaPDF', '#UAN'] : (this.activeMediaType === 'audio' ? ['#AudioAula', '#DicaDeEstudo'] : ['#UAN'])),
+        hashtags: (text ? text.match(/#\w+/g) : null) || (this.activeMediaType === 'pdf' ? ['#MaterialDeEstudo', '#UAN'] : (this.activeMediaType === 'audio' ? ['#AudioAula', '#DicaDeEstudo'] : ['#UAN'])),
         mediaType: this.activeMediaType === 'pdf' ? 'pdf' : (this.activeMediaType === 'video' ? 'video' : (this.activeMediaType === 'image' ? 'image' : (this.activeMediaType === 'audio' ? 'audio' : 'none'))),
         mediaDuration: this.activeMediaType === 'audio' ? '0:48' : null,
         document: this.activeMediaType === 'pdf' ? {
-          title: this.attachedFileData?.name ? this.attachedFileData.name.replace(/\.[^/.]+$/, '') : (text ? text.slice(0, 45) : 'Sebenta de Estudo Académico'),
+          title: this.attachedFileData?.name ? this.attachedFileData.name.replace(/\.[^/.]+$/, '') : (text ? text.slice(0, 45) : 'Material de estudo'),
           subtitle: IMPACTA_DATA.currentUser.university || 'Universidade Agostinho Neto',
-          filename: this.attachedFileData?.name || 'Sebenta_Estudo_IMPACTA.pdf',
+          filename: this.attachedFileData?.name || 'Material_Estudo_IMPACTA.pdf',
           pages: 24,
           size: this.attachedFileData?.size || '3.6 MB',
           downloads: 1
@@ -960,13 +970,14 @@ const PWAInstall = {
     this.banner.innerHTML = `
       <div style="font-size:28px;flex-shrink:0;">🎓</div>
       <div style="flex:1;">
-        <div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px;">Install IMPACTA</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.65);">Add to home screen for the best experience</div>
+        <div style="font-size:13px;font-weight:700;color:white;margin-bottom:2px;">Instalar Impacta</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.65);">Adiciona ao ecrã inicial para usares melhor a aplicação</div>
       </div>
-      <button id="pwa-install-btn" style="padding:8px 14px;background:white;color:var(--color-primary);border-radius:999px;font-size:12px;font-weight:700;flex-shrink:0;transition:all 0.2s;">Install</button>
+      <button id="pwa-install-btn" style="padding:8px 14px;background:white;color:var(--color-primary);border-radius:999px;font-size:12px;font-weight:700;flex-shrink:0;transition:all 0.2s;">Instalar</button>
       <button id="pwa-dismiss-btn" style="color:rgba(255,255,255,0.5);font-size:18px;line-height:1;padding:4px;flex-shrink:0;">×</button>
     `;
     document.body.appendChild(this.banner);
+    window.I18n?.applyDOM(this.banner);
 
     requestAnimationFrame(() => requestAnimationFrame(() => {
       this.banner.style.opacity = '1';
@@ -1157,25 +1168,25 @@ const ImpactaDownload = {
 
   downloadPdf(filename, title, author = 'Kianda Sebastião') {
     const today = new Date().toLocaleDateString('pt-AO', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const watermarkBanner = `========================================================\n[IMPACTA ANGOLA — PLATAFORMA DE APRENDIZAGEM COLABORATIVA]\nMARCA D'ÁGUA DE PROPRIEDADE ACADÉMICA:\nDocumento: ${title || 'Sebenta Académica'}\nCompilado/Criado por: ${author}\nData de Registo: ${today}\nLicença de Estudo Livre · Respeite os Direitos do Autor\n========================================================\n\n`;
+    const watermarkBanner = `========================================================\n[IMPACTA ANGOLA — PLATAFORMA DE APRENDIZAGEM COLABORATIVA]\nMARCA D'ÁGUA DE PROPRIEDADE ACADÉMICA:\nDocumento: ${title || 'Material de estudo'}\nCompilado/Criado por: ${author}\nData de Registo: ${today}\nLicença de Estudo Livre · Respeite os Direitos do Autor\n========================================================\n\n`;
 
-    const dummyPdfContent = `%PDF-1.4\n%IMPACTA - Plataforma Social de Aprendizagem de Angola\n${watermarkBanner}1 0 obj\n<< /Title (${title || 'Sebenta'}) /Author (${author}) /Subject (Sebenta Académica Angola) >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF`;
+    const dummyPdfContent = `%PDF-1.4\n%IMPACTA - Plataforma Social de Aprendizagem de Angola\n${watermarkBanner}1 0 obj\n<< /Title (${title || 'Material de estudo'}) /Author (${author}) /Subject (Material de estudo em Angola) >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF`;
 
-    this.downloadFile(filename || 'sebenta_impacta.pdf', dummyPdfContent, 'application/pdf');
+    this.downloadFile(filename || 'material_estudo_impacta.pdf', dummyPdfContent, 'application/pdf');
 
     // Armazenamento Offline PWA no IndexedDB
     if (window.ImpactaOffline) {
-      window.ImpactaOffline.saveSebenta({
-        id: filename || 'sebenta_impacta.pdf',
-        title: title || 'Sebenta Académica',
+      window.ImpactaOffline.saveApontamento({
+        id: filename || 'material_estudo_impacta.pdf',
+      title: title || 'Material de estudo',
         author: author,
-        filename: filename || 'sebenta_impacta.pdf',
+        filename: filename || 'material_estudo_impacta.pdf',
         size: '4.8 MB',
         pages: 36,
         content: dummyPdfContent
       }).then(() => {
         if (window.Toast) {
-          window.Toast.success(`📥 Sebenta transferida e guardada no modo Offline (sem gastar mais megas)!`, 4500);
+          window.Toast.success(`📥 Material de estudo transferido e guardado para consulta sem internet!`, 4500);
         }
       });
     } else {
@@ -1210,7 +1221,7 @@ const ImpactaDownload = {
 window.ImpactaDownload = ImpactaDownload;
 
 /* ════════════════════════════════════════════
-   MODAL DE LEITURA NATIVA DE SEBENTA (PDF.js / Folheador com Zoom e Marca d'Água)
+   MODAL PARA LER FICHEIROS PDF (com zoom e marca de água)
    ════════════════════════════════════════════ */
 const DocPreviewModal = {
   overlay: null,
@@ -1270,7 +1281,7 @@ const DocPreviewModal = {
         <div class="doc-preview-header">
           <div class="doc-preview-title-wrap">
             <span class="doc-preview-tag">📶 LEITOR NATIVO · DISPONÍVEL OFFLINE</span>
-            <h2 id="doc-preview-modal-title" class="doc-preview-modal-title">Sebenta Resoluções Exames 2023–2025</h2>
+            <h2 id="doc-preview-modal-title" class="doc-preview-modal-title">Resoluções dos Exames 2023–2025</h2>
           </div>
           <button id="doc-preview-close" class="filter-panel__close" aria-label="Fechar">${ICONS.close}</button>
         </div>
@@ -1316,7 +1327,7 @@ const DocPreviewModal = {
         <div class="doc-preview-footer">
           <button id="doc-preview-download-btn" class="btn btn--primary btn--full btn--lg">
             ${ICONS.download}
-            <span>Baixar Ficheiro PDF & Salvar Offline (4.8 MB)</span>
+            <span>Transferir ficheiro PDF e guardar sem internet (4,8 MB)</span>
           </button>
         </div>
       </div>
@@ -1329,8 +1340,8 @@ const DocPreviewModal = {
     });
     document.getElementById('doc-preview-close').addEventListener('click', () => this.close());
     document.getElementById('doc-preview-download-btn').addEventListener('click', () => {
-      const title = document.getElementById('doc-preview-modal-title')?.textContent || 'Sebenta';
-      ImpactaDownload.downloadPdf('Sebenta_Resolucoes_Economia_2023-2025_UCAN.pdf', title, 'Kianda Sebastião');
+      const title = document.getElementById('doc-preview-modal-title')?.textContent || 'Material de estudo';
+      ImpactaDownload.downloadPdf('Resolucoes_Economia_2023-2025_UCAN.pdf', title, 'Kianda Sebastião');
       this.close();
     });
 
@@ -1399,6 +1410,7 @@ const DocPreviewModal = {
   },
 
   open(title) {
+    window.I18n?.applyDOM(this.overlay);
     if (title) {
       const el = document.getElementById('doc-preview-modal-title');
       if (el) el.textContent = title;

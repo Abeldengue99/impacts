@@ -22,13 +22,30 @@ class ImpactaApp {
 
   init() {
     this._buildShell();
+    document.querySelectorAll('[data-set-lang="zh"], [data-settings-lang="zh"]').forEach(el => el.remove());
     this._initModules();
     this._navigate('home');
     this._bindGlobal();
     this._setupTopbarScroll();
+    window.I18n?.applyDOM(document.body);
+    if (window.I18n && window.MutationObserver) {
+      this._languageObserver = new MutationObserver(records => {
+        records.forEach(record => record.addedNodes.forEach(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) window.I18n.applyDOM(node);
+        }));
+      });
+      this._languageObserver.observe(document.getElementById('app'), { childList: true, subtree: true });
+    }
 
     // Evento de troca de idioma
     window.addEventListener('impacta:langchange', () => {
+      const activeLanguage = window.I18n?.currentLang;
+      document.querySelectorAll('[data-set-lang]').forEach(button => {
+        button.classList.toggle('btn--joined', button.dataset.setLang === activeLanguage);
+      });
+      document.querySelectorAll('[data-settings-lang]').forEach(button => {
+        button.classList.toggle('active', button.dataset.settingsLang === activeLanguage);
+      });
       this._updateNav(this.currentPage);
       this._updateTopbar(this.currentPage);
       this._updateDesktopWidgets();
@@ -37,6 +54,7 @@ class ImpactaApp {
         delete container.dataset.rendered;
         this._renderPage(this.currentPage, container);
       }
+      window.I18n?.applyDOM(document.body);
     });
   }
 
@@ -54,7 +72,7 @@ class ImpactaApp {
         <aside class="desktop-left-col">
           <div class="desktop-nav-card">
             <div class="desktop-logo" data-nav="home">
-              <img src="../assets/images/logo.jpg" alt="IMPACTA" class="desktop-logo__img" />
+              <img src="../public/icons/impacta-logo.svg" alt="Impacta" class="desktop-logo__img" />
             </div>
 
             <nav class="desktop-menu-list">
@@ -181,7 +199,7 @@ class ImpactaApp {
               <div class="desktop-trend-item" data-action="go-search">
                 <span class="desktop-trend-topic">Engenharia & Ciências</span>
                 <span class="desktop-trend-name">#CalculoDiferencial</span>
-                <span class="desktop-trend-meta">9.2K sebentas partilhadas</span>
+                <span class="desktop-trend-meta">9,2 mil materiais partilhados</span>
               </div>
               <div class="desktop-trend-item" data-action="go-search">
                 <span class="desktop-trend-topic">Instituto Superior ISPTEC</span>
@@ -240,7 +258,7 @@ class ImpactaApp {
     return `
       <header class="topbar" id="topbar">
         <div class="topbar__logo" id="topbar-logo">
-          <img src="../assets/images/logo.jpg" alt="IMPACTA" class="topbar__logo-img" />
+          <img src="../public/icons/impacta-logo.svg" alt="Impacta" class="topbar__logo-img" />
         </div>
         <button class="topbar__btn" id="topbar-back" style="display:none" aria-label="Voltar">
           ${ICONS.arrowLeft}
@@ -289,7 +307,7 @@ class ImpactaApp {
         <div class="bottom-sheet">
           <div class="bottom-sheet__handle"></div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <h2 style="font-size:16px; font-weight:700;">🌐 Selecionar Idioma / Language</h2>
+            <h2 style="font-size:16px; font-weight:700;">🌐 Escolhe o idioma</h2>
             <button class="filter-panel__close" id="lang-modal-close">${ICONS.close}</button>
           </div>
           <div style="display:flex; flex-direction:column; gap:10px;">
@@ -325,8 +343,8 @@ class ImpactaApp {
             <div style="display:flex; align-items:center; gap:10px;">
               <span style="font-size:22px;">⚙️</span>
               <div>
-                <h2 style="font-size:17px; font-weight:800; color:var(--color-text-primary); line-height:1.2;">Definições da Conta</h2>
-                <span style="font-size:12px; color:var(--color-text-muted);">Personaliza a tua experiência académica, redes e privacidade</span>
+                <h2 style="font-size:17px; font-weight:800; color:var(--color-text-primary); line-height:1.2;">Definições da conta</h2>
+                <span style="font-size:12px; color:var(--color-text-muted);">Personaliza o teu perfil, idioma e privacidade</span>
               </div>
             </div>
             <button class="filter-panel__close" id="settings-modal-close" aria-label="Fechar">${ICONS.close}</button>
@@ -336,7 +354,7 @@ class ImpactaApp {
             
             <!-- Secção: Status Académico do Estudante -->
             <div class="settings-card-group">
-              <label class="settings-group-title">🎯 Status Académico Visível</label>
+              <label class="settings-group-title">🎯 Estado de actividade</label>
               <div class="settings-status-grid">
                 <button type="button" class="settings-status-btn ${user.status === 'available' ? 'active' : ''}" data-select-status="available">
                   <span class="status-dot status-dot--available"></span>
@@ -349,20 +367,20 @@ class ImpactaApp {
                   <span class="status-dot status-dot--studying"></span>
                   <div class="status-btn-text">
                     <span class="status-btn-label">A Estudar</span>
-                    <span class="status-btn-desc">Modo foco ativo</span>
+                    <span class="status-btn-desc">Modo de concentração activo</span>
                   </div>
                 </button>
                 <button type="button" class="settings-status-btn ${user.status === 'exams' ? 'active' : ''}" data-select-status="exams">
                   <span class="status-dot status-dot--exams"></span>
                   <div class="status-btn-text">
-                    <span class="status-btn-label">Em Exames</span>
-                    <span class="status-btn-desc">Época de avaliações</span>
+                    <span class="status-btn-label">Em época de exames</span>
+                    <span class="status-btn-desc">A preparar avaliações</span>
                   </div>
                 </button>
                 <button type="button" class="settings-status-btn ${user.status === 'teaching' ? 'active' : ''}" data-select-status="teaching">
                   <span class="status-dot status-dot--teaching"></span>
                   <div class="status-btn-text">
-                    <span class="status-btn-label">A Lecionar</span>
+                    <span class="status-btn-label">A dar aulas</span>
                     <span class="status-btn-desc">Docente / Monitor</span>
                   </div>
                 </button>
@@ -371,7 +389,7 @@ class ImpactaApp {
 
             <!-- Secção: Idioma Preferido da Plataforma -->
             <div class="settings-card-group">
-              <label class="settings-group-title">🌐 Idioma Preferido / Language</label>
+              <label class="settings-group-title">🌐 Idioma da plataforma</label>
               <div class="settings-lang-grid">
                 <button type="button" class="settings-lang-btn ${curLang === 'pt-AO' ? 'active' : ''}" data-settings-lang="pt-AO">
                   <span class="lang-flag">🇦🇴</span>
@@ -406,11 +424,11 @@ class ImpactaApp {
 
             <!-- Secção: Bio & Apresentação -->
             <div class="settings-card-group">
-              <label class="settings-group-title">✍️ Biografia & Apresentação</label>
+              <label class="settings-group-title">✍️ Sobre ti</label>
               <div class="settings-row">
                 <label class="settings-label" for="settings-bio-input">Sobre mim</label>
                 <textarea id="settings-bio-input" class="settings-input" rows="3" maxlength="200"
-                  placeholder="Apresenta-te à comunidade académica angolana..."
+                  placeholder="Conta um pouco sobre ti..."
                   style="resize:vertical; min-height:72px; font-family:var(--font-family);">${user.bio || ''}</textarea>
               </div>
               <div class="settings-row">
@@ -423,13 +441,13 @@ class ImpactaApp {
             <!-- Secção: Perfil Universitário & Dados Académicos -->
             <div class="settings-card-group">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                <label class="settings-group-title" style="margin-bottom:0;">🏛️ Informações Académicas</label>
+              <label class="settings-group-title" style="margin-bottom:0;">🏛️ Dados de estudo e trabalho</label>
                 <div class="settings-role-pills">
                   <button type="button" class="role-pill-btn ${user.role !== 'professor' ? 'active' : ''}" data-academic-role="student">
                     🎓 Estudante
                   </button>
                   <button type="button" class="role-pill-btn ${user.role === 'professor' ? 'active' : ''}" data-academic-role="professor">
-                    👨‍🏫 Docente / Prof.
+                    👨‍🏫 Docente
                   </button>
                 </div>
               </div>
@@ -458,7 +476,7 @@ class ImpactaApp {
                   📍 A tua instituição será registada no directório universitário de Angola do IMPACTA.
                 </div>
                 <div class="settings-input-row" style="margin-top:6px;">
-                  <span class="settings-field-label">Nome Escola:</span>
+                  <span class="settings-field-label">Nome da escola:</span>
                   <input type="text" id="settings-custom-school-name" value="${user.customSchool || ''}" class="settings-input" style="flex:1;" placeholder="Ex: Instituto Superior Politécnico de Luanda..." />
                 </div>
                 <div class="settings-input-row" style="margin-top:8px;">
@@ -540,9 +558,9 @@ class ImpactaApp {
 
             <!-- Secção: Redes Sociais & Portfólio Externo -->
             <div class="settings-card-group">
-              <label class="settings-group-title">🔗 Redes Sociais & Contactos (Fora do IMPACTA)</label>
+              <label class="settings-group-title">🔗 Redes sociais e contactos</label>
               <div style="font-size:11px; color:var(--color-text-muted); margin-bottom:8px;">
-                Os teus colegas poderão conectar-se contigo através das tuas redes profissionais e académicas.
+                Os teus colegas podem falar contigo através das tuas redes sociais e profissionais.
               </div>
               
               <div class="settings-social-input-row">
@@ -568,7 +586,7 @@ class ImpactaApp {
 
             <!-- Secção: Privacidade & Visibilidade de Estudos -->
             <div class="settings-card-group">
-              <label class="settings-group-title">🔒 Privacidade & Partilha de Sebentas</label>
+              <label class="settings-group-title">🔒 Privacidade & partilha de materiais de estudo</label>
               <div class="settings-input-row">
                 <span class="settings-field-label">Visibilidade:</span>
                 <select id="settings-privacy-select" class="filter-select" style="flex:1; padding:8px 12px; font-size:13px;">
@@ -593,11 +611,11 @@ class ImpactaApp {
 
             <!-- Secção: Preferências de Estudo & Economia de Megas -->
             <div class="settings-card-group">
-              <label class="settings-group-title">📶 Economia de Dados & Modo Offline PWA</label>
+              <label class="settings-group-title">📶 Poupar dados e usar sem internet</label>
               
               <div class="settings-toggle-row">
                 <div>
-                  <div class="settings-toggle-label">Guardar sebentas offline automaticamente</div>
+                  <div class="settings-toggle-label">Guardar materiais de estudo para usar sem internet</div>
                   <div class="settings-toggle-desc">Permite ler PDFs no telemóvel sem gastar saldo</div>
                 </div>
                 <label class="apple-switch">
@@ -645,12 +663,12 @@ class ImpactaApp {
                   : `<div class="avatar-placeholder">${user.initials}</div>`
                 }
               </div>
-              <h2 style="font-size:18px; font-weight:800; color:var(--color-text-primary); margin-bottom:4px;">Terminar Sessão?</h2>
+              <h2 style="font-size:18px; font-weight:800; color:var(--color-text-primary); margin-bottom:4px;">Terminar sessão?</h2>
               <p style="font-size:13px; color:var(--color-text-secondary); line-height:1.5; max-width:320px; margin:0 auto;">
                 Tens a certeza de que desejas sair da conta de <strong>${user.name}</strong>?
               </p>
               <div class="logout-offline-note">
-                📶 <strong>Modo Offline Preservado:</strong> As tuas sebentas descarregadas continuarão salvas no dispositivo.
+                📶 <strong>Modo sem internet:</strong> Os materiais de estudo transferidos continuarão guardados no dispositivo.
               </div>
             </div>
 
@@ -680,7 +698,7 @@ class ImpactaApp {
           </div>
 
           <div class="filter-section">
-            <p class="filter-section__label">Tipo de Conteúdo</p>
+            <p class="filter-section__label">Tipo de conteúdo</p>
             <div class="filter-chips">
               <div class="chip active" data-filter-type="all">${t('tabs.all')}</div>
               <div class="chip" data-filter-type="posts">${t('tabs.posts')}</div>
@@ -690,9 +708,9 @@ class ImpactaApp {
           </div>
 
           <div class="filter-section">
-            <p class="filter-section__label">Universidade / Instituto em Angola</p>
+            <p class="filter-section__label">Universidade ou instituto</p>
             <select class="filter-select" aria-label="Selecionar universidade">
-              <option value="">🏛️ Todas as Instituições</option>
+              <option value="">🏛️ Todas as instituições</option>
               <option value="uan">UAN - Universidade Agostinho Neto</option>
               <option value="ucan">UCAN - Universidade Católica de Angola</option>
               <option value="isptec">ISPTEC - Inst. Sup. Politécnico de Tecnologias</option>
@@ -703,7 +721,7 @@ class ImpactaApp {
           </div>
 
           <div class="filter-section">
-            <p class="filter-section__label">Ordenar Por</p>
+            <p class="filter-section__label">Ordenar por</p>
             <div class="filter-sort-chips">
               <div class="filter-sort-chip active">${t('actions.sortRelevant')}</div>
               <div class="filter-sort-chip">${t('actions.sortRecent')}</div>
@@ -729,7 +747,7 @@ class ImpactaApp {
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-shrink:0;">
             <div>
               <h2 style="font-size:18px; font-weight:800; color:var(--color-text-primary); line-height:1.2;">✨ O que queres partilhar?</h2>
-              <p style="font-size:12px; color:var(--color-text-muted); margin-top:3px; font-weight:400;">Escolhe o tipo de publicação académica</p>
+              <p style="font-size:12px; color:var(--color-text-muted); margin-top:3px; font-weight:400;">Escolhe o tipo de publicação</p>
             </div>
             <button class="filter-panel__close" id="create-modal-close" aria-label="Fechar modal">${ICONS.close}</button>
           </div>
@@ -739,22 +757,22 @@ class ImpactaApp {
             <button class="modal-option-btn" id="btn-create-write">
               <span class="modal-opt-icon">✏️</span>
               <div style="flex:1; min-width:0;">
-                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Dúvida ou Artigo Académico</div>
-                <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Escreve uma dúvida, reflexão ou dica para os colegas</div>
+                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Pergunta ou publicação</div>
+                <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Partilha uma pergunta, ideia ou dica de estudo</div>
               </div>
             </button>
             <button class="modal-option-btn" id="btn-create-video">
               <span class="modal-opt-icon">🎥</span>
               <div style="flex:1; min-width:0;">
-                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Vídeo Curto / Dica Rápida</div>
-                <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Publica um vídeo educativo vertical até 60 segundos</div>
+                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Vídeo curto ou dica</div>
+                <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Partilha um vídeo de estudo com até 60 segundos</div>
               </div>
             </button>
             <button class="modal-option-btn" id="btn-create-resource">
               <span class="modal-opt-icon">📚</span>
               <div style="flex:1; min-width:0;">
-                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Sebenta ou Ficheiro PDF</div>
-                <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Partilha exames resolvidos, resumos ou livros digitais</div>
+                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Material de estudo ou ficheiro PDF</div>
+                <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Partilha exames resolvidos, resumos e livros digitais</div>
               </div>
             </button>
           </div>
@@ -806,6 +824,7 @@ class ImpactaApp {
       const module = this.modules[pageId];
       if (module && typeof module.render === 'function') {
         container.innerHTML = module.render();
+        window.I18n?.applyDOM(container);
         if (typeof module.afterRender === 'function') module.afterRender(container);
       }
       if (pageId !== 'home') container.dataset.rendered = 'true';
@@ -955,6 +974,7 @@ class ImpactaApp {
           } else if (action === 'lang') {
             this.openLangModal();
           } else if (action === 'switch-account') {
+            window.location.href = 'login.html';
             if (window.Toast) window.Toast.info('🔄 Troca de Conta — Funcionalidade de múltiplos perfis!');
           } else if (action === 'logout') {
             this.openLogoutModal();
@@ -1184,6 +1204,7 @@ class ImpactaApp {
     if (logoutConfirm) {
       logoutConfirm.addEventListener('click', () => {
         this.closeLogoutModal();
+        window.location.href = 'login.html';
         if (window.Toast) window.Toast.info('👋 Sessão terminada com sucesso! Até breve.');
         if (window.Haptic) window.Haptic.medium();
       });
@@ -1233,8 +1254,8 @@ class ImpactaApp {
     }
 
     if (action === 'download-doc') {
-      const title = target.dataset.docTitle || 'Sebenta Resoluções Exames';
-      const filename = target.dataset.filename || 'sebenta_impacta.pdf';
+      const title = target.dataset.docTitle || 'Resolução de exames';
+      const filename = target.dataset.filename || 'material_estudo_impacta.pdf';
       if (window.ImpactaDownload) window.ImpactaDownload.downloadPdf(filename, title);
       const counter = target.closest('.post-doc-card')?.querySelector('.doc-downloads-count');
       if (counter) {
@@ -1244,14 +1265,14 @@ class ImpactaApp {
       const label = target.querySelector('span');
       if (label) {
         const orig = label.textContent;
-        label.textContent = '✅ Transferido!';
+        label.textContent = window.I18n?.t('ui.downloadComplete') || '✅ Transferido!';
         setTimeout(() => { label.textContent = orig; }, 2500);
       }
       return;
     }
 
     if (action === 'preview-doc') {
-      const title = target.dataset.docTitle || 'Sebenta Resoluções Exames';
+      const title = target.dataset.docTitle || 'Resolução de exames';
       if (window.DocPreviewModal) window.DocPreviewModal.open(title);
       return;
     }
@@ -1263,7 +1284,7 @@ class ImpactaApp {
       const label = target.querySelector('span');
       if (label) {
         const orig = label.textContent;
-        label.textContent = '✅ Baixado!';
+        label.textContent = window.I18n?.t('ui.downloadComplete') || '✅ Transferido!';
         setTimeout(() => { label.textContent = orig; }, 2500);
       }
       return;

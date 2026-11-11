@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-AO" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#39318f" />
+  <meta name="description" content="Cria uma conta Impacta e aprende com a tua comunidade." />
+  <title>Criar conta | Impacta</title>
+  <link rel="icon" type="image/svg+xml" href="../public/icons/impacta-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/auth.css?v=2.2.0" />
+</head>
+<body class="auth-page" data-auth-page="signup">
+  <div class="auth-layout">
+    <aside class="auth-visual" aria-label="Impacta">
+      <a class="auth-brand" href="index.html" aria-label="Impacta — página inicial">
+        <img src="../public/icons/impacta-logo.svg" alt="Impacta" />
+      </a>
+      <div class="auth-hero-copy">
+        <span class="auth-eyebrow"><span class="auth-eyebrow-dot"></span><span data-auth-copy="signupEyebrow">O teu próximo passo começa aqui</span></span>
+        <h1 data-auth-copy="signupTitle">Faz parte de uma comunidade que cresce contigo.</h1>
+        <p data-auth-copy="signupIntro">Cria a tua conta para partilhares ideias, encontrares materiais e aprenderes em conjunto.</p>
+      </div>
+      <img class="auth-illustration" src="../assets/images/auth-learning.svg" alt="Estudante a aprender com materiais e ideias da comunidade" />
+      <div class="auth-benefits" aria-label="O que podes fazer na Impacta">
+        <div class="auth-benefit"><span class="auth-benefit-icon">↗</span><span data-auth-copy="benefitQuestions">Tira dúvidas com colegas</span></div>
+        <div class="auth-benefit"><span class="auth-benefit-icon">✦</span><span data-auth-copy="benefitMaterials">Encontra materiais de estudo</span></div>
+        <div class="auth-benefit"><span class="auth-benefit-icon">◎</span><span data-auth-copy="benefitProgress">Aprende ao teu ritmo</span></div>
+      </div>
+      <div class="auth-visual-footer"><span>IMPACTA</span><span data-auth-copy="tagline">Aprender · Partilhar · Evoluir</span></div>
+    </aside>
+
+    <main class="auth-panel auth-panel--signup">
+      <header class="auth-topbar">
+        <a class="auth-mobile-brand" href="index.html" aria-label="Impacta — página inicial"><img src="../public/icons/impacta-logo.svg" alt="Impacta" /></a>
+        <label class="language-select-wrap">
+          <span class="language-globe" aria-hidden="true">◎</span>
+          <span class="sr-only" data-auth-copy="language">Idioma</span>
+          <select id="language-picker" aria-label="Idioma">
+            <option value="pt-AO">Português (Angola)</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="auth-card auth-card--signup" aria-labelledby="auth-title">
+        <div class="auth-card-heading">
+          <div class="auth-card-mark" aria-hidden="true"><img src="../public/icons/impacta-mark.svg" alt="" /></div>
+          <div>
+            <h2 id="auth-title" data-auth-copy="signupCardTitle">Cria a tua conta</h2>
+            <p data-auth-copy="signupCardText">Só precisas de alguns dados para começar.</p>
+          </div>
+        </div>
+
+        <form id="signup-form" class="auth-form" novalidate>
+          <div class="auth-form-grid">
+            <label class="auth-field">
+              <span data-auth-copy="fullName">Nome completo</span>
+              <span class="auth-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.7-3.5 3.1-5.5 7-5.5s6.3 2 7 5.5"/></svg><input name="displayName" type="text" autocomplete="name" required minlength="2" maxlength="150" placeholder="Como te chamas?" data-auth-placeholder="fullNamePlaceholder" /></span>
+            </label>
+            <label class="auth-field">
+              <span data-auth-copy="handle">Nome de utilizador</span>
+              <span class="auth-input-wrap"><span class="input-prefix" aria-hidden="true">@</span><input name="handle" type="text" autocomplete="username" required minlength="3" maxlength="30" pattern="[a-zA-Z0-9._]+" placeholder="ex.: ana.mateus" data-auth-placeholder="handlePlaceholder" /></span>
+            </label>
+          </div>
+          <label class="auth-field">
+            <span data-auth-copy="email">Email</span>
+            <span class="auth-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg><input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@exemplo.com" data-auth-placeholder="emailPlaceholder" /></span>
+          </label>
+          <label class="auth-field">
+            <span data-auth-copy="accountType">Como te identificas?</span>
+            <span class="auth-input-wrap auth-select-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12M8 20v-6h8v6M8 10h.01M12 10h.01M16 10h.01"/></svg><select name="accountType" required><option value="student" data-auth-option="student">Estudante</option><option value="professor" data-auth-option="professor">Docente</option><option value="creator" data-auth-option="creator">Criador de conteúdo</option></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
+          </label>
+          <div class="auth-form-grid">
+            <label class="auth-field">
+              <span data-auth-copy="password">Palavra-passe</span>
+              <span class="auth-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input id="signup-password" name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128" placeholder="••••••••••••" /><button class="password-toggle" type="button" data-toggle-password="signup-password" aria-label="Mostrar palavra-passe" title="Mostrar palavra-passe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></button></span>
+              <small data-auth-copy="passwordHint">Usa pelo menos 12 caracteres.</small>
+            </label>
+            <label class="auth-field">
+              <span data-auth-copy="confirmPassword">Confirmar palavra-passe</span>
+              <span class="auth-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required minlength="12" maxlength="128" placeholder="••••••••••••" /></span>
+            </label>
+          </div>
+          <label class="auth-check auth-terms"><input type="checkbox" name="terms" required /><span class="auth-check-box"></span><span data-auth-copy="acceptTerms">Li e aceito os Termos de Utilização e a Política de Privacidade.</span></label>
+          <p class="auth-email-note auth-email-note--inline"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m5 7 7 6 7-6"/></svg><span data-auth-copy="emailNotice">Depois do registo, enviaremos uma mensagem para confirmares o teu email.</span></p>
+          <p class="auth-status" id="signup-status" role="status" aria-live="polite" hidden></p>
+          <button class="auth-submit" type="submit"><span data-auth-copy="signupButton">Criar a minha conta</span><span aria-hidden="true">→</span></button>
+        </form>
+
+        <div class="auth-switch"><span data-auth-copy="alreadyAccount">Já tens conta?</span> <a href="login.html" data-auth-copy="loginLink">Entrar</a></div>
+      </section>
+      <footer class="auth-panel-footer"><span>© <span id="current-year"></span> Impacta</span><span data-auth-copy="footerLine">Feita para aprender em comunidade.</span></footer>
+    </main>
+  </div>
+  <script src="../assets/js/i18n.js?v=2.2.0"></script>
+  <script src="../assets/js/i18n-overrides.js?v=2.2.0"></script>
+  <script src="../assets/js/auth-pages.js?v=2.2.0"></script>
+</body>
+</html>

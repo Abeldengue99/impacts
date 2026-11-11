@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-AO" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#39318f" />
+  <meta name="description" content="Entra na Impacta para aprender, partilhar e crescer com a tua comunidade." />
+  <title>Entrar | Impacta</title>
+  <link rel="icon" type="image/svg+xml" href="../public/icons/impacta-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/auth.css?v=2.2.0" />
+</head>
+<body class="auth-page" data-auth-page="login">
+  <div class="auth-layout">
+    <aside class="auth-visual" aria-label="Impacta">
+      <a class="auth-brand" href="index.html" aria-label="Impacta — página inicial">
+        <img src="../public/icons/impacta-logo.svg" alt="Impacta" />
+      </a>
+      <div class="auth-hero-copy">
+        <span class="auth-eyebrow"><span class="auth-eyebrow-dot"></span><span data-auth-copy="loginEyebrow">A tua comunidade de aprendizagem</span></span>
+        <h1 data-auth-copy="loginTitle">Aprende, partilha e cresce com a Impacta.</h1>
+        <p data-auth-copy="loginIntro">Encontra colegas, troca ideias e avança nos teus estudos, ao teu ritmo.</p>
+      </div>
+      <img class="auth-illustration" src="../assets/images/auth-learning.svg" alt="Estudante a aprender com materiais e ideias da comunidade" />
+      <div class="auth-benefits" aria-label="O que podes fazer na Impacta">
+        <div class="auth-benefit"><span class="auth-benefit-icon">↗</span><span data-auth-copy="benefitQuestions">Tira dúvidas com colegas</span></div>
+        <div class="auth-benefit"><span class="auth-benefit-icon">✦</span><span data-auth-copy="benefitMaterials">Encontra materiais de estudo</span></div>
+        <div class="auth-benefit"><span class="auth-benefit-icon">◎</span><span data-auth-copy="benefitProgress">Aprende ao teu ritmo</span></div>
+      </div>
+      <div class="auth-visual-footer"><span>IMPACTA</span><span data-auth-copy="tagline">Aprender · Partilhar · Evoluir</span></div>
+    </aside>
+
+    <main class="auth-panel">
+      <header class="auth-topbar">
+        <a class="auth-mobile-brand" href="index.html" aria-label="Impacta — página inicial"><img src="../public/icons/impacta-logo.svg" alt="Impacta" /></a>
+        <label class="language-select-wrap">
+          <span class="language-globe" aria-hidden="true">◎</span>
+          <span class="sr-only" data-auth-copy="language">Idioma</span>
+          <select id="language-picker" aria-label="Idioma">
+            <option value="pt-AO">Português (Angola)</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="auth-card" aria-labelledby="auth-title">
+        <div class="auth-card-heading">
+          <div class="auth-card-mark" aria-hidden="true"><img src="../public/icons/impacta-mark.svg" alt="" /></div>
+          <div>
+            <h2 id="auth-title" data-auth-copy="loginCardTitle">Bem-vindo de volta</h2>
+            <p data-auth-copy="loginCardText">Entra na tua conta para continuares.</p>
+          </div>
+        </div>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <label class="auth-field">
+            <span data-auth-copy="email">Email</span>
+            <span class="auth-input-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+              <input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@exemplo.com" data-auth-placeholder="emailPlaceholder" />
+            </span>
+          </label>
+          <label class="auth-field">
+            <span data-auth-copy="password">Palavra-passe</span>
+            <span class="auth-input-wrap">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="128" placeholder="Introduz a tua palavra-passe" data-auth-placeholder="passwordPlaceholder" />
+              <button class="password-toggle" type="button" data-toggle-password="login-password" aria-label="Mostrar palavra-passe" title="Mostrar palavra-passe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg></button>
+            </span>
+          </label>
+          <div class="auth-form-options">
+            <label class="auth-check"><input type="checkbox" name="remember" /><span class="auth-check-box"></span><span data-auth-copy="remember">Manter sessão iniciada</span></label>
+            <button type="button" class="auth-text-button" data-forgot-password data-auth-copy="forgot">Esqueceste-te da palavra-passe?</button>
+          </div>
+          <p class="auth-status" id="login-status" role="status" aria-live="polite" hidden></p>
+          <button class="auth-submit" type="submit"><span data-auth-copy="loginButton">Entrar</span><span aria-hidden="true">→</span></button>
+          <p class="auth-security-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><span data-auth-copy="privacy">A tua palavra-passe é protegida. Nunca a partilharemos.</span></p>
+        </form>
+
+        <div class="auth-switch"><span data-auth-copy="noAccount">Ainda não tens conta?</span> <a href="signup.html" data-auth-copy="createAccount">Criar conta</a></div>
+        <p class="auth-email-note" data-auth-copy="emailNotice">Depois do registo, enviaremos uma mensagem para confirmares o teu email.</p>
+      </section>
+      <footer class="auth-panel-footer"><span>© <span id="current-year"></span> Impacta</span><span data-auth-copy="footerLine">Feita para aprender em comunidade.</span></footer>
+    </main>
+  </div>
+  <script src="../assets/js/i18n.js?v=2.2.0"></script>
+  <script src="../assets/js/i18n-overrides.js?v=2.2.0"></script>
+  <script src="../assets/js/auth-pages.js?v=2.2.0"></script>
+</body>
+</html>

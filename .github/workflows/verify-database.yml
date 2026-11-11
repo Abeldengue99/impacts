@@ -57,11 +57,12 @@ jobs:
         env:
           PGPASSWORD: postgres_ci
         run: |
+          psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d postgres -f backend/database/provision-roles-pgadmin.sql
           psql -v ON_ERROR_STOP=1 -h localhost -U postgres -d postgres <<'SQL'
-          CREATE ROLE impacta_migrator LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'migration_ci';
-          CREATE ROLE impacta_app LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'app_ci';
-          CREATE ROLE impacta_auth LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'auth_ci';
-          CREATE ROLE impacta_media LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD 'media_ci';
+          ALTER ROLE impacta_migrator PASSWORD 'migration_ci';
+          ALTER ROLE impacta_app PASSWORD 'app_ci';
+          ALTER ROLE impacta_auth PASSWORD 'auth_ci';
+          ALTER ROLE impacta_media PASSWORD 'media_ci';
           CREATE DATABASE impacta_db OWNER impacta_migrator;
           SQL
 

@@ -88,8 +88,8 @@ window.ReelsModule = {
 
         <!-- Tabs overlay -->
         <div class="reels-tabs">
-          <div class="reels-tab ${index === 0 ? 'active' : ''}">For You</div>
-          <div class="reels-tab ${index !== 0 ? 'active' : ''}">Following</div>
+            <div class="reels-tab ${index === 0 ? 'active' : ''}">${window.I18n?.t('tabs.forYou') || 'Para ti'}</div>
+            <div class="reels-tab ${index !== 0 ? 'active' : ''}">${window.I18n?.t('tabs.following') || 'A seguir'}</div>
         </div>
 
         <!-- Overlay bottom -->
@@ -101,8 +101,8 @@ window.ReelsModule = {
               </div>
               <span class="reel-username">${reel.userName}</span>
               ${reel.verified ? `<span style="color:var(--color-accent-soft);font-size:12px;">✓</span>` : ''}
-              <button class="reel-follow-btn ${reel.following ? 'following' : ''}" aria-label="Follow ${reel.userName}">
-                ${reel.following ? 'Following' : 'Follow'}
+              <button class="reel-follow-btn ${reel.following ? 'following' : ''}" aria-label="${window.I18n?.t('ui.follow') || 'Seguir'} ${reel.userName}">
+                ${reel.following ? (window.I18n?.t('ui.following') || 'A seguir') : (window.I18n?.t('ui.follow') || 'Seguir')}
               </button>
             </div>
 
@@ -120,25 +120,25 @@ window.ReelsModule = {
 
           <!-- Sidebar actions -->
           <div class="reel-actions">
-            <div class="reel-action reel-action--like" data-reel-idx="${index}" aria-label="Like">
+            <div class="reel-action reel-action--like" data-reel-idx="${index}" aria-label="${window.I18n?.t('ui.like') || 'Gostar'}">
               ${ICONS.heart}
               <span>${reel.likes}</span>
             </div>
-            <div class="reel-action" aria-label="Comment">
+            <div class="reel-action" aria-label="${window.I18n?.t('ui.comment') || 'Comentar'}">
               ${ICONS.comment}
               <span>${reel.comments}</span>
             </div>
-            <div class="reel-action reel-action--bookmark" aria-label="Bookmark">
+            <div class="reel-action reel-action--bookmark" aria-label="${window.I18n?.t('ui.save') || 'Guardar'}">
               ${ICONS.bookmark}
               <span>${reel.bookmarks}</span>
             </div>
-            <div class="reel-action" aria-label="Share">
+            <div class="reel-action" aria-label="${window.I18n?.t('ui.share') || 'Partilhar'}">
               ${ICONS.share}
               <span>${reel.shares}</span>
             </div>
-            <div class="reel-action reel-action--download" data-reel-id="${reel.id}" data-reel-caption="${reel.caption}" aria-label="Baixar Vídeo">
+            <div class="reel-action reel-action--download" data-reel-id="${reel.id}" data-reel-caption="${reel.caption}" aria-label="${window.I18n?.t('ui.downloadVideo') || 'Transferir vídeo'}">
               ${ICONS.download}
-              <span>Baixar</span>
+              <span>${window.I18n?.t('ui.download') || 'Transferir'}</span>
             </div>
           </div>
         </div>

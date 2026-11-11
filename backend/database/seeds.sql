@@ -61,8 +61,8 @@ ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO communities (name, slug, description, category, visibility, is_official, status)
 VALUES
-    ('Sebentas & Recursos PDF', 'sebentas-recursos-pdf',
-     'Partilha de sebentas, resumos, exames resolvidos e recursos académicos.',
+    ('Materiais de Estudo & Recursos PDF', 'materiais-estudo-recursos-pdf',
+     'Partilha de materiais de estudo, resumos, exames resolvidos e outros recursos académicos.',
      'academic', 'public', FALSE, 'active'),
     ('Preparação para Exames Nacionais', 'exames-nacionais-angola',
      'Dúvidas, simulados e dicas para exames nacionais de acesso ao ensino superior.',

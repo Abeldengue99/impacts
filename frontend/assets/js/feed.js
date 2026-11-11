@@ -5,8 +5,17 @@
 window.FeedModule = {
 
   render() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
-      <div class="page-content">
+      <div class="page-content feed-page">
+        <header class="feed-intro">
+          <div>
+            <span class="feed-intro__eyebrow">IMPACTA <span>·</span> ${t('ui.community')}</span>
+            <h1>${t('ui.feedTitle')}</h1>
+            <p>${t('ui.feedSubtitle')}</p>
+          </div>
+          <button class="feed-intro__explore" type="button" data-action="go-search">${ICONS.search}<span>${t('ui.exploreTopics')}</span></button>
+        </header>
         ${this._renderTabs()}
         ${this._renderCreateBox()}
         <div id="feed-list">
@@ -20,8 +29,12 @@ window.FeedModule = {
     // Tab switching
     container.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        container.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         this._refreshFeed(container, btn.dataset.tab);
       });
     });
@@ -58,22 +71,33 @@ window.FeedModule = {
 
   _refreshFeed(container, tab) {
     const list = container.querySelector('#feed-list');
+    if (!list) return;
     list.style.opacity = '0';
     list.style.transform = 'translateY(8px)';
     list.style.transition = 'all 0.2s ease';
     setTimeout(() => {
+      let posts = [...IMPACTA_DATA.posts];
+      if (tab === 'following') {
+        const followed = new Set(IMPACTA_DATA.users.filter(user => user.followed).map(user => user.id));
+        posts = posts.filter(post => followed.has(post.userId));
+      } else if (tab === 'popular') {
+        posts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+      }
+      list.innerHTML = posts.map(post => this._renderPost(post)).join('');
+      window.I18n?.applyDOM(list);
       list.style.opacity = '1';
       list.style.transform = 'translateY(0)';
-    }, 200);
+    }, 160);
   },
 
   _renderTabs() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="foryou">For You</button>
-        <button class="tab-btn" data-tab="following">Following</button>
-        <button class="tab-btn" data-tab="popular">Popular</button>
-        <button class="tab-btn" data-tab="latest">Latest</button>
+      <div class="tabs feed-tabs" role="tablist" aria-label="${t('ui.feedFilters')}">
+        <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="foryou">${t('ui.forYou')}</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="following">${t('ui.following')}</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="popular">${t('ui.popular')}</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="latest">${t('ui.latest')}</button>
       </div>
     `;
   },
@@ -128,7 +152,7 @@ window.FeedModule = {
               <div class="post-card__user-meta">${post.userUni} · ${post.time}</div>
             </div>
           </div>
-          <button class="post-card__more" aria-label="More options">${ICONS.more}</button>
+          <button class="post-card__more" aria-label="${window.I18n?.t('ui.moreOptions') || 'Mais opções'}">${ICONS.more}</button>
         </div>
 
         <p class="post-card__content">${post.content.replace(/\n/g, '<br>')}</p>
@@ -143,23 +167,23 @@ window.FeedModule = {
 
         <div class="post-card__actions">
           <button class="post-action post-action--like ${post.liked ? 'liked' : ''}" 
-            data-action="like-post" aria-label="Like post">
+            data-action="like-post" aria-label="${window.I18n?.t('feed.like') || 'Gostar'}">
             ${post.liked ? ICONS.heartFill : ICONS.heart}
             <span class="action-count">${formatCount(post.likes)}</span>
           </button>
-          <button class="post-action" aria-label="Comment">
+          <button class="post-action" aria-label="${window.I18n?.t('feed.comment') || 'Comentar'}">
             ${ICONS.comment}
             <span class="action-count">${formatCount(post.comments)}</span>
           </button>
-          <button class="post-action" aria-label="Share">
+          <button class="post-action" aria-label="${window.I18n?.t('feed.share') || 'Partilhar'}">
             ${ICONS.share}
             <span class="action-count">${formatCount(post.shares)}</span>
           </button>
           <div class="post-action--spacer"></div>
           <button class="post-action post-action--bookmark ${post.saved ? 'saved' : ''}"
-            data-action="save-post" aria-label="Save post">
+            data-action="save-post" aria-label="${window.I18n?.t('feed.save') || 'Guardar'}">
             ${post.saved ? ICONS.bookmarkFill : ICONS.bookmark}
-            <span class="action-count">${post.saved ? 'Saved' : 'Save'}</span>
+            <span class="action-count">${post.saved ? window.I18n?.t('feed.saved') : window.I18n?.t('feed.save')}</span>
           </button>
         </div>
       </article>
@@ -167,12 +191,13 @@ window.FeedModule = {
   },
 
   _renderMedia(post) {
-    // ── Documento Académico / Sebenta PDF ──
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
+    // ── Material de estudo em PDF ──
     if (post.mediaType === 'pdf' || post.document || (post.mediaType === 'image' && post.mediaPlaceholder)) {
       const doc = post.document || {
-        title: post.mediaPlaceholder || 'Sebenta de Estudo Académico',
+        title: post.mediaPlaceholder || 'Material de estudo',
         subtitle: post.userUni || 'Material partilhado para preparação de exames',
-        filename: (post.mediaPlaceholder || 'Sebenta_Estudo_IMPACTA').replace(/\s+/g, '_') + '.pdf',
+        filename: (post.mediaPlaceholder || 'Material_Estudo_IMPACTA').replace(/\s+/g, '_') + '.pdf',
         pages: 36,
         size: '4.8 MB',
         downloads: 1420
@@ -189,19 +214,19 @@ window.FeedModule = {
               <h3 class="post-doc-title">${doc.title}</h3>
               <p class="post-doc-subtitle">${doc.subtitle}</p>
               <div class="post-doc-meta">
-                <span class="doc-meta-item">📄 ${doc.pages} páginas</span>
+                <span class="doc-meta-item">📄 ${doc.pages} ${t('ui.pages')}</span>
                 <span class="doc-meta-item">💾 ${doc.size}</span>
-                <span class="doc-meta-item">📥 <span class="doc-downloads-count">${formatCount(doc.downloads)}</span> downloads</span>
+                <span class="doc-meta-item">📥 <span class="doc-downloads-count">${formatCount(doc.downloads)}</span> ${t('ui.downloads')}</span>
               </div>
             </div>
           </div>
           <div class="post-doc-actions">
-            <button type="button" class="btn-doc-download" data-action="download-doc" data-doc-title="${doc.title}" data-filename="${doc.filename}" aria-label="Baixar sebenta">
+            <button type="button" class="btn-doc-download" data-action="download-doc" data-doc-title="${doc.title}" data-filename="${doc.filename}" aria-label="${t('ui.downloadMaterial')}">
               ${ICONS.download}
-              <span>Baixar Sebenta (${doc.size})</span>
+              <span>${t('ui.downloadMaterial')} (${doc.size})</span>
             </button>
-            <button type="button" class="btn-doc-preview" data-action="preview-doc" data-doc-title="${doc.title}" aria-label="Visualizar sebenta">
-              <span>👁️ Ler Online</span>
+            <button type="button" class="btn-doc-preview" data-action="preview-doc" data-doc-title="${doc.title}" aria-label="${t('ui.readOnline')}">
+              <span>👁️ ${t('ui.readOnline')}</span>
             </button>
           </div>
         </div>
@@ -223,7 +248,7 @@ window.FeedModule = {
         <div class="post-video-card" data-post-id="${post.id}">
           <div class="post-video-thumb" data-action="play-video" data-video-title="${vid.title}">
             <div class="post-video-overlay-gradient"></div>
-            <button type="button" class="post-video-play-btn" data-action="play-video" aria-label="Reproduzir vídeo">
+            <button type="button" class="post-video-play-btn" data-action="play-video" aria-label="${t('ui.playVideo')}">
               ${ICONS.play}
             </button>
             <span class="post-video-badge-duration">⏱️ ${vid.duration}</span>
@@ -234,9 +259,9 @@ window.FeedModule = {
               <div class="post-video-title">${vid.title}</div>
               <div class="post-video-meta">MP4 · ${vid.size} · <span class="video-downloads-count">${formatCount(vid.downloads)}</span> downloads</div>
             </div>
-            <button type="button" class="btn-video-download" data-action="download-video" data-video-title="${vid.title}" data-filename="${vid.filename}" aria-label="Baixar vídeo">
+            <button type="button" class="btn-video-download" data-action="download-video" data-video-title="${vid.title}" data-filename="${vid.filename}" aria-label="${t('ui.downloadVideo')}">
               ${ICONS.download}
-              <span>Baixar Vídeo</span>
+              <span>${t('ui.downloadVideo')}</span>
             </button>
           </div>
         </div>
@@ -247,8 +272,8 @@ window.FeedModule = {
     if (post.mediaType === 'image' && post.mediaUrl) {
       return `
         <div class="post-card__media">
-          <img src="${post.mediaUrl}" alt="Imagem do post" loading="lazy" />
-          <button type="button" class="btn-image-download" data-action="download-image" data-filename="imagem_impacta_${post.id}.jpg" title="Baixar imagem" aria-label="Baixar imagem">
+          <img src="${post.mediaUrl}" alt="${t('ui.postImageAlt')}" loading="lazy" />
+          <button type="button" class="btn-image-download" data-action="download-image" data-filename="imagem_impacta_${post.id}.jpg" title="${t('ui.downloadImage')}" aria-label="${t('ui.downloadImage')}">
             ${ICONS.download}
           </button>
         </div>
@@ -263,10 +288,10 @@ window.FeedModule = {
       }).join('');
       return `
         <div class="post-card__audio">
-          <button type="button" class="audio-play-btn" data-action="play-audio" aria-label="Ouvir áudio">${ICONS.play}</button>
+          <button type="button" class="audio-play-btn" data-action="play-audio" aria-label="${t('ui.playAudio')}">${ICONS.play}</button>
           <div class="audio-waveform">${bars}</div>
           <span class="audio-duration">${post.mediaDuration}</span>
-          <button type="button" class="btn-audio-download" data-action="download-audio" data-filename="aula_audio_${post.id}.mp3" title="Baixar áudio" aria-label="Baixar áudio">
+          <button type="button" class="btn-audio-download" data-action="download-audio" data-filename="aula_audio_${post.id}.mp3" title="${t('ui.downloadAudio')}" aria-label="${t('ui.downloadAudio')}">
             ${ICONS.download}
           </button>
         </div>

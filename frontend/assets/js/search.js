@@ -4,7 +4,7 @@
 
 window.SearchModule = {
 
-  query: 'Math',
+  query: '',
 
   render() {
     return `
@@ -25,7 +25,7 @@ window.SearchModule = {
       input.addEventListener('input', (e) => {
         this.query = e.target.value;
         const header = container.querySelector('#results-count');
-        if (header) header.textContent = this.query ? `${IMPACTA_DATA.searchResults.length} results` : '0 results';
+        if (header) header.textContent = `${IMPACTA_DATA.searchResults.length} ${window.I18n?.t('ui.results') || 'results'}`;
       });
     }
 
@@ -85,37 +85,40 @@ window.SearchModule = {
   },
 
   _renderSearchBar() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
       <div class="search-bar">
-        <button class="topbar__btn" style="margin-right:0;" onclick="App._navigate(App.previousPage || 'discover')" aria-label="Go back">
+        <button class="topbar__btn" style="margin-right:0;" onclick="App._navigate(App.previousPage || 'discover')" aria-label="${t('ui.back')}">
           ${ICONS.arrowLeft}
         </button>
         <div class="search-input-wrap" style="flex:1;">
           ${ICONS.search}
           <input type="text" class="search-input" id="search-input"
-            placeholder="Search..." value="${this.query}" aria-label="Search" />
-          <button class="search-clear" aria-label="Clear">${ICONS.close}</button>
+            placeholder="${t('ui.search')}..." value="${this.query}" aria-label="${t('ui.search')}" />
+          <button class="search-clear" aria-label="${t('ui.clear')}">${ICONS.close}</button>
         </div>
-        <button class="search-filter-btn" aria-label="Filter">${ICONS.filter}</button>
+        <button class="search-filter-btn" aria-label="${t('ui.filter')}">${ICONS.filter}</button>
       </div>
     `;
   },
 
   _renderResultsHeader() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
       <div class="search-results-header">
-        <span class="search-results-count">Search Results · <strong id="results-count">${IMPACTA_DATA.searchResults.length} results</strong></span>
+        <span class="search-results-count">${t('ui.searchResults')} · <strong id="results-count">${IMPACTA_DATA.searchResults.length} ${t('ui.results')}</strong></span>
       </div>
     `;
   },
 
   _renderTabs() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
       <div class="tabs">
-        <button class="tab-btn active">All</button>
-        <button class="tab-btn">Posts</button>
-        <button class="tab-btn">Users</button>
-        <button class="tab-btn">Communities</button>
+        <button class="tab-btn active">${t('ui.all')}</button>
+        <button class="tab-btn">${t('ui.posts')}</button>
+        <button class="tab-btn">${t('ui.people')}</button>
+        <button class="tab-btn">${t('ui.communityPlural')}</button>
       </div>
     `;
   },
@@ -125,6 +128,7 @@ window.SearchModule = {
   },
 
   _renderResult(result) {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     if (result.type === 'video') {
       return `
         <div class="video-card">
@@ -134,9 +138,9 @@ window.SearchModule = {
           </div>
           <div class="video-card__info">
             <div class="video-card__title">${result.title}</div>
-            <div class="video-card__meta">By ${result.author} · ${result.meta}</div>
+            <div class="video-card__meta">${t('ui.by')} ${result.author} · ${result.meta}</div>
           </div>
-          <button class="video-card__bookmark" aria-label="Bookmark">${ICONS.bookmark}</button>
+          <button class="video-card__bookmark" aria-label="${t('ui.save')}">${ICONS.bookmark}</button>
         </div>
       `;
     }
@@ -153,7 +157,7 @@ window.SearchModule = {
           </div>
           <button class="btn btn--sm btn--primary ${result.followed ? 'btn--joined following' : ''}"
             data-action="follow-user">
-            ${result.followed ? 'Following' : 'Follow'}
+            ${result.followed ? t('ui.unfollow') : t('ui.follow')}
           </button>
         </div>
       `;
@@ -171,7 +175,7 @@ window.SearchModule = {
           </div>
           <button class="btn btn--sm btn--primary ${result.joined ? 'btn--joined' : ''}"
             data-action="join-community">
-            ${result.joined ? 'Joined' : 'Join'}
+            ${result.joined ? t('ui.joined') : t('ui.join')}
           </button>
         </div>
       `;

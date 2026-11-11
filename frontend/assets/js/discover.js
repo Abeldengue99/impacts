@@ -139,13 +139,14 @@ window.DiscoverModule = {
   },
 
   _renderJoinBanner() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
-      <div class="join-banner" data-action="go-communities" role="button" tabindex="0" aria-label="Join study community">
+      <div class="join-banner" data-action="go-communities" role="button" tabindex="0" aria-label="${t('discover.joinCommunityTitle')}">
         <div class="join-banner__left">
           <div class="join-banner__icon">🏆</div>
           <div>
-            <div class="join-banner__text">Join Our Study Community</div>
-            <div class="join-banner__sub">Ask · Share · Learn Together</div>
+            <div class="join-banner__text">${t('discover.joinCommunityTitle')}</div>
+            <div class="join-banner__sub">${t('discover.joinCommunitySub')}</div>
           </div>
         </div>
         <div class="join-banner__arrow">${ICONS.arrow}</div>
