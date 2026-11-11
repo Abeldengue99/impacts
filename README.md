@@ -94,39 +94,29 @@ Aceda via servidor local (XAMPP / Apache):
 http://localhost/Impactaa/frontend/pages/index.html
 ```
 
-### 2. Preparar o PostgreSQL
+### 2. Preparar o PostgreSQL local
 
-> **Usas pgAdmin?** Segue [docs/PGADMIN_SETUP.md](docs/PGADMIN_SETUP.md). Cria primeiro os quatro papéis e executa as migrações com `npm run migrate`; não abras `001_initial.sql` directamente no Query Tool.
+> **No pgAdmin:** segue o [passo a passo completo](docs/PGADMIN_SETUP.md). Para desenvolvimento, usa uma base local chamada `impacta_local`. A base de produção `impacta_production` fica separada e só será preparada depois de validarmos o ambiente local.
 
-1. Como administrador do PostgreSQL, crie os quatro papéis com senhas pedidas interactivamente:
+1. No Query Tool ligado à base `postgres`, executa `backend/database/provision-roles-pgadmin.sql`. Depois define uma password forte e diferente para cada papel: `impacta_migrator`, `impacta_app`, `impacta_auth` e `impacta_media`. Estes papéis têm de existir antes de executar o esquema — isso evita o erro `role "impacta_auth" does not exist`.
+2. No pgAdmin, cria a base `impacta_local` com `impacta_migrator` como proprietário. Se já existir uma base com esse nome, confirma primeiro o estado com `backend/database/diagnose-pgadmin.sql`; não apagues nem voltes a executar o instalador sem verificar.
+3. Liga o Query Tool à nova base como `postgres` e executa `backend/database/secure-database.sql`.
+4. Copia `backend/.env.example` para `backend/.env` e preenche as credenciais locais. Não publiques nem envies esse ficheiro; não coloques passwords em mensagens ou comandos guardados no histórico.
+5. Liga o Query Tool à base `impacta_local` como `impacta_migrator` e executa `backend/database/schema.sql` **uma única vez numa base vazia**. O ficheiro é gerado a partir das migrations e inclui os privilégios e dados de referência.
+6. Para confirmar que as credenciais e a ligação estão correctas, abre um terminal na pasta `backend` e executa:
    ```bash
-   psql -U postgres -d postgres -f backend/database/provision-roles.sql
-   ```
-2. Crie uma base de dados nova, propriedade do utilizador de migração:
-   ```sql
-   CREATE DATABASE impacta_db OWNER impacta_migrator;
-   ```
-3. Como administrador, feche o acesso publico ao schema `public` e reserve a criacao de objectos ao migrator:
-   ```bash
-   psql -U postgres -d impacta_db -f backend/database/secure-database.sql
-   ```
-4. Copie `backend/.env.example` para `backend/.env` e preencha as credenciais locais. Nunca publique esse ficheiro.
-5. Aplique as migrações a partir de `backend/`:
-   ```bash
+   npm ci
    npm run migrate
    ```
-6. Conceda à aplicação apenas os acessos explicitamente listados:
-   ```bash
-   psql -U impacta_migrator -d impacta_db -f database/grant-runtime.sql
-   ```
-7. Opcionalmente, carregue instituições e comunidades de demonstração:
-   ```bash
-   psql -U impacta_migrator -d impacta_db -f database/seeds.sql
-   ```
+   O runner liga-se como `impacta_migrator`, confere o histórico e aplica apenas migrations ainda não executadas. Não abras `001_initial.sql` directamente no Query Tool.
 
-`schema.sql` foi desactivado porque a versão anterior apagava tabelas. Em bases de dados antigas sem histórico de migrações, o runner pára sem alterar dados; é necessário fazer uma cópia de segurança e preparar uma migração de compatibilidade antes de continuar. Os seeds não criam utilizadores nem palavras-passe.
+Se a instalação já tiver sido tentada numa base existente e falhado, segue primeiro [o diagnóstico do pgAdmin](docs/PGADMIN_SETUP.md#se-a-migração-directa-já-falhou). Não voltes a executar `schema.sql` nessa base sem confirmar o estado. Os dados de referência em `seeds.sql` são apenas instituições e comunidades; não criam contas nem palavras-passe.
 
-Os pools de runtime, autenticacao e analise de ficheiros estao preparados, mas os endpoints da API ainda nao os utilizam.
+Os pools de runtime, autenticacao e analise de ficheiros estao preparados, mas os endpoints da API ainda nao os utilizam. O `npm run migrate` confirma a ligação à base; neste momento, `/api/health` confirma apenas que o servidor Node está activo.
+
+Depois de confirmar a ligação local, cria a conta principal e as cinco publicações iniciais com `npm run bootstrap:admin` dentro de `backend`. O comando pede a nova password no terminal; escolhe uma nova e não a envies por mensagem.
+
+O feed ainda lê publicações e perfis de demonstração de `frontend/assets/js/data.js`. Instalar a base não troca esses dados automaticamente. Para usar dados reais, falta ligar os endpoints da API à base e substituir no frontend as leituras de `IMPACTA_DATA` pelas respostas desses endpoints.
 
 RLS protege perfis privados, comunidades, publicacoes, mensagens e dados de moderacao. Endpoints autenticados devem usar `withUserTransaction(userId, callback)` de `config/db.js` para definir o contexto da sessao; consultas sem contexto recebem apenas dados publicos. Os endpoints ainda nao estao ligados aos pools.
 
