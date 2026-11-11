@@ -1,189 +1,125 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-AO" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Aprende e partilha conhecimento com estudantes e docentes de Angola e de outros países." />
-  <meta name="keywords" content="educacao, angola, luanda, uan, ucan, isptec, isutic, materiais de estudo, faculdade, aprendizagem, edtech" />
-  <meta name="author" content="Impacta" />
-
-  <!-- PWA / Mobile -->
-  <meta name="theme-color" content="#5B4BDB" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Impacta" />
-  <meta name="application-name" content="Impacta" />
-  <meta name="msapplication-TileColor" content="#5B4BDB" />
-  <meta name="format-detection" content="telephone=no" />
-
-  <!-- Open Graph -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="Impacta — Aprende em comunidade" />
-  <meta property="og:description" content="Aprender, partilhar e evoluir. Uma comunidade para quem gosta de aprender." />
-  <meta property="og:image"       content="../public/icons/impacta-mark.svg" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Impacta — Aprende em comunidade" />
-  <meta name="twitter:description" content="Liga-te a colegas, troca ideias e encontra materiais de estudo." />
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#382f91" />
+  <meta name="description" content="Na Impacta, estudantes, docentes e criadores aprendem e partilham conhecimento em comunidade." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Impacta — Aprender em comunidade" />
+  <meta property="og:description" content="Um lugar para aprender. Uma comunidade para avançar." />
+  <meta property="og:image" content="../public/icons/impacta-mark.svg" />
   <title>Impacta — Aprender em comunidade</title>
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ PWA Manifest Ã¢â€â‚¬Ã¢â€â‚¬ -->
   <link rel="manifest" href="../public/manifest.json" />
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Apple Touch Icons Ã¢â€â‚¬Ã¢â€â‚¬ -->
-  <link rel="apple-touch-icon" sizes="180x180" href="../public/icons/impacta-mark.svg" />
-  <link rel="apple-touch-icon" sizes="152x152" href="../public/icons/impacta-mark.svg" />
-  <link rel="apple-touch-icon" sizes="120x120" href="../public/icons/impacta-mark.svg" />
   <link rel="icon" type="image/svg+xml" href="../public/icons/impacta-mark.svg" />
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Fonts (preconnect) Ã¢â€â‚¬Ã¢â€â‚¬ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ CSS Ã¢â€â‚¬Ã¢â€â‚¬ -->
-  <link rel="stylesheet" href="../assets/css/variables.css?v=2.2.0" />
-  <link rel="stylesheet" href="../assets/css/base.css?v=2.2.0" />
-  <link rel="stylesheet" href="../assets/css/layout.css?v=2.2.0" />
-  <link rel="stylesheet" href="../assets/css/components.css?v=2.2.0" />
-  <link rel="stylesheet" href="../assets/css/responsive.css?v=2.2.0" />
-  <link rel="stylesheet" href="../assets/css/visual-refresh.css?v=2.3.1" />
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Critical inline styles Ã¢â€â‚¬Ã¢â€â‚¬ -->
-  <style>
-    body { background: #EDE9FF; }
-
-    @supports (padding-top: env(safe-area-inset-top)) {
-      .topbar {
-        padding-top: env(safe-area-inset-top);
-        height: calc(60px + env(safe-area-inset-top));
-      }
-      .pages-container {
-        padding-top: calc(60px + env(safe-area-inset-top));
-      }
-    }
-
-    html, body { overscroll-behavior: none; }
-
-    @media (min-width: 1024px) {
-      body::before, body::after { display: none; }
-    }
-
-    button:focus-visible, a:focus-visible, input:focus-visible {
-      outline: 2px solid #5B4BDB;
-      outline-offset: 2px;
-    }
-
-    .page { animation: fadeIn 0.22s ease; }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/visitor.css?v=2.4.0" />
 </head>
-
-<body>
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ App Root Ã¢â€â‚¬Ã¢â€â‚¬ -->
-  <div id="app">
-
-    <!-- Loading Splash -->
-    <div id="loading-screen" aria-hidden="true" style="
-      position: fixed; inset: 0;
-      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 20px; z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    ">
-      <div style="background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-radius: 24px; padding: 14px 28px; box-shadow: 0 16px 40px rgba(0,0,0,0.3); animation: pulse 1.8s ease infinite;">
-        <img src="../public/icons/impacta-logo.svg" alt="Impacta" style="height: 56px; width: auto; object-fit: contain; display: block;" />
-      </div>
-
-      <div style="text-align:center;">
-        <div style="
-          font-size:12px; color:rgba(255,255,255,0.8);
-          font-family:'Inter',sans-serif; font-weight:600;
-          letter-spacing:2px; text-transform:uppercase; margin-top:4px;
-        ">Angola Ã‚Â· Global Learning</div>
-      </div>
-
-      <div style="
-        font-size:13px; color:rgba(255,255,255,0.65);
-        font-family:'Inter',sans-serif;
-      ">Aprender Ã‚Â· Partilhar Ã‚Â· Conectar Ã‚Â· Evoluir</div>
-
-      <!-- Progress bar -->
-      <div style="width:140px;height:3px;background:rgba(255,255,255,0.2);border-radius:99px;overflow:hidden;margin-top:4px;">
-        <div id="loader-bar" style="height:100%;width:0%;background:white;border-radius:99px;transition:width 0.6s ease;"></div>
-      </div>
+<body class="visitor-page">
+  <header class="visitor-header">
+    <a class="visitor-brand" href="index.html" aria-label="Impacta — página inicial">
+      <img src="../public/icons/impacta-logo.svg" alt="Impacta" />
+    </a>
+    <nav class="visitor-nav" aria-label="Navegação principal">
+      <a href="#como-funciona" data-visitor-copy="howItWorks">Como funciona</a>
+      <a href="community.html" data-visitor-copy="explore">Explorar</a>
+    </nav>
+    <div class="visitor-actions">
+      <label class="visitor-language">
+        <span class="sr-only" data-visitor-copy="language">Idioma</span>
+        <select id="visitor-language" aria-label="Idioma">
+          <option value="pt-AO">PT-AO</option>
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+        </select>
+      </label>
+      <a class="visitor-login" href="login.html" data-visitor-copy="login">Entrar</a>
+      <a class="visitor-create visitor-create--small" href="signup.html" data-visitor-copy="createAccount">Criar conta</a>
     </div>
+  </header>
 
-  </div><!-- #app -->
+  <main>
+    <section class="visitor-hero" aria-labelledby="visitor-title">
+      <div class="visitor-hero-copy">
+        <p class="visitor-kicker"><span></span><span data-visitor-copy="kicker">Feita em Angola. Aberta ao mundo.</span></p>
+        <h1 id="visitor-title">
+          <span data-visitor-copy="titleLine1">O teu próximo passo</span>
+          <span class="visitor-title-accent" data-visitor-copy="titleLine2">começa em comunidade.</span>
+        </h1>
+        <p class="visitor-lead" data-visitor-copy="intro">Aprende com outras pessoas, partilha o que sabes e encontra novas formas de avançar nos teus estudos.</p>
+        <div class="visitor-hero-actions">
+          <a class="visitor-create" href="signup.html"><span data-visitor-copy="createAccount">Criar conta</span><span aria-hidden="true">→</span></a>
+        <a class="visitor-secondary" href="login.html" data-visitor-copy="loginCta">Já tenho conta</a>
+        </div>
+        <p class="visitor-note" data-visitor-copy="freeNote">Junta-te à comunidade e começa ao teu ritmo.</p>
+        <div class="visitor-audience" aria-label="Para quem é a Impacta">
+          <span data-visitor-copy="students">Estudantes</span>
+          <i></i>
+          <span data-visitor-copy="teachers">Docentes</span>
+          <i></i>
+          <span data-visitor-copy="creators">Criadores</span>
+        </div>
+      </div>
 
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Scripts (i18n -> dados -> offline -> componentes -> app) Ã¢â€â‚¬Ã¢â€â‚¬ -->
+      <div class="visitor-hero-visual" data-visitor-aria="visualAlt" aria-label="Uma estudante a aprender e a partilhar conhecimento">
+        <div class="visitor-visual-ring visitor-visual-ring--one"></div>
+        <div class="visitor-visual-ring visitor-visual-ring--two"></div>
+        <div class="visitor-visual-label visitor-visual-label--top">
+          <span data-visitor-copy="visualTop">Ideias que aproximam</span>
+        </div>
+        <img class="visitor-illustration" src="../assets/images/auth-learning.svg" alt="" />
+        <div class="visitor-visual-label visitor-visual-label--bottom">
+          <span class="visitor-label-dot"></span>
+          <span data-visitor-copy="visualBottom">Aprender. Partilhar. Avançar.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="visitor-features" id="como-funciona" aria-labelledby="visitor-features-title">
+      <div class="visitor-section-heading">
+        <p class="visitor-section-kicker" data-visitor-copy="featuresKicker">Uma comunidade feita para aprender</p>
+        <h2 id="visitor-features-title" data-visitor-copy="featuresTitle">O conhecimento cresce quando é partilhado.</h2>
+      </div>
+      <div class="visitor-feature-grid">
+        <article class="visitor-feature-card visitor-feature-card--highlight">
+          <span class="visitor-feature-number">01</span>
+          <h3 data-visitor-copy="featureOneTitle">Tira dúvidas</h3>
+          <p data-visitor-copy="featureOneBody">Faz perguntas, explica o teu raciocínio e aprende com as respostas de quem está a estudar contigo.</p>
+        </article>
+        <article class="visitor-feature-card">
+          <span class="visitor-feature-number">02</span>
+          <h3 data-visitor-copy="featureTwoTitle">Partilha o que sabes</h3>
+          <p data-visitor-copy="featureTwoBody">Apontamentos, ideias e experiências podem ajudar alguém a dar o próximo passo.</p>
+        </article>
+        <article class="visitor-feature-card">
+          <span class="visitor-feature-number">03</span>
+          <h3 data-visitor-copy="featureThreeTitle">Encontra a tua comunidade</h3>
+          <p data-visitor-copy="featureThreeBody">Liga-te a pessoas com os mesmos interesses, cursos e objectivos de aprendizagem.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="visitor-join">
+      <div>
+        <p class="visitor-section-kicker" data-visitor-copy="joinKicker">O teu lugar é aqui</p>
+        <h2 data-visitor-copy="joinTitle">Cada ideia pode abrir um novo caminho.</h2>
+        <p data-visitor-copy="joinBody">Cria a tua conta e começa a aprender com pessoas de Angola e de outros lugares.</p>
+      </div>
+      <a class="visitor-create visitor-create--light" href="signup.html"><span data-visitor-copy="createAccount">Criar conta</span><span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="visitor-footer">
+    <a class="visitor-footer-brand" href="index.html"><img src="../public/icons/impacta-mark.svg" alt="" /><span>Impacta</span></a>
+    <p data-visitor-copy="footerLine">Aprender em conjunto. Avançar em comunidade.</p>
+    <a href="community.html" data-visitor-copy="exploreCommunity">Conhecer a comunidade</a>
+    <span class="visitor-copyright">© <span id="visitor-year"></span> Impacta</span>
+  </footer>
+
   <script src="../assets/js/i18n.js?v=2.2.0"></script>
-  <script src="../assets/js/i18n-overrides.js?v=2.3.1"></script>
-  <script src="../assets/js/data.js?v=2.1.2"></script>
-  <script src="../assets/js/admin-feed-preview.js?v=2.3.1"></script>
-  <script src="../assets/js/offline-storage.js?v=2.1.2"></script>
-  <script src="../assets/js/interactions.js?v=2.1.2"></script>
-  <script src="../assets/js/feed.js?v=2.3.1"></script>
-  <script src="../assets/js/reels.js?v=2.1.2"></script>
-  <script src="../assets/js/discover.js?v=2.1.2"></script>
-  <script src="../assets/js/communities.js?v=2.1.2"></script>
-  <script src="../assets/js/users.js?v=2.1.2"></script>
-  <script src="../assets/js/inbox.js?v=2.1.2"></script>
-  <script src="../assets/js/profile.js?v=2.3.1"></script>
-  <script src="../assets/js/search.js?v=2.1.2"></script>
-  <script src="../assets/js/app.js?v=2.3.0"></script>
-
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Inline bootstrap: splash + SW Ã¢â€â‚¬Ã¢â€â‚¬ -->
-  <script>
-    (function () {
-      'use strict';
-
-      const bar    = document.getElementById('loader-bar');
-      const screen = document.getElementById('loading-screen');
-
-      if (bar) {
-        setTimeout(() => { bar.style.width = '40%'; }, 80);
-        setTimeout(() => { bar.style.width = '75%'; }, 400);
-        setTimeout(() => { bar.style.width = '95%'; }, 800);
-      }
-
-      const dismissLoader = () => {
-        if (bar) bar.style.width = '100%';
-        setTimeout(() => {
-          if (screen) {
-            screen.style.opacity = '0';
-            screen.style.visibility = 'hidden';
-            setTimeout(() => screen?.remove(), 500);
-          }
-        }, 250);
-      };
-
-      if (document.readyState === 'complete') {
-        setTimeout(dismissLoader, 600);
-      } else {
-        window.addEventListener('load', () => setTimeout(dismissLoader, 300));
-      }
-
-      // Registro do Service Worker PWA
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/Impactaa/frontend/sw.js', {
-            scope: '/Impactaa/',
-          }).then(reg => {
-            reg.update();
-          }).catch(err => {
-            console.log('[IMPACTA SW] Info:', err);
-          });
-        });
-      }
-    })();
-  </script>
-
+  <script src="../assets/js/i18n-overrides.js?v=2.4.0"></script>
+  <script src="../assets/js/visitor-page.js?v=2.4.0"></script>
 </body>
 </html>
-
-

@@ -3,9 +3,10 @@
    Version: 1.0.0
    ============================================================ */
 
-const CACHE_NAME    = 'impacta-v2.3.1';
+const CACHE_NAME    = 'impacta-v2.4.0';
 const STATIC_ASSETS = [
   '/Impactaa/frontend/pages/index.html',
+  '/Impactaa/frontend/pages/community.html',
   '/Impactaa/frontend/pages/login.html',
   '/Impactaa/frontend/pages/signup.html',
   '/Impactaa/frontend/assets/css/variables.css',
@@ -14,6 +15,7 @@ const STATIC_ASSETS = [
   '/Impactaa/frontend/assets/css/components.css',
   '/Impactaa/frontend/assets/css/responsive.css',
   '/Impactaa/frontend/assets/css/visual-refresh.css?v=2.3.1',
+  '/Impactaa/frontend/assets/css/visitor.css?v=2.4.0',
   '/Impactaa/frontend/assets/css/auth.css?v=2.3.0',
   '/Impactaa/frontend/assets/images/auth-learning.svg',
   '/Impactaa/frontend/assets/js/data.js',
@@ -21,7 +23,8 @@ const STATIC_ASSETS = [
   '/Impactaa/frontend/assets/js/offline-storage.js',
   '/Impactaa/frontend/assets/js/app.js?v=2.3.0',
   '/Impactaa/frontend/assets/js/i18n.js',
-  '/Impactaa/frontend/assets/js/i18n-overrides.js?v=2.3.1',
+  '/Impactaa/frontend/assets/js/i18n-overrides.js?v=2.4.0',
+  '/Impactaa/frontend/assets/js/visitor-page.js?v=2.4.0',
   '/Impactaa/frontend/assets/js/auth-pages.js?v=2.3.0',
   '/Impactaa/frontend/assets/js/feed.js?v=2.3.1',
   '/Impactaa/frontend/assets/js/reels.js',

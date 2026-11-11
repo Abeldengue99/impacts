@@ -42,14 +42,14 @@
       "name": "Início",
       "short_name": "Início",
       "description": "Abre o feed da comunidade",
-      "url": "/Impactaa/frontend/pages/index.html#home",
+      "url": "/Impactaa/frontend/pages/community.html#home",
       "icons": [{ "src": "../public/icons/impacta-mark.svg", "sizes": "96x96" }]
     },
     {
       "name": "Explorar",
       "short_name": "Explorar",
       "description": "Encontra conteúdos e comunidades",
-      "url": "/Impactaa/frontend/pages/index.html#discover",
+      "url": "/Impactaa/frontend/pages/community.html#discover",
       "icons": [{ "src": "../public/icons/impacta-mark.svg", "sizes": "96x96" }]
     }
   ]

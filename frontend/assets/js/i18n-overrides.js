@@ -723,6 +723,63 @@
     }
   };
 
+  const visitorCopy = {
+    'pt-AO': {
+      metaTitle: 'Impacta — aprender em comunidade',
+      metaDescription: 'Na Impacta, estudantes, docentes e criadores aprendem e partilham conhecimento em comunidade.',
+      language: 'Idioma', howItWorks: 'Como funciona', explore: 'Explorar', login: 'Entrar', loginCta: 'Já tenho conta',
+      createAccount: 'Criar conta', kicker: 'Feita em Angola. Aberta ao mundo.',
+      titleLine1: 'O teu próximo passo', titleLine2: 'começa em comunidade.',
+      intro: 'Aprende com outras pessoas, partilha o que sabes e encontra novas formas de avançar nos teus estudos.',
+      freeNote: 'Junta-te à comunidade e começa ao teu ritmo.', students: 'Estudantes', teachers: 'Docentes', creators: 'Criadores',
+      visualAlt: 'Uma estudante a aprender e a partilhar conhecimento', visualTop: 'Ideias que aproximam', visualBottom: 'Aprender. Partilhar. Avançar.',
+      featuresKicker: 'Uma comunidade feita para aprender', featuresTitle: 'O conhecimento cresce quando é partilhado.',
+      featureOneTitle: 'Tira dúvidas', featureOneBody: 'Faz perguntas, explica o teu raciocínio e aprende com as respostas de quem está a estudar contigo.',
+      featureTwoTitle: 'Partilha o que sabes', featureTwoBody: 'Apontamentos, ideias e experiências podem ajudar alguém a dar o próximo passo.',
+      featureThreeTitle: 'Encontra a tua comunidade', featureThreeBody: 'Liga-te a pessoas com os mesmos interesses, cursos e objectivos de aprendizagem.',
+      joinKicker: 'O teu lugar é aqui', joinTitle: 'Cada ideia pode abrir um novo caminho.',
+      joinBody: 'Cria a tua conta e começa a aprender com pessoas de Angola e de outros lugares.',
+      footerLine: 'Aprender em conjunto. Avançar em comunidade.', exploreCommunity: 'Conhecer a comunidade'
+    },
+    en: {
+      metaTitle: 'Impacta — learn together',
+      metaDescription: 'Impacta brings students, teachers and creators together to learn and share knowledge.',
+      language: 'Language', howItWorks: 'How it works', explore: 'Explore', login: 'Log in', loginCta: 'I already have an account',
+      createAccount: 'Create an account', kicker: 'Made in Angola. Open to the world.',
+      titleLine1: 'Your next step', titleLine2: 'starts with community.',
+      intro: 'Learn with others, share what you know and find new ways to move forward in your studies.',
+      freeNote: 'Join the community and learn at your own pace.', students: 'Students', teachers: 'Teachers', creators: 'Creators',
+      visualAlt: 'A student learning and sharing knowledge', visualTop: 'Ideas bring us closer', visualBottom: 'Learn. Share. Move forward.',
+      featuresKicker: 'A community built for learning', featuresTitle: 'Knowledge grows when it is shared.',
+      featureOneTitle: 'Ask questions', featureOneBody: 'Ask questions, explain your thinking and learn from people studying alongside you.',
+      featureTwoTitle: 'Share what you know', featureTwoBody: 'Notes, ideas and experience can help someone take their next step.',
+      featureThreeTitle: 'Find your community', featureThreeBody: 'Meet people with the same interests, courses and learning goals.',
+      joinKicker: 'There is a place for you here', joinTitle: 'One idea can open a new path.',
+      joinBody: 'Create an account and start learning with people in Angola and beyond.',
+      footerLine: 'Learn together. Move forward as a community.', exploreCommunity: 'Meet the community'
+    },
+    fr: {
+      metaTitle: 'Impacta — apprendre ensemble',
+      metaDescription: 'Impacta réunit étudiants, enseignants et créateurs pour apprendre et partager leurs connaissances.',
+      language: 'Langue', howItWorks: 'Comment ça marche', explore: 'Découvrir', login: 'Se connecter', loginCta: 'J’ai déjà un compte',
+      createAccount: 'Créer un compte', kicker: 'Née en Angola. Ouverte au monde.',
+      titleLine1: 'La prochaine étape', titleLine2: 'se construit ensemble.',
+      intro: 'Apprends avec les autres, partage tes connaissances et trouve de nouvelles façons d’avancer dans tes études.',
+      freeNote: 'Rejoins la communauté et avance à ton rythme.', students: 'Étudiants', teachers: 'Enseignants', creators: 'Créateurs',
+      visualAlt: 'Une étudiante apprend et partage ses connaissances', visualTop: 'Les idées nous rapprochent', visualBottom: 'Apprendre. Partager. Avancer.',
+      featuresKicker: 'Une communauté pour apprendre', featuresTitle: 'Le savoir grandit quand on le partage.',
+      featureOneTitle: 'Pose tes questions', featureOneBody: 'Pose des questions, explique ton raisonnement et apprends avec les personnes qui étudient avec toi.',
+      featureTwoTitle: 'Partage tes connaissances', featureTwoBody: 'Des notes, des idées et de l’expérience peuvent aider quelqu’un à avancer.',
+      featureThreeTitle: 'Trouve ta communauté', featureThreeBody: 'Rencontre des personnes qui partagent tes intérêts, tes cours et tes objectifs.',
+      joinKicker: 'Ta place est ici', joinTitle: 'Une idée peut ouvrir un nouveau chemin.',
+      joinBody: 'Crée un compte et apprends avec des personnes en Angola et ailleurs.',
+      footerLine: 'Apprendre ensemble. Avancer en communauté.', exploreCommunity: 'Découvrir la communauté'
+    }
+  };
+  Object.entries(visitorCopy).forEach(([lang, values]) => {
+    copy[lang].visitor = { ...copy[lang].visitor, ...values };
+  });
+
   const profileCopy = {
     'pt-AO': {
       profileEmptyPosts: 'Ainda não partilhaste publicações.',
