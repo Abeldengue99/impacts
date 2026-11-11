@@ -22,10 +22,20 @@ class ImpactaApp {
 
   init() {
     this._buildShell();
+    document.querySelectorAll('[data-set-lang="zh"], [data-settings-lang="zh"]').forEach(el => el.remove());
     this._initModules();
     this._navigate('home');
     this._bindGlobal();
     this._setupTopbarScroll();
+    window.I18n?.applyDOM(document.body);
+    if (window.I18n && window.MutationObserver) {
+      this._languageObserver = new MutationObserver(records => {
+        records.forEach(record => record.addedNodes.forEach(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) window.I18n.applyDOM(node);
+        }));
+      });
+      this._languageObserver.observe(document.getElementById('app'), { childList: true, subtree: true });
+    }
 
     // Evento de troca de idioma
     window.addEventListener('impacta:langchange', () => {
@@ -37,6 +47,7 @@ class ImpactaApp {
         delete container.dataset.rendered;
         this._renderPage(this.currentPage, container);
       }
+      window.I18n?.applyDOM(document.body);
     });
   }
 
@@ -54,7 +65,7 @@ class ImpactaApp {
         <aside class="desktop-left-col">
           <div class="desktop-nav-card">
             <div class="desktop-logo" data-nav="home">
-              <img src="../assets/images/logo.jpg" alt="IMPACTA" class="desktop-logo__img" />
+              <img src="../public/icons/impacta-logo.svg" alt="Impacta" class="desktop-logo__img" />
             </div>
 
             <nav class="desktop-menu-list">
@@ -181,7 +192,7 @@ class ImpactaApp {
               <div class="desktop-trend-item" data-action="go-search">
                 <span class="desktop-trend-topic">Engenharia & Ciências</span>
                 <span class="desktop-trend-name">#CalculoDiferencial</span>
-                <span class="desktop-trend-meta">9.2K sebentas partilhadas</span>
+                <span class="desktop-trend-meta">9,2 mil materiais partilhados</span>
               </div>
               <div class="desktop-trend-item" data-action="go-search">
                 <span class="desktop-trend-topic">Instituto Superior ISPTEC</span>
@@ -240,7 +251,7 @@ class ImpactaApp {
     return `
       <header class="topbar" id="topbar">
         <div class="topbar__logo" id="topbar-logo">
-          <img src="../assets/images/logo.jpg" alt="IMPACTA" class="topbar__logo-img" />
+          <img src="../public/icons/impacta-logo.svg" alt="Impacta" class="topbar__logo-img" />
         </div>
         <button class="topbar__btn" id="topbar-back" style="display:none" aria-label="Voltar">
           ${ICONS.arrowLeft}
@@ -568,7 +579,7 @@ class ImpactaApp {
 
             <!-- Secção: Privacidade & Visibilidade de Estudos -->
             <div class="settings-card-group">
-              <label class="settings-group-title">🔒 Privacidade & Partilha de Sebentas</label>
+              <label class="settings-group-title">🔒 Privacidade & partilha de materiais de estudo</label>
               <div class="settings-input-row">
                 <span class="settings-field-label">Visibilidade:</span>
                 <select id="settings-privacy-select" class="filter-select" style="flex:1; padding:8px 12px; font-size:13px;">
@@ -597,7 +608,7 @@ class ImpactaApp {
               
               <div class="settings-toggle-row">
                 <div>
-                  <div class="settings-toggle-label">Guardar sebentas offline automaticamente</div>
+                  <div class="settings-toggle-label">Guardar materiais de estudo sem internet automaticamente</div>
                   <div class="settings-toggle-desc">Permite ler PDFs no telemóvel sem gastar saldo</div>
                 </div>
                 <label class="apple-switch">
@@ -650,7 +661,7 @@ class ImpactaApp {
                 Tens a certeza de que desejas sair da conta de <strong>${user.name}</strong>?
               </p>
               <div class="logout-offline-note">
-                📶 <strong>Modo Offline Preservado:</strong> As tuas sebentas descarregadas continuarão salvas no dispositivo.
+                📶 <strong>Modo sem internet:</strong> Os materiais de estudo transferidos continuarão guardados no dispositivo.
               </div>
             </div>
 
@@ -753,7 +764,7 @@ class ImpactaApp {
             <button class="modal-option-btn" id="btn-create-resource">
               <span class="modal-opt-icon">📚</span>
               <div style="flex:1; min-width:0;">
-                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Sebenta ou Ficheiro PDF</div>
+                <div style="font-weight:700; font-size:14px; color:var(--color-text-primary);">Material de estudo ou ficheiro PDF</div>
                 <div style="font-size:12px; color:var(--color-text-muted); font-weight:400; margin-top:2px; line-height:1.4;">Partilha exames resolvidos, resumos ou livros digitais</div>
               </div>
             </button>
@@ -806,6 +817,7 @@ class ImpactaApp {
       const module = this.modules[pageId];
       if (module && typeof module.render === 'function') {
         container.innerHTML = module.render();
+        window.I18n?.applyDOM(container);
         if (typeof module.afterRender === 'function') module.afterRender(container);
       }
       if (pageId !== 'home') container.dataset.rendered = 'true';
@@ -955,6 +967,7 @@ class ImpactaApp {
           } else if (action === 'lang') {
             this.openLangModal();
           } else if (action === 'switch-account') {
+            window.location.href = 'login.html';
             if (window.Toast) window.Toast.info('🔄 Troca de Conta — Funcionalidade de múltiplos perfis!');
           } else if (action === 'logout') {
             this.openLogoutModal();
@@ -1184,6 +1197,7 @@ class ImpactaApp {
     if (logoutConfirm) {
       logoutConfirm.addEventListener('click', () => {
         this.closeLogoutModal();
+        window.location.href = 'login.html';
         if (window.Toast) window.Toast.info('👋 Sessão terminada com sucesso! Até breve.');
         if (window.Haptic) window.Haptic.medium();
       });
@@ -1233,8 +1247,8 @@ class ImpactaApp {
     }
 
     if (action === 'download-doc') {
-      const title = target.dataset.docTitle || 'Sebenta Resoluções Exames';
-      const filename = target.dataset.filename || 'sebenta_impacta.pdf';
+      const title = target.dataset.docTitle || 'Resolução de exames';
+      const filename = target.dataset.filename || 'material_estudo_impacta.pdf';
       if (window.ImpactaDownload) window.ImpactaDownload.downloadPdf(filename, title);
       const counter = target.closest('.post-doc-card')?.querySelector('.doc-downloads-count');
       if (counter) {
@@ -1244,14 +1258,14 @@ class ImpactaApp {
       const label = target.querySelector('span');
       if (label) {
         const orig = label.textContent;
-        label.textContent = '✅ Transferido!';
+        label.textContent = window.I18n?.t('ui.downloadComplete') || '✅ Transferido!';
         setTimeout(() => { label.textContent = orig; }, 2500);
       }
       return;
     }
 
     if (action === 'preview-doc') {
-      const title = target.dataset.docTitle || 'Sebenta Resoluções Exames';
+      const title = target.dataset.docTitle || 'Resolução de exames';
       if (window.DocPreviewModal) window.DocPreviewModal.open(title);
       return;
     }
@@ -1263,7 +1277,7 @@ class ImpactaApp {
       const label = target.querySelector('span');
       if (label) {
         const orig = label.textContent;
-        label.textContent = '✅ Baixado!';
+        label.textContent = window.I18n?.t('ui.downloadComplete') || '✅ Transferido!';
         setTimeout(() => { label.textContent = orig; }, 2500);
       }
       return;

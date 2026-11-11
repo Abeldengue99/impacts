@@ -8,6 +8,7 @@ window.ProfileModule = {
 
   render() {
     const user = IMPACTA_DATA.currentUser;
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
       <div class="page-content profile-page">
         <!-- Cover -->
@@ -60,25 +61,25 @@ window.ProfileModule = {
           <div class="profile-stats">
             <div class="profile-stat">
               <span class="profile-stat__value">${user.posts}</span>
-              <span class="profile-stat__label">Posts</span>
+              <span class="profile-stat__label">${t('ui.posts')}</span>
             </div>
             <div class="profile-stat">
               <span class="profile-stat__value">${formatCount(user.followers)}</span>
-              <span class="profile-stat__label">Followers</span>
+              <span class="profile-stat__label">${t('ui.followers')}</span>
             </div>
             <div class="profile-stat">
               <span class="profile-stat__value">${user.following}</span>
-              <span class="profile-stat__label">Following</span>
+              <span class="profile-stat__label">${t('ui.following')}</span>
             </div>
           </div>
         </div>
 
         <!-- Tabs -->
         <div class="tabs" style="margin-top:0; background:var(--color-surface-solid); border-bottom:1px solid var(--color-border);">
-          <button class="tab-btn active" data-profile-tab="posts">${ICONS.grid} Posts</button>
-          <button class="tab-btn" data-profile-tab="videos">${ICONS.video} Videos</button>
-          <button class="tab-btn" data-profile-tab="resources">📚 Resources</button>
-          <button class="tab-btn" data-profile-tab="saved">${ICONS.bookmark} Saved</button>
+          <button class="tab-btn active" data-profile-tab="posts">${ICONS.grid} ${t('ui.posts')}</button>
+          <button class="tab-btn" data-profile-tab="videos">${ICONS.video} ${t('ui.videos')}</button>
+          <button class="tab-btn" data-profile-tab="resources">📚 ${t('ui.resources')}</button>
+          <button class="tab-btn" data-profile-tab="saved">${ICONS.bookmark} ${t('ui.saved')}</button>
         </div>
 
         <!-- Content -->

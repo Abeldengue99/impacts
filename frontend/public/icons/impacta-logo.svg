@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 132" role="img" aria-labelledby="title">
+  <title id="title">Impacta</title>
+  <defs>
+    <linearGradient id="mark-bg" x1="6" y1="4" x2="120" y2="124" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6253E6"/>
+      <stop offset="1" stop-color="#302978"/>
+    </linearGradient>
+    <linearGradient id="word" x1="150" y1="32" x2="496" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#342C91"/>
+      <stop offset="1" stop-color="#6554DE"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="124" height="124" rx="34" fill="url(#mark-bg)"/>
+  <path d="M26 64c13-8 25-8 38 0v38c-13-8-25-8-38 0V64Z" fill="#fff"/>
+  <path d="M102 64c-13-8-25-8-38 0v38c13-8 25-8 38 0V64Z" fill="#fff" fill-opacity=".82"/>
+  <path d="M64 65v37" stroke="#4037A4" stroke-width="4" stroke-linecap="round"/>
+  <path d="m55 51 23-23 5 17 18 5-23 23-5-17-18-5Z" fill="#FFC34D" stroke="#302978" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m103 25 3 8 8 3-8 3-3 8-3-8-8-3 8-3 3-8Z" fill="#fff"/>
+  <text x="153" y="85" fill="url(#word)" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="800" letter-spacing="-3">impacta</text>
+  <path d="M157 105c98 13 214 13 335-4" fill="none" stroke="#F5B63B" stroke-width="5" stroke-linecap="round"/>
+</svg>

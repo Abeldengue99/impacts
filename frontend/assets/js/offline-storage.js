@@ -1,12 +1,12 @@
 /* ============================================================
-   IMPACTA — Modo Offline PWA para Sebentas (IndexedDB)
-   Permite armazenar e folhear sebentas sem gastar dados móveis.
+   IMPACTA — Acesso offline a materiais de estudo (IndexedDB)
+   Permite guardar e consultar materiais de estudo sem gastar dados móveis.
    ============================================================ */
 
 const ImpactaOffline = {
-  dbName: 'impacta_offline_sebentas_db',
+  dbName: 'impacta_offline_apontamentos_db',
   dbVersion: 1,
-  storeName: 'sebentas',
+  storeName: 'apontamentos',
   db: null,
 
   async init() {
@@ -40,7 +40,7 @@ const ImpactaOffline = {
     });
   },
 
-  async saveSebenta(sebenta) {
+  async saveApontamento(apontamento) {
     if (!this.db) await this.init();
     if (!this.db) return false;
 
@@ -49,31 +49,31 @@ const ImpactaOffline = {
         const tx = this.db.transaction(this.storeName, 'readwrite');
         const store = tx.objectStore(this.storeName);
         const record = {
-          id: sebenta.id || sebenta.filename || `sebenta_${Date.now()}`,
-          title: sebenta.title || 'Sebenta Académica',
-          author: sebenta.author || 'Estudante IMPACTA',
-          filename: sebenta.filename || 'sebenta.pdf',
-          size: sebenta.size || '4.8 MB',
-          pages: sebenta.pages || 36,
-          content: sebenta.content || null,
+          id: apontamento.id || apontamento.filename || `apontamento_${Date.now()}`,
+          title: apontamento.title || 'Material de estudo',
+          author: apontamento.author || 'Estudante IMPACTA',
+          filename: apontamento.filename || 'apontamento.pdf',
+          size: apontamento.size || '4.8 MB',
+          pages: apontamento.pages || 36,
+          content: apontamento.content || null,
           savedAt: new Date().toISOString(),
-          watermark: `Propriedade Académica de ${sebenta.author || 'IMPACTA Angola'} • Protegido por Direitos Autorais`,
+          watermark: `Propriedade Académica de ${apontamento.author || 'IMPACTA Angola'} • Protegido por Direitos Autorais`,
         };
 
         const req = store.put(record);
         req.onsuccess = () => {
-          console.log(`[IMPACTA Offline] Sebenta "${record.title}" guardada para acesso sem internet.`);
+          console.log(`[IMPACTA Offline] Material "${record.title}" guardado para acesso sem internet.`);
           resolve(true);
         };
         req.onerror = () => resolve(false);
       } catch (err) {
-        console.error('[IMPACTA Offline] Erro ao salvar sebenta:', err);
+        console.error('[IMPACTA Offline] Erro ao guardar material de estudo:', err);
         resolve(false);
       }
     });
   },
 
-  async isSebentaSaved(id) {
+  async isApontamentosaved(id) {
     if (!this.db) await this.init();
     if (!this.db) return false;
 
@@ -107,7 +107,7 @@ const ImpactaOffline = {
     });
   },
 
-  async deleteSebenta(id) {
+  async deleteApontamento(id) {
     if (!this.db) await this.init();
     if (!this.db) return false;
 

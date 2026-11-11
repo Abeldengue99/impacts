@@ -52,7 +52,7 @@ Impactaa/
 │   │       ├── app.js             (Router SPA, Seletor de Idioma e Eventos)
 │   │       ├── feed.js            (Feed principal de publicações)
 │   │       ├── reels.js           (Scroll vertical estilo TikTok para vídeos curtos)
-│   │       ├── discover.js        (Explorar tópicos e sebentas)
+│   │       ├── discover.js        (Explorar tópicos e materiais de estudo)
 │   │       ├── communities.js     (Comunidades universitárias)
 │   │       ├── users.js           (Diretório de estudantes e professores)
 │   │       ├── inbox.js           (Mensagens e notificações)

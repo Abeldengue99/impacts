@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Impacta</title>
+  <defs>
+    <linearGradient id="impacta-bg" x1="42" y1="22" x2="480" y2="490" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5548D8"/>
+      <stop offset="1" stop-color="#29246F"/>
+    </linearGradient>
+    <linearGradient id="impacta-gold" x1="210" y1="96" x2="340" y2="244" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD56A"/>
+      <stop offset="1" stop-color="#F6A91A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#impacta-bg)"/>
+  <circle cx="256" cy="256" r="180" fill="#fff" fill-opacity=".055"/>
+  <path d="M104 224c52-28 103-27 152 4v136c-48-31-99-32-152-4V224Z" fill="#fff" fill-opacity=".96"/>
+  <path d="M408 224c-52-28-103-27-152 4v136c48-31 99-32 152-4V224Z" fill="#fff" fill-opacity=".82"/>
+  <path d="M256 228v136" stroke="#3F36A8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M196 192 276 112l18 58 62 18-80 80-18-58-62-18Z" fill="url(#impacta-gold)" stroke="#29246F" stroke-width="10" stroke-linejoin="round"/>
+  <path d="m356 116 8 22 22 8-22 8-8 22-8-22-22-8 22-8 8-22Z" fill="#fff"/>
+  <path d="M132 264c29-11 57-11 85 0M132 297c29-11 57-11 85 0M295 264c29-11 57-11 85 0M295 297c29-11 57-11 85 0" fill="none" stroke="#B7B2FF" stroke-width="9" stroke-linecap="round"/>
+</svg>

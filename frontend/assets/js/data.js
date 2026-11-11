@@ -140,13 +140,13 @@ const IMPACTA_DATA = {
       userInitials: 'KS',
       verified: true,
       time: 'Há 1 hora',
-      content: 'Pessoal de Economia e Gestão: compilei as resoluções dos exames nacionais dos últimos 3 anos! 📊 Deixei a sebenta em PDF para quem vai ter prova esta semana. Estudem com foco e muita calma! 🇦🇴✨',
-      hashtags: ['#ExamesNacionais', '#UCAN', '#SebentasAngola', '#Economia'],
+      content: 'Pessoal de Economia e Gestão: compilei as resoluções dos exames nacionais dos últimos 3 anos! 📊 Partilhei o material de estudo em PDF para quem vai fazer prova esta semana. Estudem com foco e muita calma! 🇦🇴✨',
+      hashtags: ['#ExamesNacionais', '#UCAN', '#MateriaisDeEstudo', '#Economia'],
       mediaType: 'pdf',
       document: {
-        title: 'Sebenta Resoluções Exames 2023–2025',
+        title: 'Resolução dos Exames 2023–2025',
         subtitle: 'Economia e Gestão · UCAN · Exames Nacionais dos últimos 3 anos',
-        filename: 'Sebenta_Resolucoes_Economia_2023-2025_UCAN.pdf',
+        filename: 'Resolucoes_Economia_2023-2025_UCAN.pdf',
         pages: 36,
         size: '4.8 MB',
         downloads: 1420,
@@ -316,11 +316,11 @@ const IMPACTA_DATA = {
 
   inbox: {
     messages: [
-      { id: 'm1', name: 'Kianda Sebastião', initials: 'KS', verified: true, preview: 'Excelente! Enviei-te a sebenta de Economia por PDF.', time: '09:32', unread: 2, type: 'message' },
+      { id: 'm1', name: 'Kianda Sebastião', initials: 'KS', verified: true, preview: 'Excelente! Enviei-te o material de Economia em PDF.', time: '09:32', unread: 2, type: 'message' },
       { id: 'm2', name: 'Grupo UAN - Algoritmos II', initials: '💻', verified: false, preview: 'Mateus: O prazo do projeto foi alargado para quinta-feira!', time: '08:45', unread: 5, type: 'group' },
       { id: 'm3', name: 'Prof. Arnaldo Calado', initials: 'AC', verified: true, preview: 'Parabéns pela resolução do exercício anterior.', time: 'Ontem', unread: 0, type: 'message' },
       { id: 'm4', name: 'Canal ISPTEC Avisos', initials: '📢', verified: false, preview: 'Calendário das avaliações do 2º semestre disponível.', time: 'Ontem', unread: 1, type: 'channel' },
-      { id: 'm5', name: 'Manuel Domingos', initials: 'MD', verified: false, preview: 'Consegues partilhar os teus apontamentos de redes?', time: '28 Out', unread: 0, type: 'message' },
+      { id: 'm5', name: 'Manuel Domingos', initials: 'MD', verified: false, preview: 'Consegues partilhar o material de estudo de redes?', time: '28 Out', unread: 0, type: 'message' },
     ],
     notifications: [
       { id: 'n1', icon: '❤️', text: '<strong>Kianda Sebastião</strong> gostou da tua dúvida sobre Algoritmos.', time: 'Há 5 min', unread: true },
@@ -337,7 +337,7 @@ const IMPACTA_DATA = {
     trending: [
       { label: 'Exames UAN', emoji: '🏛️' },
       { label: 'Cálculo I & II', emoji: '📐' },
-      { label: 'Sebentas PDF', emoji: '📄' },
+      { label: 'Materiais de estudo em PDF', emoji: '📄' },
       { label: 'Programação', emoji: '💻' },
       { label: 'Gestão & Negócios', emoji: '📊' },
     ],

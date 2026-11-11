@@ -286,7 +286,7 @@
    ACADEMIC ATTACHMENTS & MEDIA CARDS (APPLE GLASSMORPHISM)
    ════════════════════════════════════════════ */
 
-/* ── Card de Sebenta / Documento PDF ── */
+/* ── Cartão de material de estudo em PDF ── */
 .post-doc-card {
   background: rgba(248, 247, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -1610,7 +1610,7 @@
   font-weight: 500;
 }
 
-/* Grelha de Posts / Sebentas / Vídeos do Perfil */
+/* Grelha de publicações, materiais e vídeos do perfil */
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2129,7 +2129,6 @@
   max-width: 100%;
   object-fit: contain;
   display: block;
-  mix-blend-mode: multiply;
   background: transparent;
   transition: transform var(--transition-fast), filter var(--transition-fast);
 }
@@ -2144,8 +2143,74 @@
   max-width: 160px;
   object-fit: contain;
   display: block;
-  mix-blend-mode: multiply;
   background: transparent;
+}
+
+/* Feed hierarchy: clear entry point, filters, composer, then distinct posts. */
+.feed-page .feed-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 23px 24px 18px;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(135deg, rgba(245,243,255,.84), rgba(255,255,255,.88));
+}
+
+.feed-intro__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-primary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.feed-intro__eyebrow span { color: #f0b740; }
+.feed-intro h1 {
+  margin: 7px 0 4px;
+  color: var(--color-text-primary);
+  font-size: clamp(20px, 2.5vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -.035em;
+  font-weight: 800;
+}
+.feed-intro p { margin: 0; color: var(--color-text-muted); font-size: 12px; line-height: 1.5; }
+
+.feed-intro__explore {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 39px;
+  padding: 0 13px;
+  border: 1px solid rgba(91,75,219,.16);
+  border-radius: 12px;
+  color: var(--color-primary);
+  background: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+.feed-intro__explore svg { width: 16px; height: 16px; }
+.feed-intro__explore:hover { transform: translateY(-1px); border-color: var(--color-primary); box-shadow: 0 6px 16px rgba(67,56,202,.11); }
+.feed-page .feed-tabs { background: rgba(255,255,255,.86); }
+.feed-page #feed-list { display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+.feed-page .post-card { margin: 0; border: 1px solid var(--color-border); border-radius: 18px; background: #fff; box-shadow: 0 5px 18px rgba(42,35,102,.045); }
+.feed-page .post-card:last-child { border-bottom: 1px solid var(--color-border); }
+.feed-page .create-post { background: #fff; }
+
+@media (max-width: 520px) {
+  .feed-page .feed-intro { align-items: flex-start; padding: 19px 16px 15px; }
+  .feed-intro h1 { font-size: 21px; }
+  .feed-intro p { max-width: 270px; font-size: 11px; }
+  .feed-intro__explore { min-height: 36px; padding: 0 10px; font-size: 0; }
+  .feed-intro__explore svg { width: 17px; height: 17px; }
+  .feed-page #feed-list { gap: 10px; padding: 10px; }
+  .feed-page .post-card { border-radius: 15px; }
 }
 
 /* ════════════════════════════════════════════

@@ -7,13 +7,14 @@ window.UsersModule = {
   currentFilter: 'all',
 
   render() {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
       <div class="page-content">
         <div class="tabs">
-          <button class="tab-btn active" data-filter="all">All</button>
-          <button class="tab-btn" data-filter="student">Students</button>
-          <button class="tab-btn" data-filter="professor">Professors</button>
-          <button class="tab-btn" data-filter="creator">Top Creators</button>
+          <button class="tab-btn active" data-filter="all">${t('ui.all')}</button>
+          <button class="tab-btn" data-filter="student">${t('tabs.students')}</button>
+          <button class="tab-btn" data-filter="professor">${t('tabs.professors')}</button>
+          <button class="tab-btn" data-filter="creator">${t('tabs.creators')}</button>
         </div>
         <div id="users-list">
           ${this._renderUsers('all')}
@@ -60,6 +61,7 @@ window.UsersModule = {
   },
 
   _renderUserCard(user) {
+    const t = (key) => window.I18n ? window.I18n.t(key) : key;
     return `
       <div class="user-card" role="button" tabindex="0" data-action="go-profile">
         <div class="avatar-wrap">
@@ -74,12 +76,12 @@ window.UsersModule = {
             ${user.verified ? ICONS.verified : ''}
           </div>
           <div class="user-card__uni">${user.uni}</div>
-          <div class="user-card__stats">${user.followers} Followers · ${user.mutual} Mutual</div>
+          <div class="user-card__stats">${user.followers} ${t('ui.followers')} · ${user.mutual} ${t('ui.mutual')}</div>
         </div>
         <button class="btn btn--sm ${user.followed ? 'btn--joined' : 'btn--primary'} ${user.followed ? 'following' : ''}"
           data-action="follow-user"
-          aria-label="${user.followed ? 'Following' : 'Follow'} ${user.name}">
-          ${user.followed ? 'Following' : 'Follow'}
+          aria-label="${user.followed ? t('ui.unfollow') : t('ui.follow')} ${user.name}">
+          ${user.followed ? t('ui.unfollow') : t('ui.follow')}
         </button>
       </div>
     `;
