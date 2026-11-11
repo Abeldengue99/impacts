@@ -203,7 +203,6 @@ body.auth-page[data-auth-page="signup"] .auth-layout { max-width: 620px; }
 .auth-input-wrap input, .auth-input-wrap select { height: 42px; font-size: 13px; }
 .auth-submit { min-height: 48px; border-radius: 999px; }
 .auth-submit span:last-child { display: none; }
-.auth-location-grid { align-items: start; }
 .auth-panel-footer { width: 100%; max-width: 550px; margin: 0 auto; }
 
 @media (max-width: 760px) {
@@ -223,6 +222,4 @@ body.auth-page[data-auth-page="signup"] .auth-layout { max-width: 620px; }
   .auth-panel { padding: 14px 16px 16px; }
   .auth-card, .auth-card--signup { padding-top: 14px; }
   .auth-card-heading h2 { font-size: 21px; }
-  .auth-location-grid { grid-template-columns: 1fr 1fr; }
-  .auth-location-grid .auth-field:last-child { grid-column: 1 / -1; }
 }
