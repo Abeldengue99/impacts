@@ -154,7 +154,7 @@ a { color: inherit; }
 /* Direcção visual: painel roxo com recorte curvo e formulário simples. */
 body.auth-page { background: #fff; }
 .auth-layout { grid-template-columns: minmax(380px, .94fr) minmax(0, 1.06fr); background: #fff; }
-.auth-visual { justify-content: center; padding: 34px clamp(28px, 4.2vw, 68px) 24px; background: linear-gradient(148deg, #342b91, #5146c2 68%, #6256d5); }
+.auth-visual { align-items: center; justify-content: center; padding: 34px clamp(28px, 4.2vw, 68px) 24px; background: linear-gradient(148deg, #342b91, #5146c2 68%, #6256d5); }
 .auth-visual::before { z-index: 0; width: 56%; height: 154%; top: -24%; right: -39%; border: 0; border-radius: 50%; background: #fff; box-shadow: none; }
 .auth-visual::after { width: 300px; height: 300px; left: -210px; bottom: 7%; background: rgba(255,255,255,.035); }
 .auth-brand { display: none; }
@@ -174,7 +174,7 @@ body.auth-page { background: #fff; }
 .auth-input-wrap input, .auth-input-wrap select { height: 50px; font-size: 14px; }
 .auth-submit { min-height: 54px; border-radius: 999px; }
 .auth-submit span:last-child { display: none; }
-.auth-illustration { position: relative; z-index: 1; display: block; width: min(100%, 600px); max-height: 45vh; margin: 8px 0 0; object-fit: contain; border: 0; border-radius: 20px; background: transparent; filter: drop-shadow(0 20px 28px rgba(20,15,69,.17)); }
+.auth-illustration { position: relative; z-index: 1; display: block; width: min(100%, 640px); max-height: 68vh; margin: 0; object-fit: contain; border: 0; border-radius: 20px; background: transparent; filter: drop-shadow(0 20px 28px rgba(20,15,69,.17)); }
 .auth-benefits { gap: 8px; margin-bottom: 14px; }
 .auth-benefits, .auth-visual-footer { display: none; }
 .auth-benefit { min-height: 34px; padding: 7px 11px; border-radius: 9px; background: rgba(255,255,255,.1); font-size: 11px; }
@@ -187,7 +187,7 @@ body.auth-page { background: #fff; }
   .auth-visual { min-height: 0; padding: 22px 22px 10px; }
   .auth-visual::before { width: 42%; height: 180%; top: -38%; right: -30%; }
   .auth-hero-copy { margin: 0 0 4px; }
-  .auth-illustration { width: min(100%, 420px); max-height: 23vh; margin: 0 auto; }
+  .auth-illustration { width: min(100%, 420px); max-height: 42vh; margin: 0 auto; }
   .auth-benefit { min-height: 29px; }
   .auth-panel { min-height: auto; flex: 1; padding: 14px 22px 18px; }
   .auth-topbar { min-height: 44px; }
