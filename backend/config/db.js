@@ -21,7 +21,7 @@ if (!Number.isInteger(dbPort) || dbPort < 1 || dbPort > 65535) {
 const pool = new Pool({
   host: process.env.DB_HOST || 'localhost',
   port: dbPort,
-  database: process.env.DB_NAME || 'impacta_db',
+  database: process.env.DB_NAME || 'impacta_local',
   user: dbUser,
   password: dbPassword,
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: true } : false,

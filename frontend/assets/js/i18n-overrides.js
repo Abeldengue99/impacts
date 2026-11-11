@@ -31,6 +31,14 @@
         handle: 'Nome de utilizador',
         handlePlaceholder: 'ex.: ana.mateus',
         accountType: 'Como te identificas?',
+        footerIntro: 'Um espaço para aprender, partilhar e avançar em conjunto.',
+        footerHome: 'Início', footerExplore: 'Explorar', footerCommunities: 'Comunidades', footerProfile: 'Perfil',
+        footerHide: 'Ocultar rodapé', footerShow: 'Mostrar rodapé', footerTagline: 'Aprender. Partilhar. Avançar.',
+        country: 'País',
+        province: 'Província ou região',
+        provincePlaceholder: 'Ex.: Luanda',
+        municipality: 'Município',
+        municipalityPlaceholder: 'Ex.: Kilamba Kiaxi',
         student: 'Estudante',
         professor: 'Docente',
         creator: 'Criador de conteúdo',
@@ -156,6 +164,17 @@
         handle: 'Username',
         handlePlaceholder: 'e.g. ana.mateus',
         accountType: 'I am a',
+        footerIntro: 'A place to learn, share and move forward together.',
+        footerHome: 'Home', footerExplore: 'Explore', footerCommunities: 'Communities', footerProfile: 'Profile',
+        footerHide: 'Hide footer', footerShow: 'Show footer', footerTagline: 'Learn. Share. Move forward.',
+        country: 'Country',
+        province: 'Province or region',
+        provincePlaceholder: 'e.g. Luanda',
+        municipality: 'Municipality',
+        municipalityPlaceholder: 'e.g. Kilamba Kiaxi',
+        countryAO: 'Angola', countryPT: 'Portugal', countryBR: 'Brazil', countryMZ: 'Mozambique',
+        countryCV: 'Cabo Verde', countryST: 'São Tomé and Príncipe', countryNA: 'Namibia',
+        countryZA: 'South Africa', countryFR: 'France', countryGB: 'United Kingdom', countryUS: 'United States',
         student: 'Student',
         professor: 'Teacher',
         creator: 'Content creator',
@@ -281,6 +300,17 @@
         handle: 'Nom d’utilisateur',
         handlePlaceholder: 'ex. ana.mateus',
         accountType: 'Je suis',
+        footerIntro: 'Un espace pour apprendre, partager et avancer ensemble.',
+        footerHome: 'Accueil', footerExplore: 'Explorer', footerCommunities: 'Communautés', footerProfile: 'Profil',
+        footerHide: 'Masquer le pied de page', footerShow: 'Afficher le pied de page', footerTagline: 'Apprendre. Partager. Avancer.',
+        country: 'Pays',
+        province: 'Province ou région',
+        provincePlaceholder: 'ex. Luanda',
+        municipality: 'Municipalité',
+        municipalityPlaceholder: 'ex. Kilamba Kiaxi',
+        countryAO: 'Angola', countryPT: 'Portugal', countryBR: 'Brésil', countryMZ: 'Mozambique',
+        countryCV: 'Cap-Vert', countryST: 'São Tomé-et-Príncipe', countryNA: 'Namibie',
+        countryZA: 'Afrique du Sud', countryFR: 'France', countryGB: 'Royaume-Uni', countryUS: 'États-Unis',
         student: 'Étudiant',
         professor: 'Enseignant',
         creator: 'Créateur de contenu',
@@ -692,6 +722,30 @@
       'Tap the bookmark icon on any post to save it here for later.': 'Appuie sur le signet d’une publication pour la retrouver ici.'
     }
   };
+
+  const profileCopy = {
+    'pt-AO': {
+      profileEmptyPosts: 'Ainda não partilhaste publicações.',
+      profileEmptyVideos: 'Ainda não partilhaste vídeos curtos.',
+      profileEmptyResources: 'Ainda não partilhaste materiais de estudo.',
+      profileEmptySaved: 'Ainda não guardaste publicações.'
+    },
+    en: {
+      profileEmptyPosts: 'You have not shared any posts yet.',
+      profileEmptyVideos: 'You have not shared any short videos yet.',
+      profileEmptyResources: 'You have not shared any learning materials yet.',
+      profileEmptySaved: 'You have not saved any posts yet.'
+    },
+    fr: {
+      profileEmptyPosts: 'Tu n’as pas encore partagé de publications.',
+      profileEmptyVideos: 'Tu n’as pas encore partagé de vidéos courtes.',
+      profileEmptyResources: 'Tu n’as pas encore partagé de ressources.',
+      profileEmptySaved: 'Tu n’as pas encore enregistré de publications.'
+    }
+  };
+  Object.entries(profileCopy).forEach(([lang, values]) => {
+    copy[lang].ui = { ...copy[lang].ui, ...values };
+  });
 
   const supported = ['pt-AO', 'en', 'fr'];
   const baseT = window.I18n.t.bind(window.I18n);

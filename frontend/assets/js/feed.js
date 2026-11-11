@@ -10,7 +10,6 @@ window.FeedModule = {
       <div class="page-content feed-page">
         <header class="feed-intro">
           <div>
-            <span class="feed-intro__eyebrow">IMPACTA <span>·</span> ${t('ui.community')}</span>
             <h1>${t('ui.feedTitle')}</h1>
             <p>${t('ui.feedSubtitle')}</p>
           </div>
@@ -208,15 +207,15 @@ window.FeedModule = {
           <div class="post-doc-main">
             <div class="post-doc-badge">
               <span class="post-doc-type-tag">PDF</span>
-              <span class="post-doc-icon">📑</span>
+              <span class="post-doc-icon">${ICONS.fileText}</span>
             </div>
             <div class="post-doc-info">
               <h3 class="post-doc-title">${doc.title}</h3>
               <p class="post-doc-subtitle">${doc.subtitle}</p>
               <div class="post-doc-meta">
-                <span class="doc-meta-item">📄 ${doc.pages} ${t('ui.pages')}</span>
-                <span class="doc-meta-item">💾 ${doc.size}</span>
-                <span class="doc-meta-item">📥 <span class="doc-downloads-count">${formatCount(doc.downloads)}</span> ${t('ui.downloads')}</span>
+                <span class="doc-meta-item">${doc.pages} ${t('ui.pages')}</span>
+                <span class="doc-meta-item">${doc.size}</span>
+                <span class="doc-meta-item"><span class="doc-downloads-count">${formatCount(doc.downloads)}</span> ${t('ui.downloads')}</span>
               </div>
             </div>
           </div>
@@ -226,7 +225,7 @@ window.FeedModule = {
               <span>${t('ui.downloadMaterial')} (${doc.size})</span>
             </button>
             <button type="button" class="btn-doc-preview" data-action="preview-doc" data-doc-title="${doc.title}" aria-label="${t('ui.readOnline')}">
-              <span>👁️ ${t('ui.readOnline')}</span>
+              <span>${t('ui.readOnline')}</span>
             </button>
           </div>
         </div>

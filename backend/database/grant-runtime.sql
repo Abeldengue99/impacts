@@ -1,9 +1,15 @@
 -- Executar como impacta_migrator depois de npm run migrate.
 -- Repetir depois de cada nova migracao; privilegios novos nunca sao automaticos.
 
-REVOKE CONNECT, TEMPORARY ON DATABASE impacta_db FROM PUBLIC;
-GRANT CONNECT ON DATABASE impacta_db
-    TO impacta_migrator, impacta_app, impacta_auth, impacta_media;
+DO $$
+BEGIN
+    EXECUTE format('REVOKE CONNECT, TEMPORARY ON DATABASE %I FROM PUBLIC', current_database());
+    EXECUTE format(
+        'GRANT CONNECT ON DATABASE %I TO impacta_migrator, impacta_app, impacta_auth, impacta_media',
+        current_database()
+    );
+END;
+$$;
 
 REVOKE ALL ON SCHEMA impacta FROM PUBLIC, impacta_app, impacta_auth, impacta_media;
 GRANT USAGE ON SCHEMA impacta TO impacta_app, impacta_auth, impacta_media;
@@ -57,8 +63,8 @@ TO impacta_app;
 
 GRANT SELECT (
     id, handle, display_name, account_type, institution_id, academic_major,
-    academic_year, graduation_year, country_code, city, bio, website_url,
-    preferred_language, profile_visibility, avatar_media_id, cover_media_id, created_at
+    academic_year, graduation_year, country_code, province, municipality, city, bio, website_url,
+    preferred_language, profile_visibility, avatar_media_id, cover_media_id, is_verified, created_at
 ) ON impacta.users TO impacta_app;
 GRANT SELECT (
     id, uploaded_by, storage_provider, original_filename, mime_type, size_bytes,
@@ -67,7 +73,7 @@ GRANT SELECT (
 
 GRANT UPDATE (
     handle, display_name, account_type, institution_id, academic_major,
-    academic_year, graduation_year, country_code, city, bio, website_url,
+    academic_year, graduation_year, country_code, province, municipality, city, bio, website_url,
     preferred_language, profile_visibility, avatar_media_id, cover_media_id
 ) ON impacta.users TO impacta_app;
 
@@ -162,7 +168,7 @@ GRANT EXECUTE ON FUNCTION impacta.get_poll_results(UUID) TO impacta_app;
 -- Autenticacao: credenciais e tokens so existem neste pool.
 GRANT SELECT (id, status, suspended_until, deleted_at) ON impacta.users TO impacta_auth;
 GRANT INSERT (handle, display_name, account_type, institution_id, academic_major,
-              academic_year, graduation_year, country_code, city, bio, website_url,
+              academic_year, graduation_year, country_code, province, municipality, city, bio, website_url,
               preferred_language, profile_visibility)
     ON impacta.users TO impacta_auth;
 GRANT UPDATE (status, suspended_until, deleted_at) ON impacta.users TO impacta_auth;

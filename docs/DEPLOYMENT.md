@@ -14,8 +14,8 @@ O workflow `Verify database` corre em pull requests e em pushes para `develop` e
 
 1. Trabalhar em `feature/*` ou `develop`, nunca directamente na configuracao da producao.
 2. Copiar `backend/.env.example` para `backend/.env` e preencher apenas credenciais locais.
-3. Usar uma base de dados local independente, por exemplo `impacta_db`.
-4. Aplicar as migracoes e permissoes descritas no README. Para configurar via pgAdmin, seguir [PGADMIN_SETUP.md](PGADMIN_SETUP.md); nunca executar uma migracao directamente no Query Tool.
+3. Usar uma base de dados local independente, `impacta_local`.
+4. Aplicar as migrations e permissões descritas no [guia de pgAdmin](PGADMIN_SETUP.md). Para uma base nova, usar o `schema.sql` gerado; para uma base existente, usar `npm run migrate`.
 5. Confirmar a mudanca no browser e executar o workflow de verificacao antes de abrir o pull request.
 
 ## Producao
@@ -27,4 +27,4 @@ O workflow `Verify database` corre em pull requests e em pushes para `develop` e
 - Promover para `main` depois da verificacao verde e revisao. O deploy continua manual; este repositorio ainda nao esta ligado a um alojamento.
 - Fazer primeiro migracoes compativeis com a versao actual da aplicacao. Remocoes e alteracoes destrutivas devem acontecer numa migracao posterior, depois da aplicacao ja nao depender das colunas antigas.
 
-`backend/.env.production.example` documenta as variaveis de runtime, mas nao contem credenciais reais nem credenciais do migrator. Nunca criar ou enviar um `.env` real para o Git.
+`backend/.env.production.example` documenta as variáveis necessárias com valores de exemplo, sem credenciais reais. A credencial `impacta_migrator` só deve ser injectada durante migrations ou bootstrap, nunca no processo normal da API. Nunca enviar um `.env` real para o Git.

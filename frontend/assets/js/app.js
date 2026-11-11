@@ -27,6 +27,7 @@ class ImpactaApp {
     this._navigate('home');
     this._bindGlobal();
     this._setupTopbarScroll();
+    this._setupFooterReveal();
     window.I18n?.applyDOM(document.body);
     if (window.I18n && window.MutationObserver) {
       this._languageObserver = new MutationObserver(records => {
@@ -123,7 +124,7 @@ class ImpactaApp {
                   ${IMPACTA_DATA.currentUser.name}
                 </div>
                 <div style="font-size:11px; color:var(--color-primary); font-weight:600;" class="truncate">
-                  UAN · Luanda
+                  Impacta · Angola
                 </div>
               </div>
               <button class="topbar__btn desktop-user-more-btn" id="desktop-user-more-btn" title="Mais opções" aria-label="Mais opções" style="color:var(--color-text-secondary); width:32px; height:32px; flex-shrink:0;">
@@ -162,6 +163,25 @@ class ImpactaApp {
           ${this._renderTopbar()}
           <main class="pages-container" id="pages-container">
             ${this.pages.map(p => `<div class="page" id="page-${p}" data-page="${p}"></div>`).join('')}
+            <footer class="impacta-footer" id="impacta-footer" aria-label="Impacta">
+              <div class="impacta-footer__main">
+                <div>
+                  <a class="impacta-footer__brand" href="index.html"><img src="../public/icons/impacta-mark.svg" alt="" /> <span>Impacta</span></a>
+                  <p data-i18n="auth.footerIntro">Um espaço para aprender, partilhar e avançar em conjunto.</p>
+                </div>
+                <nav class="impacta-footer__links" aria-label="Ligações da Impacta">
+                  <button type="button" data-nav="home" data-i18n="auth.footerHome">Início</button>
+                  <button type="button" data-nav="discover" data-i18n="auth.footerExplore">Explorar</button>
+                  <button type="button" data-nav="communities" data-i18n="auth.footerCommunities">Comunidades</button>
+                  <button type="button" data-nav="profile" data-i18n="auth.footerProfile">Perfil</button>
+                </nav>
+                <button class="impacta-footer__hide" id="impacta-footer-hide" type="button" data-i18n="auth.footerHide">Ocultar rodapé</button>
+              </div>
+              <div class="impacta-footer__bottom"><span>© <span id="impacta-footer-year"></span> Impacta</span><span data-i18n="auth.footerTagline">Aprender. Partilhar. Avançar.</span></div>
+            </footer>
+            <div class="impacta-footer-reopen" id="impacta-footer-reopen" hidden>
+              <button type="button" id="impacta-footer-show" data-i18n="auth.footerShow">Mostrar rodapé</button>
+            </div>
           </main>
           ${this._renderBottomNav()}
           ${this._renderFilterPanel()}
@@ -252,6 +272,11 @@ class ImpactaApp {
 
       </div>
     `;
+
+    const publishButton = document.getElementById('desktop-create-btn');
+    publishButton?.childNodes.forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE) node.textContent = node.textContent.replace(/\u270f\uFE0F?/gu, '');
+    });
   }
 
   _renderTopbar() {
@@ -829,6 +854,53 @@ class ImpactaApp {
       }
       if (pageId !== 'home') container.dataset.rendered = 'true';
     }
+  }
+
+  _setupFooterReveal() {
+    const scroller = document.getElementById('pages-container');
+    const footer = document.getElementById('impacta-footer');
+    const reopen = document.getElementById('impacta-footer-reopen');
+    const hideButton = document.getElementById('impacta-footer-hide');
+    const showButton = document.getElementById('impacta-footer-show');
+    if (!scroller || !footer || !reopen) return;
+    const year = document.getElementById('impacta-footer-year');
+    if (year) year.textContent = String(new Date().getFullYear());
+
+    let hiddenByChoice = false;
+    try { hiddenByChoice = localStorage.getItem('impacta.footerHidden') === 'true'; } catch (_) {}
+    footer.hidden = hiddenByChoice;
+    reopen.hidden = !hiddenByChoice;
+    const observer = 'IntersectionObserver' in window
+      ? new IntersectionObserver((entries) => {
+          entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting));
+        }, { root: scroller, threshold: 0.12 })
+      : null;
+    const observeCurrent = () => {
+      if (!observer) {
+        (hiddenByChoice ? reopen : footer).classList.add('is-visible');
+        return;
+      }
+      observer.disconnect();
+      observer.observe(hiddenByChoice ? reopen : footer);
+    };
+    observeCurrent();
+
+    hideButton?.addEventListener('click', () => {
+      hiddenByChoice = true;
+      try { localStorage.setItem('impacta.footerHidden', 'true'); } catch (_) {}
+      footer.classList.remove('is-visible');
+      footer.hidden = true;
+      reopen.hidden = false;
+      observeCurrent();
+    });
+    showButton?.addEventListener('click', () => {
+      hiddenByChoice = false;
+      try { localStorage.removeItem('impacta.footerHidden'); } catch (_) {}
+      reopen.classList.remove('is-visible');
+      reopen.hidden = true;
+      footer.hidden = false;
+      observeCurrent();
+    });
   }
 
   _updateNav(pageId) {

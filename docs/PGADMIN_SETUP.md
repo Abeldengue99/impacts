@@ -1,10 +1,12 @@
-# Preparar PostgreSQL no pgAdmin
+# Preparar as bases de dados do Impacta no pgAdmin
+
+Para o fluxo completo de bases local e produção, consulte também [DATABASES_LOCAL_PRODUCTION.md](DATABASES_LOCAL_PRODUCTION.md). O instalador completo para uma base nova é `backend/database/schema.sql`.
 
 O erro `role "impacta_auth" does not exist` acontece quando a migração é executada antes de criar os quatro papéis da aplicação. O ficheiro `migrations/001_initial.sql` também não deve ser executado directamente no Query Tool: use o runner `npm run migrate`, que aplica a migração com histórico e transação.
 
 ## 1. Criar os papéis
 
-No pgAdmin, abra o Query Tool ligado à base `postgres`, como superutilizador (`postgres`). Abra e execute `backend/database/provision-roles-pgadmin.sql`. O resultado deve mostrar estes quatro papéis com `rolcanlogin = true` e `rolsuper = false`:
+No pgAdmin, abra o Query Tool ligado à base `postgres`, como superutilizador (`postgres`). Abra e execute `backend/database/provision-roles-pgadmin.sql` em cada servidor PostgreSQL. O resultado deve mostrar estes quatro papéis com `rolcanlogin = true` e `rolsuper = false`:
 
 - `impacta_migrator`
 - `impacta_app`
@@ -15,26 +17,26 @@ O script não guarda passwords. No Browser, actualize `Login/Group Roles`; para 
 
 ## 2. Criar ou corrigir a base
 
-Ainda ligado a `postgres`, crie `impacta_db` com owner `impacta_migrator` (Databases → Create → Database). Se a base já existe e é dedicada ao Impacta, confirme ou altere o owner para `impacta_migrator` nas propriedades da base.
+Ainda ligado a `postgres`, crie a base local `impacta_local` ou a base de produção `impacta_production`, com owner `impacta_migrator` (Databases → Create → Database). Se já existir, confirme que é dedicada ao Impacta e que o owner está correcto.
 
-Abra o Query Tool ligado a `impacta_db`, ainda como `postgres`, e execute `backend/database/secure-database.sql`.
+Abra o Query Tool ligado à base de destino, ainda como `postgres`, e execute `backend/database/secure-database.sql`.
 
 ## 3. Aplicar a migração pelo runner
 
 Copie `backend/.env.example` para `backend/.env`. Preencha `DB_HOST`, `DB_PORT`, `DB_NAME` e as passwords distintas de `impacta_app`, `impacta_migrator`, `impacta_auth` e `impacta_media`. Não use `postgres` como utilizador da aplicação ou do migrator.
 
-No terminal, dentro da pasta `backend`, execute:
+Numa base nova, ligue o Query Tool como `impacta_migrator` e execute `backend/database/schema.sql`. Em bases existentes, no terminal dentro da pasta `backend`, execute:
 
 ```bash
 npm ci
 npm run migrate
 ```
 
-O runner liga como `impacta_migrator`. Depois da migração, execute `database/grant-runtime.sql` ligado à base `impacta_db` como `impacta_migrator`. Se quiser dados de demonstração, execute `database/seeds.sql` também como `impacta_migrator`.
+O runner liga como `impacta_migrator`. Em bases existentes, depois da migração, execute `database/grant-runtime.sql` e `database/seeds.sql` ligados à base de destino, também como `impacta_migrator`. Para preparar a conta principal e as cinco publicações, use `npm run bootstrap:admin` conforme as instruções do guia local/produção.
 
 ## Se a migração directa já falhou
 
-Não volte a executar `001_initial.sql` e não apague a base antes de confirmar o estado. No Query Tool ligado a `impacta_db`, execute:
+Não volte a executar `001_initial.sql` nem `schema.sql` e não apague a base antes de confirmar o estado. No Query Tool ligado à base afectada, execute `backend/database/diagnose-pgadmin.sql`:
 
 ```sql
 SELECT

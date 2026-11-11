@@ -18,4 +18,13 @@
   <path d="M196 192 276 112l18 58 62 18-80 80-18-58-62-18Z" fill="url(#impacta-gold)" stroke="#29246F" stroke-width="10" stroke-linejoin="round"/>
   <path d="m356 116 8 22 22 8-22 8-8 22-8-22-22-8 22-8 8-22Z" fill="#fff"/>
   <path d="M132 264c29-11 57-11 85 0M132 297c29-11 57-11 85 0M295 264c29-11 57-11 85 0M295 297c29-11 57-11 85 0" fill="none" stroke="#B7B2FF" stroke-width="9" stroke-linecap="round"/>
+  <style>
+    svg > *:not(title):not(#impacta-mark-new) { display: none; }
+  </style>
+  <g id="impacta-mark-new" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="4" width="124" height="124" rx="34" fill="#302878" stroke="none"/>
+    <path d="M42 43h52M68 44v48M48 94h40" stroke="#fff" stroke-width="10"/>
+    <circle cx="94" cy="34" r="9" fill="#F5B63B" stroke="none"/>
+    <path d="M23 73c5-8 10-12 17-14M23 91c5-6 10-9 17-10" stroke="#B9B2FF" stroke-width="5"/>
+  </g>
 </svg>

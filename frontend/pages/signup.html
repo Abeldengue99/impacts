@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/auth.css?v=2.2.0" />
+  <link rel="stylesheet" href="../assets/css/auth.css?v=2.3.0" />
 </head>
 <body class="auth-page" data-auth-page="signup">
   <div class="auth-layout">
@@ -34,7 +34,7 @@
 
     <main class="auth-panel auth-panel--signup">
       <header class="auth-topbar">
-        <a class="auth-mobile-brand" href="index.html" aria-label="Impacta — página inicial"><img src="../public/icons/impacta-logo.svg" alt="Impacta" /></a>
+        <a class="auth-panel-brand" href="index.html" aria-label="Impacta"><img src="../public/icons/impacta-logo.svg" alt="Impacta" /></a>
         <label class="language-select-wrap">
           <span class="language-globe" aria-hidden="true">◎</span>
           <span class="sr-only" data-auth-copy="language">Idioma</span>
@@ -74,6 +74,20 @@
             <span data-auth-copy="accountType">Como te identificas?</span>
             <span class="auth-input-wrap auth-select-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12M8 20v-6h8v6M8 10h.01M12 10h.01M16 10h.01"/></svg><select name="accountType" required><option value="student" data-auth-option="student">Estudante</option><option value="professor" data-auth-option="professor">Docente</option><option value="creator" data-auth-option="creator">Criador de conteúdo</option></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
           </label>
+          <div class="auth-form-grid auth-location-grid">
+            <label class="auth-field">
+              <span data-auth-copy="country">País</span>
+              <span class="auth-input-wrap auth-select-wrap"><select name="countryCode" autocomplete="country"><option value="AO" selected data-auth-option="countryAO">Angola</option><option value="PT" data-auth-option="countryPT">Portugal</option><option value="BR" data-auth-option="countryBR">Brasil</option><option value="MZ" data-auth-option="countryMZ">Moçambique</option><option value="CV" data-auth-option="countryCV">Cabo Verde</option><option value="ST" data-auth-option="countryST">São Tomé e Príncipe</option><option value="NA" data-auth-option="countryNA">Namíbia</option><option value="ZA" data-auth-option="countryZA">África do Sul</option><option value="FR" data-auth-option="countryFR">França</option><option value="GB" data-auth-option="countryGB">Reino Unido</option><option value="US" data-auth-option="countryUS">Estados Unidos</option></select><span class="select-chevron" aria-hidden="true">⌄</span></span>
+            </label>
+            <label class="auth-field">
+              <span data-auth-copy="province">Província ou região</span>
+              <span class="auth-input-wrap"><input name="province" type="text" autocomplete="address-level1" maxlength="120" placeholder="Ex.: Luanda" data-auth-placeholder="provincePlaceholder" /></span>
+            </label>
+            <label class="auth-field">
+              <span data-auth-copy="municipality">Município</span>
+              <span class="auth-input-wrap"><input name="municipality" type="text" autocomplete="address-level2" maxlength="120" placeholder="Ex.: Kilamba Kiaxi" data-auth-placeholder="municipalityPlaceholder" /></span>
+            </label>
+          </div>
           <div class="auth-form-grid">
             <label class="auth-field">
               <span data-auth-copy="password">Palavra-passe</span>
@@ -97,7 +111,7 @@
     </main>
   </div>
   <script src="../assets/js/i18n.js?v=2.2.0"></script>
-  <script src="../assets/js/i18n-overrides.js?v=2.2.0"></script>
-  <script src="../assets/js/auth-pages.js?v=2.2.0"></script>
+  <script src="../assets/js/i18n-overrides.js?v=2.3.0"></script>
+  <script src="../assets/js/auth-pages.js?v=2.3.0"></script>
 </body>
 </html>

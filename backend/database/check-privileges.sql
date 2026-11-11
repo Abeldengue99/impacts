@@ -10,6 +10,12 @@ BEGIN
     IF has_column_privilege('impacta_app', 'impacta.users', 'status', 'UPDATE') THEN
         RAISE EXCEPTION 'impacta_app nao pode alterar o estado interno da conta';
     END IF;
+    IF has_column_privilege('impacta_app', 'impacta.users', 'is_verified', 'UPDATE') THEN
+        RAISE EXCEPTION 'impacta_app nao pode atribuir o selo verificado';
+    END IF;
+    IF NOT has_column_privilege('impacta_app', 'impacta.users', 'is_verified', 'SELECT') THEN
+        RAISE EXCEPTION 'a API precisa de ler o selo verificado do perfil';
+    END IF;
     IF has_column_privilege('impacta_app', 'impacta.media_assets', 'storage_key', 'SELECT') THEN
         RAISE EXCEPTION 'impacta_app nao pode ler chaves de armazenamento directamente';
     END IF;

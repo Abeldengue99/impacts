@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node app/server.js",
     "dev": "nodemon app/server.js",
-    "migrate": "node database/migrate.js"
+    "migrate": "node database/migrate.js",
+    "bootstrap:admin": "node database/bootstrap-admin.js",
+    "pgadmin:export": "node database/generate-pgadmin-schema.js"
   },
   "keywords": [
     "education",
@@ -19,6 +21,7 @@
   "author": "IMPACTA Team",
   "license": "MIT",
   "dependencies": {
+    "argon2": "^0.45.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

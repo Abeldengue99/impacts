@@ -25,37 +25,35 @@ window.ProfileModule = {
             </div>
             <span class="avatar-status avatar-status--${user.status || 'available'}" style="width:14px; height:14px; border-width:3px; bottom:2px; right:4px;" title="Status do Estudante"></span>
             <!-- Botão de edição do avatar -->
-            <button class="profile-avatar-edit-btn" id="profile-avatar-edit-btn" title="Alterar foto de perfil" aria-label="Alterar foto de perfil">
-              📷
-            </button>
+            <button class="profile-avatar-edit-btn" id="profile-avatar-edit-btn" title="Alterar foto de perfil" aria-label="Alterar foto de perfil">${ICONS.image}</button>
             <input type="file" id="profile-avatar-input" accept="image/*" style="display:none;" aria-hidden="true" />
           </div>
 
           <div class="profile-header__actions">
             <button class="btn btn--outline btn--sm" data-action="open-settings" aria-label="Editar definições">${ICONS.edit} Definições</button>
-            <button class="btn btn--outline btn--sm profile-bio-edit-btn" id="profile-bio-edit-btn" aria-label="Editar bio" title="Editar biografia e informações pessoais">✏️ Editar Bio</button>
+            <button class="btn btn--outline btn--sm profile-bio-edit-btn" id="profile-bio-edit-btn" aria-label="Editar bio" title="Editar biografia e informações pessoais">${ICONS.edit} Editar Bio</button>
           </div>
 
           <div class="profile-name-row">
             <span class="profile-name">${user.name}</span>
-            <span style="color:var(--color-primary);font-size:16px;">✓</span>
+            ${user.verified ? `<span class="profile-verified-badge" role="img" aria-label="Conta verificada">${ICONS.verified}</span>` : ''}
           </div>
           <div class="profile-handle">${user.handle} · <span style="color:var(--color-primary);font-weight:600;">${user.role === 'professor' ? (user.title || 'Docente') : (user.academicYear || '3º Ano')}</span></div>
-          <div class="profile-uni">🏛️ ${user.university}${user.role === 'professor' ? '' : (' · ' + (user.faculty || ''))}</div>
+          <div class="profile-uni">${user.university}${user.role === 'professor' ? '' : (' · ' + (user.faculty || ''))}</div>
           ${user.role === 'professor' ? `
           <div class="profile-professor-meta">
-            <span class="profile-professor-badge">👨‍🏫 Docente · ${user.department || 'Departamento'}</span>
-            ${user.teachingCourses ? `<span class="profile-professor-subjects">📚 ${user.teachingCourses}</span>` : ''}
-            ${user.officeHours ? `<span class="profile-professor-subjects">🕐 Atendimento: ${user.officeHours}</span>` : ''}
+            <span class="profile-professor-badge">Docente · ${user.department || 'Departamento'}</span>
+            ${user.teachingCourses ? '<span class="profile-professor-subjects">' + user.teachingCourses + '</span>' : ''}
+            ${user.officeHours ? '<span class="profile-professor-subjects">Atendimento: ' + user.officeHours + '</span>' : ''}
           </div>` : ''}
           <p class="profile-bio">${user.bio}</p>
 
           <!-- Redes Sociais Externas Conectadas -->
           <div class="profile-social-chips" style="display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 16px;">
-            ${user.socialLinks?.linkedin ? `<span class="profile-social-pill">💼 ${user.socialLinks.linkedin}</span>` : ''}
-            ${user.socialLinks?.github ? `<span class="profile-social-pill">🐙 ${user.socialLinks.github}</span>` : ''}
-            ${user.socialLinks?.instagram ? `<span class="profile-social-pill">📸 ${user.socialLinks.instagram}</span>` : ''}
-            ${user.socialLinks?.whatsapp ? `<span class="profile-social-pill">💬 ${user.socialLinks.whatsapp}</span>` : ''}
+            ${user.socialLinks?.linkedin ? '<span class="profile-social-pill">LinkedIn · ' + user.socialLinks.linkedin + '</span>' : ''}
+            ${user.socialLinks?.github ? '<span class="profile-social-pill">GitHub · ' + user.socialLinks.github + '</span>' : ''}
+            ${user.socialLinks?.instagram ? '<span class="profile-social-pill">Instagram · ' + user.socialLinks.instagram + '</span>' : ''}
+            ${user.socialLinks?.whatsapp ? '<span class="profile-social-pill">WhatsApp · ' + user.socialLinks.whatsapp + '</span>' : ''}
           </div>
 
           <div class="profile-stats">
@@ -78,7 +76,7 @@ window.ProfileModule = {
         <div class="tabs" style="margin-top:0; background:var(--color-surface-solid); border-bottom:1px solid var(--color-border);">
           <button class="tab-btn active" data-profile-tab="posts">${ICONS.grid} ${t('ui.posts')}</button>
           <button class="tab-btn" data-profile-tab="videos">${ICONS.video} ${t('ui.videos')}</button>
-          <button class="tab-btn" data-profile-tab="resources">📚 ${t('ui.resources')}</button>
+          <button class="tab-btn" data-profile-tab="resources">${ICONS.fileText} ${t('ui.resources')}</button>
           <button class="tab-btn" data-profile-tab="saved">${ICONS.bookmark} ${t('ui.saved')}</button>
         </div>
 
@@ -205,95 +203,45 @@ window.ProfileModule = {
     return this._renderPostsGrid();
   },
 
-  _renderPostsGrid() {
-    const items = [
-      { emoji: '📖', bg: '#5B4BDB20' },
-      { emoji: '📐', bg: '#10B98120' },
-      { emoji: '💡', bg: '#F59E0B20' },
-      { emoji: '🔬', bg: '#3B82F620' },
-      { emoji: '📊', bg: '#8B5CF620' },
-      { emoji: '✏️', bg: '#EF444420' },
-      { emoji: '🎓', bg: '#5B4BDB20' },
-      { emoji: '📚', bg: '#10B98120' },
-      { emoji: '🧪', bg: '#F59E0B20' },
-    ];
+  _escapeHTML(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (character) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+  },
 
-    return `
-      <div class="posts-grid">
-        ${items.map(item => `
-          <div class="posts-grid__item">
-            <div style="width:100%;height:100%;background:${item.bg};display:flex;align-items:center;justify-content:center;font-size:36px;">
-              ${item.emoji}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
+  _profileEmptyState(key) {
+    const message = window.I18n ? window.I18n.t(key) : 'Ainda não há conteúdos para mostrar.';
+    return '<div class="profile-empty-state"><p>' + this._escapeHTML(message) + '</p></div>';
+  },
+
+  _renderPostsGrid() {
+    const user = IMPACTA_DATA.currentUser;
+    const posts = (IMPACTA_DATA.posts || []).filter((post) => post.userId === user.id && post.status !== 'deleted');
+    if (!posts.length) return this._profileEmptyState('ui.profileEmptyPosts');
+
+    const cards = posts.map((post) => {
+      const tags = (post.hashtags || []).map((tag) => {
+        const label = String(tag).startsWith('#') ? tag : '#' + tag;
+        return '<span>' + this._escapeHTML(label) + '</span>';
+      }).join('');
+      const tagList = tags ? '<div class="profile-post-preview__tags">' + tags + '</div>' : '';
+      return '<article class="profile-post-preview"><p>' + this._escapeHTML(post.content || '') + '</p>' + tagList + '</article>';
+    }).join('');
+    return '<div class="profile-post-list">' + cards + '</div>';
   },
 
   _renderVideosGrid() {
-    const items = [
-      { emoji: '🎬', bg: '#1A104040', label: '1:24' },
-      { emoji: '📐', bg: '#0D2A1A40', label: '2:15' },
-      { emoji: '📅', bg: '#1A0D2A40', label: '3:20' },
-      { emoji: '💡', bg: '#1A104040', label: '0:58' },
-      { emoji: '🔢', bg: '#0D2A1A40', label: '1:45' },
-      { emoji: '📖', bg: '#1A0D2A40', label: '4:10' },
-    ];
-
-    return `
-      <div class="posts-grid">
-        ${items.map(item => `
-          <div class="posts-grid__item">
-            <div style="width:100%;height:100%;background:${item.bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
-              <span style="font-size:28px;">${item.emoji}</span>
-            </div>
-            <div class="video-indicator">${ICONS.video}</div>
-            <div style="position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.6);color:white;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:600;">${item.label}</div>
-          </div>
-        `).join('')}
-      </div>
-    `;
+    return this._profileEmptyState('ui.profileEmptyVideos');
   },
 
   _renderResourcesList() {
-    const resources = [
-      { title: 'Math Cheat Sheet — Final Exam', type: 'PDF', size: '2.3 MB', emoji: '📄' },
-      { title: 'Computer Science Notes — Chapter 7', type: 'DOC', size: '1.1 MB', emoji: '📝' },
-      { title: 'Physics Formula Collection', type: 'PDF', size: '3.7 MB', emoji: '⚛️' },
-      { title: 'Data Structures Flashcards', type: 'PDF', size: '0.8 MB', emoji: '🗂️' },
-    ];
-
-    return `
-      <div style="padding: var(--space-3) 0;">
-        ${resources.map(r => `
-          <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-surface-solid);border-bottom:1px solid var(--color-border);cursor:pointer;transition:background var(--transition-fast);">
-            <div style="width:44px;height:44px;background:var(--color-accent-soft);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">
-              ${r.emoji}
-            </div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.title}</div>
-              <div style="font-size:var(--font-size-xs);color:var(--color-text-muted);margin-top:2px;">${r.type} · ${r.size}</div>
-            </div>
-            <button style="color:var(--color-primary);padding:6px;" aria-label="Download">${ICONS.bookmarkFill}</button>
-          </div>
-        `).join('')}
-      </div>
-    `;
+    return this._profileEmptyState('ui.profileEmptyResources');
   },
 
   _renderSavedPosts() {
-    const saved = IMPACTA_DATA.posts.filter(p => p.saved);
-    if (saved.length === 0) {
-      return `
-        <div class="empty-state">
-          <div class="empty-state__icon">🔖</div>
-          <div class="empty-state__title">No saved posts yet</div>
-          <div class="empty-state__desc">Tap the bookmark icon on any post to save it here for later.</div>
-        </div>
-      `;
-    }
-    return saved.map(post => window.FeedModule._renderPost(post)).join('');
+    const saved = IMPACTA_DATA.posts.filter((post) => post.saved);
+    if (!saved.length) return this._profileEmptyState('ui.profileEmptySaved');
+    return saved.map((post) => window.FeedModule._renderPost(post)).join('');
   },
 };
 
